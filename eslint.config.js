@@ -19,7 +19,7 @@ export default defineConfig([
         ...globals.browser,
       },
     },
-  },
+  },  
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
@@ -27,4 +27,10 @@ export default defineConfig([
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
   skipFormatting,
+
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off'
+    }
+  }
 ])
