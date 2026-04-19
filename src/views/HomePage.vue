@@ -2,10 +2,8 @@
 
   <div class="container">
 
-    <HeroSection/>
-
-    <ServicesSection/>
-    
+    <Hero/>
+    <ServicesList/>
     <Calculator/>
     
     <!-- TRUST -->
@@ -43,9 +41,9 @@
 </template>
 
 <script setup>
-import HeroSection from '@/components/HeroSection.vue'
-import ServicesSection from '@/components/ServicesSection.vue'
-import Calculator from '@/components/CalculatorSection.vue'
+import Hero from '@/components/HomePage/Hero.vue';
+import Calculator from '@/components/HomePage/Calculator.vue';
+import ServicesList from '@/components/HomePage/ServicesList.vue';
 </script>
 
 <style>

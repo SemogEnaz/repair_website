@@ -1,8 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
 
   <div class="flex flex-col">
@@ -14,8 +9,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
         <nav>
           <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/landing">Landing</RouterLink>
+          <RouterLink to="/Calculator">Cal</RouterLink>
         </nav>
       </div>
     </header>
@@ -24,6 +18,10 @@ import HelloWorld from './components/HelloWorld.vue'
   </div>
 
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
 
 <style scoped>
 header {
