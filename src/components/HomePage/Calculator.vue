@@ -13,8 +13,11 @@
         <button
           v-for="option in options"
           :key="option.value"
-          @click="selectedOption = option.value"
-          :class="['w-2/3 sm:w-1/3 btn hover:border-blue-500 border-3 border-transparent !p-1', selectedOption === option.value ? 'btn-primary' : '']"
+          @click="() => selectedOptions[option.position] = !selectedOptions[option.position]"
+          :class="[
+            'w-2/3 sm:w-1/3 btn hover:border-blue-500 border-3 border-transparent !p-1', 
+            selectedOptions[option.position] ? 'btn-primary' : ''
+          ]"
         >
           {{ option.label }}
         </button>
@@ -35,15 +38,28 @@ import { ref, computed } from 'vue';
 // state
 const selectedModel = ref('')
 const selectedIssue = ref('')
-const selectedOption = ref(null);
 
-const options = [
-  { label: 'Battery', value: 'battery' },
-  { label: 'Screen', value: 'screen' },
-  { label: 'Back Glass', value: 'back' }
+// If we had more services, we could add more options here
+const services = [
+  'screen', 'battery', 'back'
 ]
 
-// links (replace these)
+// This will track which options are selected
+const selectedOptions = ref(
+  services.map(() => false)
+);
+
+// Creating options for the buttons based on services
+// { Battery, battery, 0 }, { Screen, screen, 1 }, { Back, back, 2 }
+const options = computed(() => {
+  return services.map((service, index) => ({
+    label: service.charAt(0).toUpperCase() + service.slice(1),
+    value: service,
+    position: index,
+  }))
+});
+
+// links (replace these)`
 
 // pricing logic
 const price = computed(() => {
