@@ -61,23 +61,6 @@ body {
   padding: 20px;
 }
 
-/* HERO */
-.hero {
-  text-align: center;
-  padding: 80px 20px;
-  background: linear-gradient(to bottom, #011544, #000);
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  color: #ccc;
-  margin-bottom: 25px;
-}
-
 /* BUTTONS */
 .btn {
   display: inline-block;
@@ -95,12 +78,6 @@ body {
 .btn-secondary {
   background: #25D366;
   color: white;
-}
-
-.trust {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  color: #aaa;
 }
 
 /* SERVICES */
@@ -123,14 +100,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* CALCULATOR */
-.calculator {
-  margin-top: 60px;
-  background: #111;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-}
+
 
 select {
   padding: 10px;
@@ -139,11 +109,7 @@ select {
   border: none;
 }
 
-.result {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: #0f0;
-}
+
 
 /* TRUST */
 .trust-section {
