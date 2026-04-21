@@ -9,17 +9,16 @@
         <option value="13">iPhone 13</option>
       </select>
 
-      <select v-model="selectedIssue">
-        <option disabled value="">Select Issue</option>
-        <option value="screen">Screen</option>
-        <option value="battery">Battery</option>
-      </select>
-
-      <select v-model="selectedService">
-        <option disabled value="">Service Type</option>
-        <option value="visit">Visit</option>
-        <option value="outcall">Outcall</option>
-      </select>
+      <div class="flex flex-col items-center">
+        <button
+          v-for="option in options"
+          :key="option.value"
+          @click="selectedOption = option.value"
+          :class="['w-2/3 sm:w-1/3 btn hover:border-blue-500 border-3 border-transparent !p-1', selectedOption === option.value ? 'btn-primary' : '']"
+        >
+          {{ option.label }}
+        </button>
+      </div>
 
       <div class="result" v-if="price">
         Estimated Price: ${{ price }} <br />
@@ -36,7 +35,13 @@ import { ref, computed } from 'vue';
 // state
 const selectedModel = ref('')
 const selectedIssue = ref('')
-const selectedService = ref('')
+const selectedOption = ref(null);
+
+const options = [
+  { label: 'Battery', value: 'battery' },
+  { label: 'Screen', value: 'screen' },
+  { label: 'Back Glass', value: 'back' }
+]
 
 // links (replace these)
 
@@ -59,3 +64,20 @@ const price = computed(() => {
   return null
 })
 </script>
+
+<style scoped>
+/* CALCULATOR */
+.calculator {
+  margin-top: 60px;
+  background: #111;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #0f0;
+}
+</style>
