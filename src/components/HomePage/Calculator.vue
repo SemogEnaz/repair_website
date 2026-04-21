@@ -1,34 +1,48 @@
 <template>
-    <section id="quote" class="calculator">
+  <section id="quote" class="calculator flex flex-col items-center">
+
       <h2>Get Your Repair Price in Seconds</h2>
 
-      <select v-model="selectedModel">
-        <option disabled value="">Select Model</option>
-        <option value="11">iPhone 11</option>
-        <option value="12">iPhone 12</option>
-        <option value="13">iPhone 13</option>
-      </select>
+      <div class="flex w-full gap-4 items-start">
+        <!-- iPhone Model dropdown, taken from codepen -->
+        <!-- https://codepen.io/editor/samplereeeeee/pen/019cff2f-d572-702e-a573-a54e0a652b47 -->
+        <div class="dropdown flex flex-col items-center w-1/3">
 
-      <div class="flex flex-col items-center">
-        <button
-          v-for="option in options"
-          :key="option.value"
-          @click="() => selectedOptions[option.position] = !selectedOptions[option.position]"
-          :class="[
-            'w-2/3 sm:w-1/3 btn hover:border-blue-500 border-3 border-transparent !p-1', 
-            selectedOptions[option.position] ? 'btn-primary' : ''
-          ]"
-        >
-          {{ option.label }}
-        </button>
+          <button class="dropdown-btn w-full btn hover:border-blue-500 border-3 border-transparent !m-0" @click="toggleDropdown">
+            User Menu <span class="caret"></span>
+          </button>
+
+          <div id="menu" class="dropdown-menu">
+            <a href="#">iPhone 11</a>
+            <a href="#">iPhone 12</a>
+            <a href="#">iPhone 13</a>
+          </div>
+
+        </div>
+
+        <!-- Services buttons -->
+        <div class="flex flex-col flex flex-col items-center w-1/3 gap-1">
+          <button
+            v-for="option in options"
+            :key="option.value"
+            @click="() => selectedOptions[option.position] = !selectedOptions[option.position]"
+            :class="[
+              'w-full btn hover:border-blue-500 border-3 border-transparent !m-0',
+              selectedOptions[option.position] ? 'btn-primary' : ''
+            ]"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+
+        <div class="result" v-if="price">
+          Estimated Price: ${{ price }} <br />
+          Time: ~30–45 mins
+        </div>
+
+        <button href="#contact" class="btn btn-primary w-1/3 border-transparent border-3 !m-0">Book This Repair</button>
       </div>
 
-      <div class="result" v-if="price">
-        Estimated Price: ${{ price }} <br />
-        Time: ~30–45 mins
-      </div>
-
-      <a href="#contact" class="btn btn-primary">Book This Repair</a>
     </section>
 </template>
 
@@ -57,6 +71,18 @@ const options = computed(() => {
     value: service,
     position: index,
   }))
+});
+
+function toggleDropdown() {
+  const dropdown = document.querySelector(".dropdown");
+  dropdown.classList.toggle("open");
+}
+
+document.addEventListener("click", (e) => {
+  const dropdown = document.querySelector(".dropdown");
+  if (!dropdown.contains(e.target)) {
+    dropdown.classList.remove("open");
+  }
 });
 
 // links (replace these)`
@@ -95,5 +121,71 @@ const price = computed(() => {
   margin-top: 20px;
   font-size: 1.2rem;
   color: #0f0;
+}
+
+/* Dropdown styles */
+
+/* Container */
+.dropdown {
+  position: relative;
+}
+
+/* Button */
+.dropdown-btn {
+  font-weight: bolder;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.caret {
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.dropdown.open .caret {
+  transform: rotate(225deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  min-width: 120px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  padding: 8px 0;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.dropdown.open .dropdown-menu {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+  background: #f0f4ff;
 }
 </style>
