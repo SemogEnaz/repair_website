@@ -3,7 +3,14 @@
 
       <h1 class="text-4xl">Calculate Repair Price Estimate</h1>
 
-      <div class="flex w-full gap-4 items-start bg-blue-950/30 rounded-lg p-4">
+      <!-- Title for Columns -->
+      <div class="flex w-full gap-4 justify-evenly bg-blue-950 rounded-lg p-4">
+        <p class="w-1/3">iPhone Model</p><span>|</span>
+        <p class="w-1/3">Services</p><span>|</span>
+        <p class="w-1/3">Price & Time</p>
+      </div>
+
+      <div class="flex w-full gap-4 items-start bg-blue-950 rounded-lg p-4">
 
         <!-- iPhone Model dropdown, taken from codepen -->
         <!-- https://codepen.io/editor/samplereeeeee/pen/019cff2f-d572-702e-a573-a54e0a652b47 -->
@@ -186,7 +193,7 @@ function calculateTime() {
   margin-top: 60px;
   background: #111;
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
 }
 
@@ -194,6 +201,7 @@ button {
   padding: 5px;
   border-radius: 8px;
   width: 100%;
+  cursor: pointer;
 }
 
 /* Dropdown styles */
