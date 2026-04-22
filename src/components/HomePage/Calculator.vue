@@ -10,13 +10,13 @@
         <div class="dropdown flex flex-col items-center w-1/3">
 
           <button class="dropdown-btn hover:border-blue-500 border-3 border-transparent"
-            @click="toggleDropdown">User Menu <span class="caret"></span>
+            @click="toggleDropdown">{{ model ? `iPhone ${model}` : 'Select Model' }}<span class="caret"></span>
           </button>
 
           <div id="menu" class="dropdown-menu">
-            <a href="#">iPhone 11</a>
-            <a href="#">iPhone 12</a>
-            <a href="#">iPhone 13</a>
+            <a href="#" @click.prevent="selectModel('11')">iPhone 11</a>
+            <a href="#" @click.prevent="selectModel('12')">iPhone 12</a>
+            <a href="#" @click.prevent="selectModel('13')">iPhone 13</a>
           </div>
 
         </div>
@@ -26,10 +26,10 @@
           <button
             v-for="option in options"
             :key="option.value"
-            @click="() => selectedOptions[option.position] = !selectedOptions[option.position]"
+            @click="() => selectedServices[option.position] = !selectedServices[option.position]"
             :class="[
               'hover:border-blue-500 border-3 border-transparent',
-              selectedOptions[option.position] ? 'bg-blue-500 text-white font-bold' : ''
+              selectedServices[option.position] ? 'bg-blue-500 text-white font-bold' : ''
             ]"
           >
             {{ option.label }}
@@ -38,7 +38,7 @@
 
         <!-- Price & Time Display -->
         <div class="rounded-lg border-3 border-blue-500 text-white w-1/3 self-stretch flex flex-col justify-evenly py-4">
-          <p class="sm:text-6xl text-2xl">$99</p>
+          <p class="sm:text-6xl text-2xl">${{ calculatePrice() }}</p>
           <p class="text-sm text-center">Time: 30 mins</p>
         </div>
 
@@ -50,13 +50,47 @@
 <script setup>
 import { ref, computed } from 'vue';
 
+//Please update with accurate prices later, these are just placeholders for now
+const screenPrices = {
+  '11': 20,
+  '12': 20,
+  '13': 25
+};
+
+const batteryPrices = {
+  '11': 15,
+  '12': 15,
+  '13': 15
+};
+
+const backGlassPrices = {
+  '11': 50,
+  '12': 50,
+  '13': 50
+};
+
+const chargePortPrices = {
+  '11': 10,
+  '12': 15,
+  '13': 15
+};
+
+const timeEstimates = {
+  'screen': 20,
+  'battery': 20,
+  'back glass': 120,
+  'charge port': 40
+};
+
+const model = ref(''); // This will hold the selected iPhone model
+
 // If we had more services, we could add more options here
 const services = [
-  'screen', 'battery', 'back glass'
+  'screen', 'battery', 'back glass', 'charge port'
 ];
 
 // This will track which options are selected
-const selectedOptions = ref(
+const selectedServices = ref(
   services.map(() => false)
 );
 
@@ -81,6 +115,40 @@ document.addEventListener("click", (e) => {
     dropdown.classList.remove("open");
   }
 });
+
+function selectModel(selectedModel) {
+  model.value = selectedModel;
+  toggleDropdown();
+};
+
+function calculatePrice() {
+  let profitMargin = 50;
+
+  // Add price for each selected service
+  selectedServices.value.forEach((isSelected, index) => {
+    if (isSelected) {
+
+      if (!model.value) return;
+
+      switch (index) {
+        case 0: // Screen
+          profitMargin += screenPrices[model.value];
+          break;
+        case 1: // Battery
+          profitMargin += batteryPrices[model.value];
+          break;
+        case 2: // Back Glass
+          profitMargin += backGlassPrices[model.value] + 20; // Adding extra for the time it takes
+          break;
+        case 3: // Charge Port
+          profitMargin += chargePortPrices[model.value] + 20;
+          break;
+      }
+    }
+  });
+
+  return profitMargin == 50 ? 0 : profitMargin;
+}
 
 </script>
 
