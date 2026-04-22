@@ -1,9 +1,9 @@
 <template>
   <section id="quote" class="calculator flex flex-col items-center gap-6">
 
-      <h1>Get Your Repair Price in Seconds</h1>
+      <h1 class="text-4xl">Calculate Repair Price Estimate</h1>
 
-      <div class="flex w-full gap-4 items-start">
+      <div class="flex w-full gap-4 items-start bg-blue-950/30 rounded-lg p-4">
 
         <!-- iPhone Model dropdown, taken from codepen -->
         <!-- https://codepen.io/editor/samplereeeeee/pen/019cff2f-d572-702e-a573-a54e0a652b47 -->
@@ -23,6 +23,7 @@
 
         <!-- Services buttons -->
         <div class="flex flex-col flex flex-col items-center w-1/3 gap-2">
+
           <button
             v-for="option in options"
             :key="option.value"
@@ -30,16 +31,18 @@
             :class="[
               'hover:border-blue-500 border-3 border-transparent',
               selectedServices[option.position] ? 'bg-blue-500 text-white font-bold' : ''
-            ]"
-          >
+            ]">
             {{ option.label }}
           </button>
+
         </div>
 
         <!-- Price & Time Display -->
         <div class="rounded-lg border-3 border-blue-500 text-white w-1/3 self-stretch flex flex-col justify-evenly py-4">
+
           <p class="sm:text-6xl text-2xl">${{ calculatePrice() }}</p>
-          <p class="text-sm text-center">Time: 30 mins</p>
+          <p class="text-sm text-center">Time: {{ calculateTime() < 60 ? `${calculateTime()} mins` : `${Math.floor(calculateTime() / 60)} hrs ${calculateTime() % 60} mins` }}</p>
+
         </div>
 
       </div>
@@ -128,7 +131,11 @@ function calculatePrice() {
   selectedServices.value.forEach((isSelected, index) => {
     if (isSelected) {
 
-      if (!model.value) return;
+      if (!model.value) {
+        alert('Please select an iPhone model first!');
+        selectedServices.value[index] = false;
+        return;
+      };
 
       switch (index) {
         case 0: // Screen
@@ -148,6 +155,27 @@ function calculatePrice() {
   });
 
   return profitMargin == 50 ? 0 : profitMargin;
+}
+
+function calculateTime() {
+  let totalTime = 0;
+
+  const selected = services.filter((_, index) => selectedServices.value[index]);
+
+  const hasScreen = selected.includes('screen');
+  const hasBackGlass = selected.includes('back glass');
+
+  selected.forEach(service => {
+    // skip battery if screen is selected, since we can do it at the same time
+    if (service === 'battery' && hasScreen) return;
+
+    // skip back glass if screen is selected
+    if (service === 'charge port' && hasBackGlass) return;
+
+    totalTime += timeEstimates[service]
+  });
+
+  return totalTime;
 }
 
 </script>
