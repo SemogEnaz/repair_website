@@ -5,7 +5,7 @@
     <Hero/>
     <ServicesList/>
     <Calculator/>
-    
+
     <!-- TRUST -->
     <section class="trust-section">
       <h2>Trusted by Local Customers</h2>
@@ -46,7 +46,7 @@ import Calculator from '@/components/HomePage/Calculator.vue';
 import ServicesList from '@/components/HomePage/ServicesList.vue';
 </script>
 
-<style>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -61,33 +61,6 @@ body {
   padding: 20px;
 }
 
-/* BUTTONS */
-.btn {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 8px;
-  margin: 5px;
-  font-weight: bold;
-}
-
-.btn-primary {
-  background: #007bff;
-  color: white;
-}
-
-.btn-secondary {
-  background: #25D366;
-  color: white;
-}
-
-/* SERVICES */
-.services {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
-
 .card {
   flex: 1;
   min-width: 250px;
@@ -98,31 +71,6 @@ body {
 
 .card h3 {
   margin-bottom: 10px;
-}
-
-
-
-select {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 6px;
-  border: none;
-}
-
-
-
-/* TRUST */
-.trust-section {
-  margin-top: 60px;
-  text-align: center;
-}
-
-/* EXPECT */
-.expect {
-  margin-top: 60px;
-  background: #111;
-  padding: 30px;
-  border-radius: 10px;
 }
 
 /* LOCATION */
