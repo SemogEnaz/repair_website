@@ -1,15 +1,16 @@
 <template>
-  <section id="quote" class="calculator flex flex-col items-center">
+  <section id="quote" class="calculator flex flex-col items-center gap-6">
 
-      <h2>Get Your Repair Price in Seconds</h2>
+      <h1>Get Your Repair Price in Seconds</h1>
 
       <div class="flex w-full gap-4 items-start">
+
         <!-- iPhone Model dropdown, taken from codepen -->
         <!-- https://codepen.io/editor/samplereeeeee/pen/019cff2f-d572-702e-a573-a54e0a652b47 -->
         <div class="dropdown flex flex-col items-center w-1/3">
 
-          <button class="dropdown-btn w-full btn hover:border-blue-500 border-3 border-transparent !m-0" @click="toggleDropdown">
-            User Menu <span class="caret"></span>
+          <button class="dropdown-btn hover:border-blue-500 border-3 border-transparent"
+            @click="toggleDropdown">User Menu <span class="caret"></span>
           </button>
 
           <div id="menu" class="dropdown-menu">
@@ -21,26 +22,26 @@
         </div>
 
         <!-- Services buttons -->
-        <div class="flex flex-col flex flex-col items-center w-1/3 gap-1">
+        <div class="flex flex-col flex flex-col items-center w-1/3 gap-2">
           <button
             v-for="option in options"
             :key="option.value"
             @click="() => selectedOptions[option.position] = !selectedOptions[option.position]"
             :class="[
-              'w-full btn hover:border-blue-500 border-3 border-transparent !m-0',
-              selectedOptions[option.position] ? 'btn-primary' : ''
+              'hover:border-blue-500 border-3 border-transparent',
+              selectedOptions[option.position] ? 'bg-blue-500 text-white font-bold' : ''
             ]"
           >
             {{ option.label }}
           </button>
         </div>
 
-        <div class="result" v-if="price">
-          Estimated Price: ${{ price }} <br />
-          Time: ~30–45 mins
+        <!-- Price & Time Display -->
+        <div class="rounded-lg border-3 border-blue-500 text-white w-1/3 self-stretch flex flex-col justify-evenly py-4">
+          <p class="sm:text-6xl text-2xl">$99</p>
+          <p class="text-sm text-center">Time: 30 mins</p>
         </div>
 
-        <button href="#contact" class="btn btn-primary w-1/3 border-transparent border-3 !m-0">Book This Repair</button>
       </div>
 
     </section>
@@ -49,14 +50,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 
-// state
-const selectedModel = ref('')
-const selectedIssue = ref('')
-
 // If we had more services, we could add more options here
 const services = [
-  'screen', 'battery', 'back'
-]
+  'screen', 'battery', 'back glass'
+];
 
 // This will track which options are selected
 const selectedOptions = ref(
@@ -85,26 +82,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// links (replace these)`
-
-// pricing logic
-const price = computed(() => {
-  if (!selectedModel.value || !selectedIssue.value) return null
-
-  if (selectedIssue.value === 'screen') {
-    if (selectedModel.value === '11') return 89
-    if (selectedModel.value === '12') return 109
-    if (selectedModel.value === '13') return 129
-  }
-
-  if (selectedIssue.value === 'battery') {
-    if (selectedModel.value === '11') return 59
-    if (selectedModel.value === '12') return 69
-    if (selectedModel.value === '13') return 79
-  }
-
-  return null
-})
 </script>
 
 <style scoped>
@@ -117,10 +94,10 @@ const price = computed(() => {
   text-align: center;
 }
 
-.result {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: #0f0;
+button {
+  padding: 5px;
+  border-radius: 8px;
+  width: 100%;
 }
 
 /* Dropdown styles */
