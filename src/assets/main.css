@@ -29,3 +29,22 @@ button {
   cursor: pointer;
 }
 
+@media (max-width: 350px) {
+  #app {
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #app, html, body {
+    overflow-x: hidden;
+  }
+}
+
+.blue {
+  transition: all 0.2s ease;
+}
+
+.blue:hover {
+  transform: translateY(-1px);
+}

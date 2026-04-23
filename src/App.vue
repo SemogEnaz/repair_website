@@ -1,25 +1,35 @@
 <template>
-
   <div class="flex flex-col">
-    <header>
-      <div class="dark-blue rounded-lg p-[20px] flex flex-col items-center gap-3">
 
-        <h1 class="text-6xl text-center">iPhone Repair Clayton</h1>
-        <p class="pb-7 cursor-pointer" @click="copyAddress()"
-          >📍 2 Greenfeild Drive, Clayton, Victoria</p>
+    <header class="px-3 pt-4 pb-2 sm:px-5">
+      <div class="dark-blue rounded-xl p-4 sm:p-6 flex flex-col items-center gap-4">
 
-        <div class="flex w-full items-center px-5 gap-4 justify-center">
-          <RouterLink to="/" class="blue button-shape flex-1">Home</RouterLink>
-          <RouterLink to="/contact" class="blue button-shape flex-1">Contact</RouterLink>
-          <RouterLink to="/calculator" class="blue button-shape flex-1">Quote Price</RouterLink>
-          <RouterLink to="/about" class="blue button-shape flex-1">About</RouterLink>
+        <!-- Title -->
+        <h1 class="text-2xl sm:text-5xl font-bold text-center leading-tight">
+          iPhone Repair Clayton
+        </h1>
+
+        <!-- Address -->
+        <p
+          class="cursor-pointer text-sm sm:text-base text-center hover:text-blue-400 transition"
+          @click="copyAddress"
+        >
+          📍 2 Greenfield Drive, Clayton, Victoria
+        </p>
+
+        <!-- Nav buttons -->
+        <div class="flex flex-col sm:flex-row w-full gap-3">
+          <RouterLink to="/" class="blue button-shape w-full text-center">Home</RouterLink>
+          <RouterLink to="/contact" class="blue button-shape w-full text-center">Contact</RouterLink>
+          <RouterLink to="/calculator" class="blue button-shape w-full text-center">Quote Price</RouterLink>
+          <RouterLink to="/about" class="blue button-shape w-full text-center">About</RouterLink>
         </div>
+
       </div>
     </header>
 
     <RouterView />
   </div>
-
 </template>
 
 <script setup>

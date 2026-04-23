@@ -1,24 +1,46 @@
 <template>
-    <!-- HERO -->
-  <section class="bg-blue-950 rounded-lg text-center p-8">
+  <!-- HERO -->
+  <section class="bg-blue-900/40 backdrop-blur-md rounded-xl text-center px-4 py-8 sm:p-10">
 
-    <h1 class="text-4xl mb-0">Fast iPhone Repairs in Clayton</h1>
-    <h1 class="text-4xl">Done in 30 Minutes*</h1>
+    <!-- Heading -->
+    <h1 class="text-2xl sm:text-4xl font-bold leading-tight">
+      Fast iPhone Repairs in Clayton
+    </h1>
 
-    <p class="pt-4">Screens, batteries, and more. Same-day service. We come to you or repair on the spot.</p>
+    <h2 class="text-2xl sm:text-4xl font-bold text-blue-400 mt-1">
+      Done in 30 Minutes*
+    </h2>
 
-    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <!-- Description -->
+    <p class="pt-4 text-sm sm:text-base text-slate-300 max-w-xl mx-auto">
+      Screens, batteries, and more. Same-day service. We come to you or repair on the spot.
+    </p>
 
-      <button class="blue w-1/3">Get Instant Quote</button>
+    <!-- Buttons -->
+    <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto">
 
-      <button class="blue w-1/3">Message Now</button>
+      <button class="blue w-full sm:flex-1">
+        Get Instant Quote
+      </button>
+
+      <button class="blue w-full sm:flex-1">
+        Message Now
+      </button>
 
     </div>
 
-    <div class="trust">
-      ✔ Same-day repairs &nbsp; ✔ No data loss &nbsp; ✔ Warranty included
+    <!-- Trust -->
+    <div class="mt-6 text-xs sm:text-sm text-slate-400 flex flex-col sm:flex-row items-center justify-center gap-2">
+      <span>✔ Same-day repairs</span>
+      <span>✔ No data loss</span>
+      <span>✔ Warranty included</span>
     </div>
-    <p>*Back glass replacements will take 2 hours</p>
+
+    <!-- Note -->
+    <p class="mt-3 text-xs text-slate-500">
+      *Back glass replacements take ~2 hours
+    </p>
+
   </section>
 </template>
 

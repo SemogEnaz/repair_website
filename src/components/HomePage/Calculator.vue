@@ -1,224 +1,183 @@
 <template>
   <section id="quote" class="calculator flex flex-col items-center gap-6">
 
-      <h1 class="text-4xl">Calculate Repair Price Estimate</h1>
+    <h1 class="text-2xl sm:text-4xl font-bold">
+      Calculate Repair Price Estimate
+    </h1>
 
-      <!-- Title for Columns -->
-      <div class="flex w-full gap-4 justify-evenly bg-blue-950 rounded-lg p-4">
-        <p class="w-1/3">iPhone Model</p><span>|</span>
-        <p class="w-1/3">Services</p><span>|</span>
-        <p class="w-1/3">Price & Time</p>
-      </div>
+    <!-- Column Titles (desktop only) -->
+    <div class="hidden sm:flex w-full gap-4 justify-evenly bg-slate-800/60 rounded-lg p-4 text-sm text-slate-300">
+      <p class="w-1/3 text-center">iPhone Model</p>
+      <p class="w-1/3 text-center">Services</p>
+      <p class="w-1/3 text-center">Price & Time</p>
+    </div>
 
-      <div class="flex w-full gap-4 items-start bg-blue-950 rounded-lg p-4">
+    <!-- Main Content -->
+    <div class="flex flex-col sm:flex-row w-full gap-4 bg-slate-800/60 rounded-lg p-4 overflow-visible">
+      <!-- MODEL -->
+      <div class="relative flex flex-col w-full sm:w-1/3 self-start">
+        <!-- Button -->
+        <button
+          class="w-full py-2 rounded-lg bg-slate-700 text-white flex items-center justify-center gap-2"
+          @click="toggleDropdown"
+        >
+          {{ model ? `iPhone ${model}` : 'Select Model' }}
+          <span class="caret" :class="{ open: isOpen }"></span>
+        </button>
 
-        <!-- iPhone Model dropdown, taken from codepen -->
-        <!-- https://codepen.io/editor/samplereeeeee/pen/019cff2f-d572-702e-a573-a54e0a652b47 -->
-        <div class="dropdown flex flex-col items-center w-1/3">
-
-          <button class="dropdown-btn hover:border-blue-500 border-3 border-transparent"
-            @click="toggleDropdown">{{ model ? `iPhone ${model}` : 'Select Model' }}<span class="caret"></span>
-          </button>
-
-          <div id="menu" class="dropdown-menu">
-            <a href="#" @click.prevent="selectModel('11')">iPhone 11</a>
-            <a href="#" @click.prevent="selectModel('12')">iPhone 12</a>
-            <a href="#" @click.prevent="selectModel('13')">iPhone 13</a>
-          </div>
-
-        </div>
-
-        <!-- Services buttons -->
-        <div class="flex flex-col flex flex-col items-center w-1/3 gap-2">
-
-          <button
-            v-for="option in options"
-            :key="option.value"
-            @click="() => selectedServices[option.position] = !selectedServices[option.position]"
-            :class="[
-              'hover:border-blue-500 border-3 border-transparent',
-              selectedServices[option.position] ? 'bg-blue-500 text-white font-bold' : ''
-            ]">
-            {{ option.label }}
-          </button>
-
-        </div>
-
-        <!-- Price & Time Display -->
-        <div class="rounded-lg border-3 border-blue-500 text-white w-1/3 self-stretch flex flex-col justify-evenly py-4">
-
-          <p class="sm:text-6xl text-2xl">${{ calculatePrice() }}</p>
-          <p class="text-sm text-center">Time: {{ calculateTime() < 60 ? `${calculateTime()} mins` : `${Math.floor(calculateTime() / 60)} hrs ${calculateTime() % 60} mins` }}</p>
-
+        <!-- Dropdown -->
+        <div
+          v-if="isOpen"
+          class="absolute top-full left-0 mt-2 w-full bg-white text-black rounded-lg shadow-lg z-50"
+        >
+          <div class="p-3 cursor-pointer hover:bg-gray-100 !text-black" @click="selectModel('11')">iPhone 11</div>
+          <div class="p-3 cursor-pointer hover:bg-gray-100 !text-black" @click="selectModel('12')">iPhone 12</div>
+          <div class="p-3 cursor-pointer hover:bg-gray-100 !text-black" @click="selectModel('13')">iPhone 13</div>
         </div>
 
       </div>
 
-    </section>
+      <!-- SERVICES -->
+      <div class="flex flex-col items-center w-full sm:w-1/3 gap-2">
+        <button
+          v-for="option in options"
+          :key="option.value"
+          @click="toggleService(option.position)"
+          :class="[
+            'w-full py-2 rounded-lg border border-transparent',
+            selectedServices[option.position]
+              ? 'bg-blue-500 text-white font-bold'
+              : 'bg-slate-700 text-white'
+          ]"
+        >
+          {{ option.label }}
+        </button>
+      </div>
+
+      <!-- PRICE -->
+      <div class="rounded-lg border border-blue-500 text-white w-full sm:w-1/3 flex flex-col justify-between py-4 px-2">
+
+        <p class="text-center font-bold text-3xl sm:text-6xl">
+          ${{ calculatePrice() }}
+        </p>
+
+        <p class="text-sm text-center text-slate-300">
+          Time: {{ formattedTime }}
+        </p>
+
+      </div>
+
+    </div>
+  </section>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 
-//Please update with accurate prices later, these are just placeholders for now
-const screenPrices = {
-  '11': 20,
-  '12': 20,
-  '13': 25
-};
+// ---------------- DATA ----------------
 
-const batteryPrices = {
-  '11': 15,
-  '12': 15,
-  '13': 15
-};
+const model = ref('')
+const isOpen = ref(false)
 
-const backGlassPrices = {
-  '11': 50,
-  '12': 50,
-  '13': 50
-};
+const services = ['screen', 'battery', 'back glass', 'charge port']
 
-const chargePortPrices = {
-  '11': 10,
-  '12': 15,
-  '13': 15
-};
+const selectedServices = ref(services.map(() => false))
+
+const options = computed(() =>
+  services.map((service, index) => ({
+    label: service.charAt(0).toUpperCase() + service.slice(1),
+    value: service,
+    position: index,
+  }))
+)
+
+// ---------------- PRICING ----------------
+
+const screenPrices = { '11': 20, '12': 20, '13': 25 }
+const batteryPrices = { '11': 15, '12': 15, '13': 15 }
+const backGlassPrices = { '11': 50, '12': 50, '13': 50 }
+const chargePortPrices = { '11': 10, '12': 15, '13': 15 }
 
 const timeEstimates = {
   'screen': 20,
   'battery': 20,
   'back glass': 120,
   'charge port': 40
-};
-
-const model = ref(''); // This will hold the selected iPhone model
-
-// If we had more services, we could add more options here
-const services = [
-  'screen', 'battery', 'back glass', 'charge port'
-];
-
-// This will track which options are selected
-const selectedServices = ref(
-  services.map(() => false)
-);
-
-// Creating options for the buttons based on services
-// { Battery, battery, 0 }, { Screen, screen, 1 }, { Back, back, 2 }
-const options = computed(() => {
-  return services.map((service, index) => ({
-    label: service.charAt(0).toUpperCase() + service.slice(1),
-    value: service,
-    position: index,
-  }))
-});
-
-function toggleDropdown() {
-  const dropdown = document.querySelector(".dropdown");
-  dropdown.classList.toggle("open");
 }
 
-document.addEventListener("click", (e) => {
-  const dropdown = document.querySelector(".dropdown");
-  if (!dropdown.contains(e.target)) {
-    dropdown.classList.remove("open");
-  }
-});
+// ---------------- ACTIONS ----------------
 
-function selectModel(selectedModel) {
-  model.value = selectedModel;
-  toggleDropdown();
-};
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value
+}
+
+const selectModel = (val) => {
+  model.value = val
+  isOpen.value = false
+}
+
+const toggleService = (index) => {
+  if (!model.value) {
+    alert('Please select an iPhone model first!')
+    return
+  }
+  selectedServices.value[index] = !selectedServices.value[index]
+}
+
+// ---------------- LOGIC ----------------
 
 function calculatePrice() {
-  let profitMargin = 50;
+  let total = 50
 
-  // Add price for each selected service
   selectedServices.value.forEach((isSelected, index) => {
-    if (isSelected) {
+    if (!isSelected) return
 
-      if (!model.value) {
-        alert('Please select an iPhone model first!');
-        selectedServices.value[index] = false;
-        return;
-      };
-
-      switch (index) {
-        case 0: // Screen
-          profitMargin += screenPrices[model.value];
-          break;
-        case 1: // Battery
-          profitMargin += batteryPrices[model.value];
-          break;
-        case 2: // Back Glass
-          profitMargin += backGlassPrices[model.value] + 20; // Adding extra for the time it takes
-          break;
-        case 3: // Charge Port
-          profitMargin += chargePortPrices[model.value] + 20;
-          break;
-      }
+    switch (index) {
+      case 0: total += screenPrices[model.value]; break
+      case 1: total += batteryPrices[model.value]; break
+      case 2: total += backGlassPrices[model.value] + 20; break
+      case 3: total += chargePortPrices[model.value] + 20; break
     }
-  });
+  })
 
-  return profitMargin == 50 ? 0 : profitMargin;
+  return total === 50 ? 0 : total
 }
 
 function calculateTime() {
-  let totalTime = 0;
+  let total = 0
 
-  const selected = services.filter((_, index) => selectedServices.value[index]);
+  const selected = services.filter((_, i) => selectedServices.value[i])
+  const hasScreen = selected.includes('screen')
 
-  const hasScreen = selected.includes('screen');
-  const hasBackGlass = selected.includes('back glass');
+  for (const service of selected) {
+    if (service === 'battery' && hasScreen) continue
+    total += timeEstimates[service]
+  }
 
-  selected.forEach(service => {
-    // skip battery if screen is selected, since we can do it at the same time
-    if (service === 'battery' && hasScreen) return;
-
-    // skip back glass if screen is selected
-    if (service === 'charge port' && hasBackGlass) return;
-
-    totalTime += timeEstimates[service]
-  });
-
-  return totalTime;
+  return total
 }
 
+// ---------------- FORMAT ----------------
+
+const formattedTime = computed(() => {
+  const t = calculateTime()
+
+  if (t < 60) return `${t} mins`
+
+  const h = Math.floor(t / 60)
+  const m = t % 60
+
+  return m ? `${h} hrs ${m} mins` : `${h} hrs`
+})
 </script>
 
 <style scoped>
-/* CALCULATOR */
 .calculator {
-  margin-top: 30px;
+  margin-top: 20px;
   background: #111;
-  padding: 30px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-button {
-  padding: 5px;
-  border-radius: 8px;
-  width: 100%;
-  cursor: pointer;
-}
-
-/* Dropdown styles */
-
-/* Container */
-.dropdown {
-  position: relative;
-}
-
-/* Button */
-.dropdown-btn {
-  font-weight: bolder;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  padding: 20px;
+  border-radius: 10px;
+  overflow: visible;
 }
 
 .caret {
@@ -230,43 +189,7 @@ button {
   transition: transform 0.25s ease;
 }
 
-.dropdown.open .caret {
+.caret.open {
   transform: rotate(225deg);
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  min-width: 120px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  padding: 8px 0;
-
-  opacity: 0;
-  pointer-events: none;
-
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.dropdown.open .dropdown-menu {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-  pointer-events: auto;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 10px 14px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  transition: background 0.2s ease;
-}
-
-.dropdown-menu a:hover {
-  background: #f0f4ff;
 }
 </style>
