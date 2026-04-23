@@ -18,7 +18,7 @@ section {
   background: #111;
   border-radius: 8px;
   padding: 30px;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .card {

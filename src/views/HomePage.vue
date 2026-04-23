@@ -47,35 +47,15 @@ import ServicesList from '@/components/HomePage/ServicesList.vue';
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
 .container {
-  max-width: 1100px;
+  padding: 20px;
+  max-width: 800px;
   margin: auto;
-  padding: 20px;
-}
-
-.card {
-  flex: 1;
-  min-width: 250px;
-  background: #111;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.card h3 {
-  margin-bottom: 10px;
 }
 
 /* LOCATION */
 .location {
-  margin-top: 60px;
+  margin-top: 30px;
   text-align: center;
 }
 

@@ -190,7 +190,7 @@ function calculateTime() {
 <style scoped>
 /* CALCULATOR */
 .calculator {
-  margin-top: 60px;
+  margin-top: 30px;
   background: #111;
   padding: 30px;
   border-radius: 8px;
