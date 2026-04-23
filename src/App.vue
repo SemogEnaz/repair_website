@@ -2,13 +2,18 @@
 
   <div class="flex flex-col">
     <header>
+      <div class="dark-blue rounded-lg p-[20px] flex flex-col items-center gap-3">
 
-      <div class="wrapper">
+        <h1 class="text-6xl text-center">iPhone Repair Clayton</h1>
+        <p class="pb-7 cursor-pointer" @click="copyAddress()"
+          >📍 2 Greenfeild Drive, Clayton, Victoria</p>
 
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/Calculator">Cal</RouterLink>
-        </nav>
+        <div class="flex w-full items-center px-5 gap-4 justify-center">
+          <RouterLink to="/" class="blue button-shape flex-1">Home</RouterLink>
+          <RouterLink to="/contact" class="blue button-shape flex-1">Contact</RouterLink>
+          <RouterLink to="/calculator" class="blue button-shape flex-1">Quote Price</RouterLink>
+          <RouterLink to="/about" class="blue button-shape flex-1">About</RouterLink>
+        </div>
       </div>
     </header>
 
@@ -19,68 +24,25 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+
+function copyAddress() {
+  const address = "2 Greenfeild Drive, Clayton, Victoria";
+  navigator.clipboard.writeText(address);
+  alert("Address copied to clipboard!");
+}
 </script>
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  padding: 20px;
+  padding-bottom: 10px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
+.button-shape {
+  padding: 10px 15px;
+  border-radius: 8px;
+  color: white;
   text-align: center;
-  margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
