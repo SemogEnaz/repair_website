@@ -43,6 +43,7 @@
             💰<span class="text-base">Quote</span></RouterLink>
           <RouterLink to="/about" class="nav-item text-4xl" active-class="nav-active">
             ℹ️<span class="text-base">About</span></RouterLink>
+
         </div>
       </div>
 
