@@ -33,16 +33,16 @@
       <!-- Mobile bottom nav -->
       <div class="sm:hidden fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md border-t border-slate-700 z-50">
 
-        <div class="flex justify-around items-center py-2">
+        <div class="flex justify-around items-center py-1">
 
-          <RouterLink to="/" class="nav-item text-3xl" active-class="nav-active">
-            🏠<span class="text-xl">Home</span></RouterLink>
-          <RouterLink to="/contact" class="nav-item text-3xl" active-class="nav-active">
-            💬<span class="text-xl">Contact</span></RouterLink>
-          <RouterLink to="/calculator" class="nav-item text-3xl" active-class="nav-active">
-            💰<span class="text-xl">Quote</span></RouterLink>
-          <RouterLink to="/about" class="nav-item text-3xl" active-class="nav-active">
-            ℹ️<span class="text-xl">About</span></RouterLink>
+          <RouterLink to="/" class="nav-item text-4xl" active-class="nav-active">
+            🏠<span class="text-base">Home</span></RouterLink>
+          <RouterLink to="/contact" class="nav-item text-4xl" active-class="nav-active">
+            💬<span class="text-base">Contact</span></RouterLink>
+          <RouterLink to="/calculator" class="nav-item text-4xl" active-class="nav-active">
+            💰<span class="text-base">Quote</span></RouterLink>
+          <RouterLink to="/about" class="nav-item text-4xl" active-class="nav-active">
+            ℹ️<span class="text-base">About</span></RouterLink>
 
         </div>
       </div>
