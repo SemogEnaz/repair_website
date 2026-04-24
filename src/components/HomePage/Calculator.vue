@@ -21,7 +21,7 @@
       <div class="flex flex-col w-full gap-4">
 
         <!-- Just Calculator -->
-        <div class="flex flex-row w-full gap-4">
+        <div class="flex flex-col sm:flex-row w-full gap-4">
 
           <!-- MODEL -->
           <div class="relative flex flex-col w-full sm:w-1/3 self-start">
@@ -90,7 +90,7 @@
           <p class="tech-soft">Enter your details and I'll message you shortly to confirm price and arrange repair.</p>
 
           <!-- Input feilds for phone number and email-->
-          <div class="flex flex-row gap-4">
+          <div class="flex flex-col sm:flex-row gap-4">
             <input v-model="phone" type="tel" placeholder="Your phone number 04..." class="w-full px-3 py-2 border rounded-md bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-400" />
             <input v-model="email" type="email" placeholder="(Optional) Your email address" class="w-full px-3 py-2 border rounded-md bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
