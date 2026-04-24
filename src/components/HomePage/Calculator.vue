@@ -13,62 +13,103 @@
       <p class="w-1/3 text-center">Price & Time</p>
     </div>
 
-    <!-- Main Content -->
-    <div class="tech-card flex flex-col sm:flex-row w-full gap-4 p-4 overflow-visible">
-      <!-- MODEL -->
-      <div class="relative flex flex-col w-full sm:w-1/3 self-start">
-        <!-- Button -->
-        <button
-          class="selector-button w-full py-2 flex items-center justify-center gap-2"
-          @click="toggleDropdown"
-        >
-          {{ model ? `iPhone ${model}` : 'Select Model' }}
-          <span class="caret" :class="{ open: isOpen }"></span>
-        </button>
 
-        <!-- Dropdown -->
-        <div
-          v-if="isOpen"
-          class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50"
-        >
-          <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('11')">iPhone 11</div>
-          <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('12')">iPhone 12</div>
-          <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('13')">iPhone 13</div>
+    <!-- Main Content -->
+    <div class="tech-card flex flex-col sm:flex-row w-full gap-4 p-4">
+
+      <!-- Calculator and Submission form-->
+      <div class="flex flex-col w-full gap-4">
+
+        <!-- Just Calculator -->
+        <div class="flex flex-row w-full gap-4">
+
+          <!-- MODEL -->
+          <div class="relative flex flex-col w-full sm:w-1/3 self-start">
+            <!-- Button -->
+            <button
+              class="selector-button w-full py-2 flex items-center justify-center gap-2"
+              @click="toggleDropdown"
+            >
+              {{ model ? `iPhone ${model}` : 'Select Model' }}
+              <span class="caret" :class="{ open: isOpen }"></span>
+            </button>
+
+            <!-- Dropdown -->
+            <div
+              v-if="isOpen"
+              class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50"
+            >
+              <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('11')">iPhone 11</div>
+              <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('12')">iPhone 12</div>
+              <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('13')">iPhone 13</div>
+            </div>
+
+          </div>
+
+          <!-- SERVICES -->
+          <div class="flex flex-col items-center w-full sm:w-1/3 gap-2">
+            <button
+              v-for="option in options"
+              :key="option.value"
+              @click="toggleService(option.position)"
+              :class="[
+                'service-button w-full py-2',
+                selectedServices[option.position]
+                  ? 'selected font-bold'
+                  : ''
+              ]"
+            >
+              {{ option.label }}
+            </button>
+          </div>
+
+          <!-- PRICE -->
+          <div class="price-card w-full sm:w-1/3 flex flex-col justify-between py-4 px-2">
+
+            <p class="text-center font-bold text-3xl sm:text-6xl">
+              ${{ calculatePrice() }}
+            </p>
+
+            <p class="tech-muted text-sm text-center">
+              Time: {{ formattedTime }}
+            </p>
+
+          </div>
+
         </div>
 
-      </div>
-
-      <!-- SERVICES -->
-      <div class="flex flex-col items-center w-full sm:w-1/3 gap-2">
-        <button
-          v-for="option in options"
-          :key="option.value"
-          @click="toggleService(option.position)"
-          :class="[
-            'service-button w-full py-2',
-            selectedServices[option.position]
-              ? 'selected font-bold'
-              : ''
-          ]"
-        >
-          {{ option.label }}
-        </button>
-      </div>
-
-      <!-- PRICE -->
-      <div class="price-card w-full sm:w-1/3 flex flex-col justify-between py-4 px-2">
-
-        <p class="text-center font-bold text-3xl sm:text-6xl">
-          ${{ calculatePrice() }}
+        <!-- Selected services summary -->
+        <p class="text-center" :class="{ hidden: !model || !selectedServicesText }">
+          Repair my iPhone {{ model }} {{ selectedServicesText }}
         </p>
 
-        <p class="tech-muted text-sm text-center">
-          Time: {{ formattedTime }}
-        </p>
+        <!-- Contact form information -->
+        <div class="flex flex-col gap-2 text-center mt-6">
+
+          <p class="tech-eyebrow">Submit your repair details</p>
+          <p class="tech-soft">Enter your details and I'll message you shortly to confirm price and arrange repair.</p>
+
+          <!-- Input feilds for phone number and email-->
+          <div class="flex flex-row gap-4">
+            <input v-model="phone" type="tel" placeholder="Your phone number 04..." class="w-full px-3 py-2 border rounded-md bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <input v-model="email" type="email" placeholder="(Optional) Your email address" class="w-full px-3 py-2 border rounded-md bg-slate-800/50 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          </div>
+
+        </div>
+
+        <!-- Submit button -->
+        <button class="tech-button" @click="handleSubmit">Send My Repair Details</button>
 
       </div>
 
     </div>
+
+    <div>
+      <p class="tech-soft text-xs text-center">
+        *Further communications may take place over facebook, whatsapp or other messaging platforms. This form is just an initial estimate and isn't a binding quote.
+      </p>
+    </div>
+
   </section>
 </template>
 
@@ -91,6 +132,9 @@ const options = computed(() =>
     position: index,
   }))
 )
+
+const phone = ref('');
+const email = ref('');
 
 // ---------------- PRICING ----------------
 
@@ -156,7 +200,7 @@ function calculateTime() {
   }
 
   return total
-}
+};
 
 // ---------------- FORMAT ----------------
 
@@ -169,7 +213,48 @@ const formattedTime = computed(() => {
   const m = t % 60
 
   return m ? `${h} hrs ${m} mins` : `${h} hrs`
-})
+});
+
+const selectedServicesText = computed(() => {
+  const selected = services.filter((_, i) => selectedServices.value[i])
+
+  if (!selected.length) return ''
+
+  return selected
+    .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+    .join(' + ')
+});
+
+function handleSubmit() {
+  if (!phone.value && !email.value) {
+    alert('Please enter a phone number or an email so I can contact you for further details. Thank you!')
+    return
+  }
+
+  // Optional: very light validation
+  if (phone.value && phone.value.length < 8) {
+    alert('Please enter a valid phone number.')
+    return
+  }
+
+  if (email.value && !email.value.includes('@')) {
+    alert('Please enter a valid email address.')
+    return
+  }
+
+  // Ready to connect to backend later
+  const payload = {
+    model: model.value,
+    services: services.filter((_, i) => selectedServices.value[i]),
+    price: calculatePrice(),
+    phone: phone.value,
+    email: email.value,
+  }
+
+  console.log('Form submitted:', payload)
+
+  alert("Thanks! I'll message you shortly to confirm details and arrange a time.")
+};
 </script>
 
 <style scoped>
