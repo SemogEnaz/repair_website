@@ -13,7 +13,6 @@
       <p class="w-1/3 text-center">Price & Time</p>
     </div>
 
-
     <!-- Main Content -->
     <div class="tech-card flex flex-col sm:flex-row w-full gap-4 p-4">
 
@@ -225,7 +224,7 @@ const selectedServicesText = computed(() => {
     .join(' + ')
 });
 
-function handleSubmit() {
+async function handleSubmit() {
   if (!phone.value && !email.value) {
     alert('Please enter a phone number or an email so I can contact you for further details. Thank you!')
     return
@@ -250,6 +249,23 @@ function handleSubmit() {
     phone: phone.value,
     email: email.value,
   }
+
+  const url = 'https://sendrepairrequest-lw6nnqoxeq-uc.a.run.app';
+
+  await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: model.value,
+      services: payload.services,
+      contact: {
+        phone: payload.phone,
+        email: payload.email
+      }
+    })
+  });
 
   console.log('Form submitted:', payload)
 
