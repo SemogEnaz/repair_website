@@ -23,13 +23,13 @@
     </section>
 
     <section class="flex flex-col sm:flex-row gap-3 mt-7">
-      <article class="tech-card card w-1/2">
+      <article class="tech-card card sm:w-1/2">
         <p class="tech-eyebrow">Location</p>
         <h3>Clayton, Victoria</h3>
         <p class="tech-muted">Based near Clayton Station, with easy parking on-site for quick drop-offs & pickups.</p>
       </article>
 
-      <article class="tech-card card w-1/2">
+      <article class="tech-card card sm:w-1/2">
         <p class="tech-eyebrow">Response</p>
         <h3>Same-day replies</h3>
         <p class="tech-muted">For common screen and battery repairs, we can usually quote from one message.</p>
