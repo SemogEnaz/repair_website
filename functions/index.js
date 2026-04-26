@@ -12,27 +12,17 @@ exports.sendRepairRequest = onRequest(
     try {
       const { model, services, contact } = req.body || {};
 
-const message = `
-NEW REPAIR REQUEST
-━━━━━━━━━━━━━━━━━━
+  const message = `\
+🔧 New Repair Request
 
-Device
-${model || "Unknown"}
+📱 Model: ${model || "Unknown"}
+🛠 Services: ${Array.isArray(services) ? services.join(", ") : "None"}
 
-Services
-${Array.isArray(services) ? services.map(s => `• ${s}`).join("\n") : "None"}
+📞 Phone: ${contact?.phone || "N/A"}
+📧 Email: ${contact?.email || "N/A"}
 
-━━━━━━━━━━━━━━━━━━
-
-Contact
-Phone: ${contact?.phone || "N/A"}
-Email: ${contact?.email || "N/A"}
-
-━━━━━━━━━━━━━━━━━━
-
-Created
-${new Date().toLocaleString()}
-`;
+🗓️ Date Created: ${new Date().toLocaleDateString()}
+⏰ Time Created: ${new Date().toLocaleTimeString()}`;
 
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
