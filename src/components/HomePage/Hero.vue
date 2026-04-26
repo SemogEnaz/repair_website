@@ -11,6 +11,10 @@
     <h2 class="text-2xl sm:text-4xl font-bold text-blue-300 mt-1">
       Done in 30 Minutes*
     </h2>
+    <!-- Note -->
+    <p class="tech-soft mt-0 text-xs">
+      *Back glass replacements take ~2 hours or 20 minutes, depending on availability.
+    </p>
 
     <!-- Description -->
     <p class="tech-muted pt-4 text-sm sm:text-base max-w-xl mx-auto">
@@ -24,23 +28,20 @@
         Get Instant Quote
       </a>
 
-      <a href="/contact" class="tech-button secondary w-full sm:flex-1 px-5 py-3">
+      <a href="/contact#contactLinks" class="tech-button secondary w-full sm:flex-1 px-5 py-3">
         Message Now
       </a>
 
     </div>
 
     <!-- Trust -->
-    <div class="tech-soft mt-6 text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-center gap-2">
-      <span>Same-day repairs</span>
-      <span>No data loss</span>
-      <span>Warranty included</span>
-    </div>
+    <div class="tech-soft mt-6 text-xs sm:text-sm flex flex-wrap justify-center items-center gap-x-5 gap-y-2">
 
-    <!-- Note -->
-    <p class="tech-soft mt-3 text-xs">
-      *Back glass replacements take ~2 hours
-    </p>
+      <span class="flex items-center gap-2"><span class="dot"></span>Same-day repairs</span>
+      <span class="flex items-center gap-2"><span class="dot"></span>No data loss</span>
+      <span class="flex items-center gap-2"><span class="dot"></span>Warranty included</span>
+
+    </div>
 
   </section>
 </template>
@@ -66,5 +67,13 @@
 .hero-panel > * {
   position: relative;
   z-index: 1;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(59,130,246,0.6);
 }
 </style>
