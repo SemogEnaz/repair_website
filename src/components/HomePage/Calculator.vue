@@ -250,7 +250,8 @@ async function handleSubmit() {
     email: email.value,
   }
 
-  const url = 'https://sendrepairrequest-lw6nnqoxeq-uc.a.run.app';
+const url = `${import.meta.env.VITE_API_URL}`;
+console.log('Sending to URL:', url);
 
   await fetch(url, {
     method: "POST",
