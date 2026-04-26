@@ -10,16 +10,19 @@ exports.sendRepairRequest = onRequest(
   },
   async (req, res) => {
     try {
-      const { model, services, contact } = req.body || {};
+      const { model, services, phone, email, price } = req.body || {};
 
-  const message = `\
+      console.log("Received data:", { model, services, phone, email, price });
+
+      const message = `\
 🔧 New Repair Request
 
 📱 Model: ${model || "Unknown"}
 🛠 Services: ${Array.isArray(services) ? services.join(", ") : "None"}
+💰 Price: $${price?.toFixed(2) || "0.00"}
 
-📞 Phone: ${contact?.phone || "N/A"}
-📧 Email: ${contact?.email || "N/A"}
+📞 Phone: ${phone || "N/A"}
+📧 Email: ${email || "N/A"}
 
 🗓️ Date Created: ${new Date().toLocaleDateString("en-AU", { timeZone: "Australia/Melbourne" })}
 ⏰ Time Created: ${new Date().toLocaleTimeString("en-AU", { timeZone: "Australia/Melbourne" })}`;

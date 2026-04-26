@@ -258,14 +258,7 @@ console.log('Sending to URL:', url);
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      model: model.value,
-      services: payload.services,
-      contact: {
-        phone: payload.phone,
-        email: payload.email
-      }
-    })
+    body: JSON.stringify(payload)
   });
 
   console.log('Form submitted:', payload)
