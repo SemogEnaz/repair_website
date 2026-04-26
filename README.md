@@ -42,3 +42,20 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Firebase
+
+### Cors issues due to permissions
+When using firebase cloud functions, you need to set up IAM cloud run permissions. This can be done via the gcloud cli or the dashboard linked here:
+
+//[text](https://console.cloud.google.com/run?project=repair-website-backend-2a41)
+
+### Usefull commands
+
+firebase emulators:start
+firebase deploy --only functions:<your function name>
+
+## Telegram Bot
+
+### Bot father not reading new texts
+The telegram bot setup is very easy, you only need to create a new bot with bot father. When creating the bot in the bot father chat, sometimes the texts you send do not go through and in that case, you can reply to any prior text in the chat with your input for the latest quesitons bot father asked and this will allow the chat to progress.
