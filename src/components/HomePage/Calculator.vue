@@ -110,12 +110,18 @@
     </div>
 
   </section>
+
+  <Alert ref="alertRef" />
+
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import Alert from '../Alert.vue'
 
 // ---------------- DATA ----------------
+
+const alertRef = ref(null);
 
 const model = ref('')
 const isOpen = ref(false)
@@ -162,7 +168,7 @@ const selectModel = (val) => {
 
 const toggleService = (index) => {
   if (!model.value) {
-    alert('Please select an iPhone model first!')
+    alertRef.value.trigger('Please select an iPhone model first!')
     return
   }
   selectedServices.value[index] = !selectedServices.value[index]
@@ -226,18 +232,18 @@ const selectedServicesText = computed(() => {
 
 async function handleSubmit() {
   if (!phone.value && !email.value) {
-    alert('Please enter a phone number or an email so I can contact you for further details. Thank you!')
+    alertRef.value.trigger('Please enter a phone number or an email so I can contact you for further details. Thank you!')
     return
   }
 
   // Optional: very light validation
   if (phone.value && phone.value.length < 8) {
-    alert('Please enter a valid phone number.')
+    alertRef.value.trigger('Please enter a valid phone number.')
     return
   }
 
   if (email.value && !email.value.includes('@')) {
-    alert('Please enter a valid email address.')
+    alertRef.value.trigger('Please enter a valid email address.')
     return
   }
 
@@ -263,7 +269,7 @@ console.log('Sending to URL:', url);
 
   console.log('Form submitted:', payload)
 
-  alert("Thanks! I'll message you shortly to confirm details and arrange a time.")
+  alertRef.value.trigger("Thanks! I'll message you shortly to confirm details and arrange a time.")
 };
 </script>
 
