@@ -7,7 +7,7 @@
         Send through your iPhone model, the issue, and your preferred repair time. We will confirm the best option for you.
       </p>
 
-      <div class="flex flex-col items-center gap-3 mt-6 w-full">
+      <div class="flex flex-col items-center gap-3 mt-6 w-full" id="contactLinks">
 
         <!-- Top row (stack on mobile, side-by-side on desktop) -->
         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-2/3">
