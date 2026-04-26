@@ -9,6 +9,9 @@ const router = createRouter({
     { path: '/about', name: 'about', component: () => import('@/views/AboutView.vue') },
     { path: '/contact', name: 'contact', component: () => import('@/views/ContactView.vue') },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) return { el: to.hash, behavior: 'smooth' }
+  }
 })
 
 export default router
