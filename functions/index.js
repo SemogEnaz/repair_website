@@ -21,8 +21,8 @@ exports.sendRepairRequest = onRequest(
 📞 Phone: ${contact?.phone || "N/A"}
 📧 Email: ${contact?.email || "N/A"}
 
-🗓️ Date Created: ${new Date().toLocaleDateString()}
-⏰ Time Created: ${new Date().toLocaleTimeString()}`;
+🗓️ Date Created: ${new Date().toLocaleDateString("en-AU", { timeZone: "Australia/Melbourne" })}
+⏰ Time Created: ${new Date().toLocaleTimeString("en-AU", { timeZone: "Australia/Melbourne" })}`;
 
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
