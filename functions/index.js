@@ -10,7 +10,28 @@ exports.sendRepairRequest = onRequest(
   },
   async (req, res) => {
     try {
+
+      // Only allow requests from the correct origin (my frontend domain)
+      const allowedOrigins = ["https://iphonerepairclayton.com", "http://localhost:5173", "https://repair-website-zczp.onrender.com/"];
+      const origin = req.headers.origin;
+      if (!allowedOrigins.includes(origin)) {
+        return res.status(403).send("Forbidden");
+      }
+
+      //console.log("HEADER KEY:", req.headers["x-api-key"]);
+      //console.log("ENV KEY:", process.env.FUNCTION_SECRET);
+
+      // Make sure request is only coming from our frontend (or trusted sources)
+      const secret = req.headers["x-api-key"];
+      if (secret !== process.env.FUNCTION_SECRET) {
+        return res.status(403).json({ error: "Unauthorized" });
+      }
+
       const { model, services, phone, email, price } = req.body || {};
+
+      // Basic validation & early returns
+      if (!model || !Array.isArray(services) || services.length === 0) return res.status(400).json({ error: "Invalid request" });
+      if (!phone && !email) return res.status(400).json({ error: "Contact required" });
 
       console.log("Received data:", { model, services, phone, email, price });
 

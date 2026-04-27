@@ -262,7 +262,8 @@ console.log('Sending to URL:', url);
   await fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "x-api-key": "supersecret123"
     },
     body: JSON.stringify(payload)
   });
