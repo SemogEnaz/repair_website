@@ -5,7 +5,7 @@
     <div class="absolute inset-0 bg-black/60"></div>
 
     <!-- Alert box -->
-      <div class="relative tech-card p-6 max-w-[90%] max-w-md text-center shadow-[0_0_40px_rgba(59,130,246,0.25)]">
+      <div class="relative tech-card p-6 max-w-[90%] text-center shadow-[0_0_40px_rgba(59,130,246,0.25)]">
       <p class="text-lg font-semibold mb-4">
         {{ message }}
       </p>
