@@ -13,8 +13,8 @@
 
     <!-- Buttons -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto">
-      <a href="/calculator#quote" class="tech-button w-full sm:flex-1 px-5 py-3">Get Instant Quote</a>
-      <a href="/contact#contactLinks" class="tech-button secondary w-full sm:flex-1 px-5 py-3">Message Now</a>
+      <RouterLink to="/calculator#quote" class="tech-button w-full sm:flex-1 px-5 py-3">Get Instant Quote</RouterLink>
+      <RouterLink to="/contact#contactLinks" class="tech-button secondary w-full sm:flex-1 px-5 py-3">Message Now</RouterLink>
     </div>
 
     <!-- Trust -->
