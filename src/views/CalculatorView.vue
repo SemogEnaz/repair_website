@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import Calculator from '@/components/HomePage/Calculator.vue'
+import Calculator from '@/components/Calculator.vue'
 </script>
 
 <style scoped>
