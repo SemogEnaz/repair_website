@@ -8,9 +8,10 @@
     </div>
 
     <div class="tech-card card featured">
-      <p class="tech-eyebrow">Mobile service</p>
+      <p class="tech-eyebrow">Outcall Service</p>
       <h3>We Come to You</h3>
-      <p class="tech-muted">Home, uni, or work. Same-day mobile service.</p>
+      <p class="tech-muted">Home, uni, or work. Same-day mobile service for selected repairs.</p>
+      <RouterLink to="/outcall" class="tech-button secondary mt-3 px-6 py-2">Learn More</RouterLink>
     </div>
 
   </section>

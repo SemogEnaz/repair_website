@@ -8,6 +8,7 @@ const router = createRouter({
     { path: '/calculator', name: 'calculator', component: () => import('@/views/CalculatorView.vue') },
     { path: '/about', name: 'about', component: () => import('@/views/AboutView.vue') },
     { path: '/contact', name: 'contact', component: () => import('@/views/ContactView.vue') },
+    { path: '/outcall', name: 'outcall', component: () => import('@/views/OutcallView.vue') }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
