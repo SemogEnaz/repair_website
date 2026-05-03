@@ -21,8 +21,8 @@
         <!-- Nav buttons for desktop-->
         <div class="hidden sm:flex w-full gap-3 items-center justify-center">
           <RouterLink to="/" class="tech-button button-shape w-full text-center" active-class="secondary">Home</RouterLink>
-          <RouterLink to="/sell" class="tech-button button-shape w-full text-center" active-class="secondary">Sell</RouterLink>
           <RouterLink to="/buy" class="tech-button button-shape w-full text-center" active-class="secondary">Buy</RouterLink>
+          <RouterLink to="/sell" class="tech-button button-shape w-full text-center" active-class="secondary">Sell</RouterLink>
           <RouterLink to="/about" class="tech-button button-shape w-full text-center" active-class="secondary">About</RouterLink>
         </div>
 
@@ -36,14 +36,10 @@
 
         <div class="flex justify-around items-center pt-2">
 
-          <RouterLink to="/" class="nav-item text-4xl" active-class="nav-active">
-            🏠<span class="text-base">Home</span></RouterLink>
-          <RouterLink to="/sell" class="nav-item text-4xl" active-class="nav-active">
-            💰<span class="text-base">Sell</span></RouterLink>
-          <RouterLink to="/buy" class="nav-item text-4xl" active-class="nav-active">
-            🛒<span class="text-base">Buy</span></RouterLink>
-          <RouterLink to="/about" class="nav-item text-4xl" active-class="nav-active">
-            ℹ️<span class="text-base">About</span></RouterLink>
+          <RouterLink to="/" class="nav-item text-4xl" active-class="nav-active">🏠<span class="text-base">Home</span></RouterLink>
+          <RouterLink to="/buy" class="nav-item text-4xl" active-class="nav-active">🛒<span class="text-base">Buy</span></RouterLink>
+          <RouterLink to="/sell" class="nav-item text-4xl" active-class="nav-active">💰<span class="text-base">Sell</span></RouterLink>
+          <RouterLink to="/about" class="nav-item text-4xl" active-class="nav-active">ℹ️<span class="text-base">About</span></RouterLink>
 
         </div>
       </div>
