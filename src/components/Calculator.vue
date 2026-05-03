@@ -143,10 +143,21 @@ const email = ref('');
 
 // ---------------- PRICING ----------------
 
+const basePrice = 60;
+
+// Lowest quality parts
 const screenPrices = { '11': 20, '12': 20, '13': 25 }
 const batteryPrices = { '11': 15, '12': 15, '13': 15 }
 const backGlassPrices = { '11': 50, '12': 50, '13': 50 }
 const chargePortPrices = { '11': 10, '12': 15, '13': 15 }
+const cameraPrices = { '11': 0, '12': 0, '13': 25 }
+const loudSpeakerPrices = { '11': 0, '12': 0, '13': 9 }
+const earpieceSpeakerPrices = { '11': 0, '12': 0, '13': 5 }
+const buttonPrices = { '11': 0, '12': 0, '13': 10 }
+
+// Highest quality parts
+const screenPricesHigh = { '11': 0, '12': 0, '13': 65 }
+const batteryPricesHigh = { '11': 0, '12': 0, '13': 25 }
 
 const timeEstimates = {
   'screen': 20,
@@ -177,7 +188,7 @@ const toggleService = (index) => {
 // ---------------- LOGIC ----------------
 
 function calculatePrice() {
-  let total = 50
+  let total = basePrice;
 
   selectedServices.value.forEach((isSelected, index) => {
     if (!isSelected) return
@@ -190,7 +201,7 @@ function calculatePrice() {
     }
   })
 
-  return total === 50 ? 0 : total
+  return total === basePrice ? 0 : total
 }
 
 function calculateTime() {

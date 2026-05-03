@@ -1,13 +1,12 @@
 <template>
-  <main class="page-shell">
-    <section class="tech-panel hero">
+    <section class="tech-panel hero !m-[20px_0]" id="contactLinks">
       <p class="tech-eyebrow">Book a repair</p>
       <h2>Tell us what happened</h2>
       <p class="tech-muted">
         Send through your iPhone model, the issue, and your preferred repair time. We will confirm the best option for you.
       </p>
 
-      <div class="flex flex-col items-center gap-3 mt-6 w-full" id="contactLinks">
+      <div class="flex flex-col items-center gap-3 mt-6 w-full">
 
         <!-- Top row (stack on mobile, side-by-side on desktop) -->
         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-2/3">
@@ -21,21 +20,6 @@
       </div>
 
     </section>
-
-    <section class="flex flex-col sm:flex-row gap-3 mt-7">
-      <article class="tech-card card sm:w-1/2">
-        <p class="tech-eyebrow">Location</p>
-        <h3>Clayton, Victoria</h3>
-        <p class="tech-muted">Based near Clayton Station, with easy parking on-site for quick drop-offs & pickups.</p>
-      </article>
-
-      <article class="tech-card card sm:w-1/2">
-        <p class="tech-eyebrow">Response</p>
-        <h3>Same-day replies</h3>
-        <p class="tech-muted">For common screen and battery repairs, we can usually quote from one message.</p>
-      </article>
-    </section>
-  </main>
 </template>
 
 <script setup>
@@ -57,8 +41,9 @@ const openWhatsApp = () => {
 };
 
 const openMessenger = () => {
-window.open("https://www.facebook.com/messages/t/zane.gomes.212064", "_blank");};
-
+  window.location.href =
+    "https://m.me/iphonerepairclayton?text=Hi%2C%20I%20need%20a%20repair.%20iPhone%20model%3A%20___%20Issue%3A%20___";
+};
 </script>
 
 <style scoped>

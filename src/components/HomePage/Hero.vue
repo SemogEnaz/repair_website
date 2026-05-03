@@ -9,12 +9,12 @@
     <p class="tech-soft mt-0 text-xs">*Back glass replacements take ~2 hours or 20 minutes, depending on availability.</p>
 
     <!-- Description -->
-    <p class="tech-muted pt-4 text-sm sm:text-base max-w-xl mx-auto">Screens, batteries, and more. Same-day service. We come to you or repair on the spot.</p>
+    <p class="tech-muted pt-4 text-sm sm:text-base max-w-xl mx-auto">Screens, batteries, and more. Same-day service.</p>
 
     <!-- Buttons -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto">
-      <RouterLink to="/calculator#quote" class="tech-button w-full sm:flex-1 px-5 py-3">Get Instant Quote</RouterLink>
-      <RouterLink to="/contact#contactLinks" class="tech-button secondary w-full sm:flex-1 px-5 py-3">Message Now</RouterLink>
+      <RouterLink to="/#quote" class="tech-button w-full sm:flex-1 px-5 py-3">Get Instant Quote</RouterLink>
+      <RouterLink to="/#contactLinks" class="tech-button w-full sm:flex-1 px-5 py-3">Message Now</RouterLink>
     </div>
 
     <!-- Trust -->
