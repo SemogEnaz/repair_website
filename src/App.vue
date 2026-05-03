@@ -9,16 +9,17 @@
           iPhone Repair Clayton
         </h1>
 
-        <!-- Address -->
-        <p
-          class="tech-muted cursor-pointer text-sm sm:text-base text-center hover:text-blue-300 transition"
-          @click="copyAddress"
-        >
-          2 Greenfield Drive, Clayton, Victoria
-        </p>
+        <div class="flex flex-col gap-0 sm:mb-2">
+          <!-- Address & Phone Number -->
+          <div class="flex flex-row gap-3">
+            <p class="tech-muted cursor-pointer text-xs sm:text-base text-center hover:text-blue-300 transition" @click="copyAddress">2 Greenfield Drive, Clayton, Victoria</p>
+            <p class="tech-muted cursor-pointer text-xs sm:text-base text-center hover:text-blue-300 transition" @click="copyPhoneNumber">0411 969 004</p>
+          </div>
+          <p class="tech-soft text-xs sm:text-sm text-center">Click to copy!</p>
+        </div>
 
         <!-- Nav buttons for desktop-->
-        <div class="hidden sm:flex w-full gap-3">
+        <div class="hidden sm:flex w-full gap-3 items-center justify-center">
           <RouterLink to="/" class="tech-button button-shape w-full text-center" active-class="secondary">Home</RouterLink>
           <RouterLink to="/contact" class="tech-button button-shape w-full text-center" active-class="secondary">Contact</RouterLink>
           <RouterLink to="/calculator" class="tech-button button-shape w-full text-center" active-class="secondary">Quote Price</RouterLink>
@@ -58,6 +59,13 @@ function copyAddress() {
   navigator.clipboard.writeText(address)
   alert("Address copied to clipboard!")
 }
+
+function copyPhoneNumber() {
+  const phoneNumber = "0411969004"
+  navigator.clipboard.writeText(phoneNumber)
+  alert("Phone number copied to clipboard!")
+}
+
 </script>
 
 <style scoped>
