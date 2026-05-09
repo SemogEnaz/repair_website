@@ -20,10 +20,10 @@
 
         <!-- Nav buttons for desktop-->
         <div class="hidden sm:flex w-full gap-3 items-center justify-center">
-          <RouterLink to="/" class="tech-button button-shape w-full text-center" active-class="secondary">Home</RouterLink>
-          <RouterLink to="/buy" class="tech-button button-shape w-full text-center" active-class="secondary">Buy</RouterLink>
-          <RouterLink to="/sell" class="tech-button button-shape w-full text-center" active-class="secondary">Sell</RouterLink>
-          <RouterLink to="/about" class="tech-button button-shape w-full text-center" active-class="secondary">About</RouterLink>
+          <RouterLink to="/" class="nav-item button-shape w-full text-center" active-class="nav-active">Home</RouterLink>
+          <RouterLink to="/buy" class="nav-item button-shape w-full text-center" active-class="nav-active">Buy</RouterLink>
+          <RouterLink to="/sell" class="nav-item button-shape w-full text-center" active-class="nav-active">Sell</RouterLink>
+          <RouterLink to="/about" class="nav-item button-shape w-full text-center" active-class="nav-active">About</RouterLink>
         </div>
 
       </div>
