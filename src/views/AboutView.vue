@@ -13,7 +13,7 @@
         <p class="tech-eyebrow">Parts</p>
         <h3>Quality-first repairs</h3>
         <p class="tech-muted">Every repair is handled carefully with parts selected for reliable everyday use.</p>
-        <br><p class="tech-muted">We source my parts from Crazy Parts, so all my repairs come with a garuntee of quality as well as a warranty of 12 months if you should face any post purchase issues</p>
+        <br><p class="tech-muted">We source our parts from Crazy Parts, so all my repairs come with a garuntee of quality as well as a warranty of 12 months if you should face any post purchase issues</p>
         <br><p class="tech-muted">You can have a look at their website here:
           <a href="https://www.crazyparts.com.au/" target="_blank" rel="noopener noreferrer" class="!font-bold !text-blue-300 !hover:text-blue-200"> Crazy Parts</a>
         </p>
