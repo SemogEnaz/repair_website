@@ -37,7 +37,6 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
 import Hero from '@/components/HomePage/Hero.vue';
 import Calculator from '@/components/Calculator.vue';
 import Contact from '@/components/Contact.vue';
