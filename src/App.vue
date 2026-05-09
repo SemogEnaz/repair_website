@@ -21,8 +21,6 @@
         <!-- Nav buttons for desktop-->
         <div class="hidden sm:flex w-full gap-3 items-center justify-center">
           <RouterLink to="/" class="nav-item button-shape w-full text-center" active-class="nav-active">Home</RouterLink>
-          <RouterLink to="/buy" class="nav-item button-shape w-full text-center" active-class="nav-active">Buy</RouterLink>
-          <RouterLink to="/sell" class="nav-item button-shape w-full text-center" active-class="nav-active">Sell</RouterLink>
           <RouterLink to="/about" class="nav-item button-shape w-full text-center" active-class="nav-active">About</RouterLink>
         </div>
 
@@ -37,8 +35,6 @@
         <div class="flex justify-around items-center pt-2">
 
           <RouterLink to="/" class="nav-item text-4xl" active-class="nav-active">🏠<span class="text-base">Home</span></RouterLink>
-          <RouterLink to="/buy" class="nav-item text-4xl" active-class="nav-active">🛒<span class="text-base">Buy</span></RouterLink>
-          <RouterLink to="/sell" class="nav-item text-4xl" active-class="nav-active">💰<span class="text-base">Sell</span></RouterLink>
           <RouterLink to="/about" class="nav-item text-4xl" active-class="nav-active">ℹ️<span class="text-base">About</span></RouterLink>
 
         </div>
