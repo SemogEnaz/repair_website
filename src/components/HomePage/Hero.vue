@@ -14,7 +14,7 @@
     <!-- Buttons -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto">
       <RouterLink to="/#quote" class="tech-button w-full sm:flex-1 px-5 py-3">Get Instant Quote</RouterLink>
-      <RouterLink to="/#contactLinks" class="tech-button w-full sm:flex-1 px-5 py-3">Message Now</RouterLink>
+      <RouterLink to="/#contactLinks" class="tech-button secondary w-full sm:flex-1 px-5 py-3">Message Now</RouterLink>
     </div>
 
     <!-- Trust -->

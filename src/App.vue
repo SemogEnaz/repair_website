@@ -15,7 +15,6 @@
             <p class="tech-muted cursor-pointer text-xs sm:text-base text-center hover:text-blue-300 transition" @click="copyAddress">2 Greenfield Drive, Clayton, Victoria</p>
             <p class="tech-muted cursor-pointer text-xs sm:text-base text-center hover:text-blue-300 transition" @click="copyPhoneNumber">0411 969 004</p>
           </div>
-          <p class="tech-soft text-xs sm:text-sm text-center">Click to copy!</p>
         </div>
 
         <!-- Nav buttons for desktop-->

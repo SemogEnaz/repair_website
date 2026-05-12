@@ -195,9 +195,10 @@ function toNumber(value) {
   return Number(value);
 }
 
+// Time estimates in minutes
 const timeEstimates = {
-  'screen': 20,
-  'battery': 20,
+  'screen': 30,
+  'battery': 30,
   'back glass': 120,
   'charge port': 40
 }
