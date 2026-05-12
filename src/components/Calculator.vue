@@ -130,6 +130,7 @@ const services = ['screen', 'battery', 'back glass', 'charge port']
 
 const selectedServices = ref(services.map(() => false))
 
+// Explain this later
 const options = computed(() =>
   services.map((service, index) => ({
     label: service.charAt(0).toUpperCase() + service.slice(1),
@@ -149,7 +150,7 @@ const partsPrices = ref({});
 
 onMounted(async () => {
 
-  const response = await fetch("./public/parts_price.csv");
+  const response = await fetch("/parts_price.csv");
   const csvText = await response.text();
 
   partsPrices.value = csvToPartsPrices(csvText);
@@ -236,6 +237,7 @@ function calculatePrice() {
 
     console.log(model.value)
 
+    // Implement enumeration for each service type instead of magic numbers for each service
     switch (index) {
       case 0: parts += partsPrices.value[model.value].screen.cheap; break
       case 1: parts += partsPrices.value[model.value].battery.cheap; break
