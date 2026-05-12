@@ -116,7 +116,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import Alert from './Alert.vue'
 
 // ---------------- DATA ----------------
@@ -143,21 +143,57 @@ const email = ref('');
 
 // ---------------- PRICING ----------------
 
-const basePrice = 60;
+const basePrice = 50;
 
-// Lowest quality parts
-const screenPrices = { '11': 20, '12': 20, '13': 25 }
-const batteryPrices = { '11': 15, '12': 15, '13': 15 }
-const backGlassPrices = { '11': 50, '12': 50, '13': 50 }
-const chargePortPrices = { '11': 10, '12': 15, '13': 15 }
-const cameraPrices = { '11': 0, '12': 0, '13': 25 }
-const loudSpeakerPrices = { '11': 0, '12': 0, '13': 9 }
-const earpieceSpeakerPrices = { '11': 0, '12': 0, '13': 5 }
-const buttonPrices = { '11': 0, '12': 0, '13': 10 }
+const partsPrices = ref({});
 
-// Highest quality parts
-const screenPricesHigh = { '11': 0, '12': 0, '13': 65 }
-const batteryPricesHigh = { '11': 0, '12': 0, '13': 25 }
+onMounted(async () => {
+
+  const response = await fetch("./public/parts_price.csv");
+  const csvText = await response.text();
+
+  partsPrices.value = csvToPartsPrices(csvText);
+});
+
+function csvToPartsPrices(csvText) {
+  const lines = csvText.trim().split("\n").map(line => line.split(","));
+
+  const partsPrices = {};
+
+  for (let i = 3; i < lines.length; i++) {
+    const row = lines[i];
+    const model = row[0]?.trim();
+
+    if (!model) continue;
+
+    partsPrices[model] = {
+      screen: {
+        cheap: toNumber(row[1]),
+        expensive: toNumber(row[2]),
+      },
+      battery: {
+        cheap: toNumber(row[3]),
+        expensive: toNumber(row[4]),
+      },
+      backGlass: toNumber(row[5]),
+      chargePort: toNumber(row[6]),
+      backCamera: toNumber(row[7]),
+      earpieceSpeaker: toNumber(row[8]),
+      loudSpeaker: toNumber(row[9]),
+      buttons: toNumber(row[10]),
+      cameraLens: toNumber(row[11]),
+    };
+  }
+
+  console.log(partsPrices);
+
+  return partsPrices;
+}
+
+function toNumber(value) {
+  if (value === undefined || value.trim() === "") return null;
+  return Number(value);
+}
 
 const timeEstimates = {
   'screen': 20,
@@ -188,20 +224,32 @@ const toggleService = (index) => {
 // ---------------- LOGIC ----------------
 
 function calculatePrice() {
-  let total = basePrice;
+  let parts = 0;
+  const backGlassExcess = 20;
+
+  // If no service is selected, return 0
+  if (!selectedServices.value.some(Boolean)) return 0;
 
   selectedServices.value.forEach((isSelected, index) => {
     if (!isSelected) return
 
-    switch (index) {
-      case 0: total += screenPrices[model.value]; break
-      case 1: total += batteryPrices[model.value]; break
-      case 2: total += backGlassPrices[model.value] + 20; break
-      case 3: total += chargePortPrices[model.value] + 20; break
-    }
-  })
+    console.log(model.value)
 
-  return total === basePrice ? 0 : total
+    switch (index) {
+      case 0: parts += partsPrices.value[model.value].screen.cheap; break
+      case 1: parts += partsPrices.value[model.value].battery.cheap; break
+      case 2: parts += partsPrices.value[model.value].backGlass + backGlassExcess; break
+      case 3: parts += partsPrices.value[model.value].chargePort + backGlassExcess; break
+    }
+  });
+
+  // Add 10% tax
+  const taxedParts = Math.round(parts * 1.1);
+
+  console.log(`parts price: ${parts}, taxed price: ${taxedParts}`)
+
+  // Round up to closest 10's
+  return Math.round((basePrice + taxedParts)/10) * 10;
 }
 
 function calculateTime() {
