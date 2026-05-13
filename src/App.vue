@@ -20,6 +20,7 @@
         <!-- Nav buttons for desktop-->
         <div class="hidden sm:flex w-full gap-3 items-center justify-center">
           <RouterLink to="/" class="nav-item button-shape w-full text-center" active-class="nav-active">Home</RouterLink>
+          <RouterLink to="/buy" class="nav-item button-shape w-full text-center" active-class="nav-active">Buy</RouterLink>
           <RouterLink to="/about" class="nav-item button-shape w-full text-center" active-class="nav-active">About</RouterLink>
         </div>
 

@@ -6,6 +6,7 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomePage },
     { path: '/about', name: 'about', component: () => import('@/views/AboutView.vue') },
+    { path: '/buy', name: 'buy', component: () => import('@/views/BuyView.vue') },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
