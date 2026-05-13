@@ -2,8 +2,7 @@
   <section class="tech-panel hero-panel text-center px-4 py-8 sm:p-10 m-5">
 
     <p class="tech-eyebrow">Verified devices</p>
-
-    <h1 class="mt-3 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Browse Refurbished iPhones</h1>
+    <h2 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Browse Refurbished iPhones</h2>
 
     <div class="mt-8 flex justify-center">
       <a
@@ -15,15 +14,11 @@
       </a>
     </div>
 
-    <p class="tech-muted mt-8">
-      View currently available iPhones, updated listings, battery health details,
-      and local pickup options directly on our Marketplace profile.
-    </p>
+    <p class="tech-muted mt-8">View currently available iPhones on our Marketplace profile.</p>
 
-
-    <p class="tech-soft text-xs mt-4 flex gap-2 justify-center">
-      <Dot message="Devices updated regularly"></Dot>
-      <Dot message="Local pickup in Clayton"></Dot>
+    <p class="tech-soft mt-6 text-xs sm:text-sm flex flex-wrap justify-center items-center sm:gap-x-4 gap-x-2 gap-y-2">
+      <Dot message="Updated regularly"></Dot>
+      <Dot message="Pickup Clayton"></Dot>
       <Dot message="Trade-ins welcome"></Dot>
     </p>
   </section>

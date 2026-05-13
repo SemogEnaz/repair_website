@@ -19,18 +19,20 @@
 
     <!-- Trust -->
     <div class="tech-soft mt-6 text-xs sm:text-sm flex flex-wrap justify-center items-center sm:gap-x-4 gap-x-2 gap-y-2">
-      <span class="flex items-center sm:gap-2 gap-1"><span class="dot"></span>Same-day repairs</span>
-      <span class="flex items-center sm:gap-2 gap-1"><span class="dot"></span>No data loss</span>
-      <span class="flex items-center sm:gap-2 gap-1"><span class="dot"></span>Warranty included</span>
+      <Dot message="Same-day repairs" />
+      <Dot message="No data loss" />
+      <Dot message="Warranty included" />
     </div>
 
   </section>
 </template>
 
 <script setup>
+import Dot from '../Dot.vue';
+
 </script>
 
-<style scoped>
+<style>
 .hero-panel {
   overflow: hidden;
   position: relative;
@@ -48,13 +50,5 @@
 .hero-panel > * {
   position: relative;
   z-index: 1;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 6px rgba(59,130,246,0.6);
 }
 </style>

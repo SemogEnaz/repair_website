@@ -1,9 +1,9 @@
 <template>
   <main class="page-shell">
-    <section class="tech-panel hero">
+    <section class="tech-panel hero hero-panel !py-8">
       <p class="tech-eyebrow">About the service</p>
-      <h2>Apple-style care, local repair speed</h2>
-      <p class="tech-muted">
+      <h2 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Apple-style care, local repair speed</h2>
+      <p class="tech-muted mt-4">
         We focus on practical iPhone repairs with clear quotes, tidy workmanship, and fast turnaround for Clayton locals.
       </p>
     </section>
@@ -51,8 +51,6 @@
 
 h2 {
   margin-top: 4px;
-  font-size: 2rem;
-  font-weight: 800;
   letter-spacing: -0.03em;
 }
 
