@@ -17,9 +17,9 @@
     <p class="tech-muted mt-8">View currently available iPhones on our Marketplace profile.</p>
 
     <p class="tech-soft mt-6 text-xs sm:text-sm flex flex-wrap justify-center items-center sm:gap-x-4 gap-x-2 gap-y-2">
-      <Dot message="Updated regularly"></Dot>
-      <Dot message="Pickup Clayton"></Dot>
-      <Dot message="Trade-ins welcome"></Dot>
+      <Dot message="Updated regularly" :color_selection="1"></Dot>
+      <Dot message="Pickup Clayton" :color_selection="1"></Dot>
+      <Dot message="Trade-ins welcome" :color_selection="1"></Dot>
     </p>
   </section>
 </template>
