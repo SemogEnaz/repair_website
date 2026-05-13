@@ -40,3 +40,6 @@ __screenshots__/
 
 .agents/
 skills-lock.json
+
+# ignore the parts price spread sheet
+*.xlsx
