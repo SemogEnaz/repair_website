@@ -19,9 +19,8 @@
 
         <!-- Nav buttons for desktop-->
         <div class="hidden sm:flex w-full gap-3 items-center justify-center">
-          <RouterLink to="/" class="nav-item button-shape w-full text-center" active-class="nav-active">Home</RouterLink>
-          <RouterLink to="/buy" class="nav-item button-shape w-full text-center" active-class="nav-active">Buy</RouterLink>
-          <RouterLink to="/about" class="nav-item button-shape w-full text-center" active-class="nav-active">About</RouterLink>
+          <RouterLink v-for="page in pages" :key="page[0]" :to="page[0]" class="nav-item button-shape w-full text-center" active-class="nav-active">
+            {{ page[1] }}</RouterLink>
         </div>
 
       </div>
@@ -33,11 +32,10 @@
       <div class="sm:hidden fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md border-t border-slate-700 z-50">
 
         <div class="flex justify-around items-center pt-2">
-
-          <RouterLink to="/" class="nav-item text-4xl" active-class="nav-active">🏠<span class="text-base">Home</span></RouterLink>
-          <RouterLink to="/about" class="nav-item text-4xl" active-class="nav-active">ℹ️<span class="text-base">About</span></RouterLink>
-
+          <RouterLink v-for="page in pages" :key="page[0]" :to="page[0]" class="nav-item text-4xl" active-class="nav-active">
+            {{ page[2] }}<span class="text-base">{{ page[1] }}</span></RouterLink>
         </div>
+
       </div>
 
   </div>
@@ -45,6 +43,12 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
+
+const pages = [
+  ['/', 'Home', '🏠'],
+  ['/buy', 'Buy', '🛒'],
+  ['/about', 'About', 'ℹ️'],
+];
 
 function copyAddress() {
   const address = "2 Greenfield Drive, Clayton, Victoria"
