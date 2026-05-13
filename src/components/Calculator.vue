@@ -22,7 +22,7 @@
         <!-- Just Calculator -->
         <div class="flex flex-col sm:flex-row w-full gap-4">
 
-          <!-- Model and parts price -->
+          <!-- Model and Parts Price -->
           <div class="flex flex-col items-center w-full sm:w-1/3 gap-2">
 
             <!-- MODEL -->
@@ -48,6 +48,8 @@
 
             </div>
 
+            <!-- PARTS PRICE -->
+            <!-- https://codepen.io/WebsiteMentor/pen/abKeyWw -->
             <div class="flex flex-col items-center gap-3">
               <p>Parts cost:</p>
 
