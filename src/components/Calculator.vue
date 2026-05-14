@@ -51,7 +51,7 @@
             <!-- PARTS PRICE -->
             <!-- https://codepen.io/WebsiteMentor/pen/abKeyWw -->
             <div class="flex flex-col items-center justify-center gap-1 flex-start h-full">
-              <p class="">Parts cost:</p>
+              <p class="">Parts quality:</p>
 
               <div class="flex items-center gap-2">
                 <input type="checkbox" v-model="isPremium">
@@ -162,13 +162,16 @@ const options = computed(() =>
   }))
 )
 
+// Customer contact details
 const phone = ref('');
 const email = ref('');
 
 // ---------------- PRICING ----------------
 
-const basePrice = 50;
+const basePrice = 50;       // Minimum profit
+const backGlassExcess = 20; // Excess for long or more specilized work
 
+// List of all the prices for all parts of all models
 const partsPrices = ref({});
 
 onMounted(async () => {
@@ -248,34 +251,38 @@ const toggleService = (index) => {
 
 // ---------------- LOGIC ----------------
 
+const SERVICE = {
+  SCREEN: 0,
+  BATTERY: 1,
+  BACK_GLASS: 2,
+  CHARGE_PORT: 3,
+};
+
 function calculatePrice() {
   let parts = 0;
-  const backGlassExcess = 20;
 
-  // If no service is selected, return 0
+  // Return if no service is selected
   if (!selectedServices.value.some(Boolean)) return 0;
 
+  const selectedModel = partsPrices.value[model.value];
+  const quality = isPremium.value ? "expensive" : "cheap";
+
   selectedServices.value.forEach((isSelected, index) => {
-    if (!isSelected) return
+    if (!isSelected) return;
 
-    console.log(model.value)
-
-    // Implement enumeration for each service type instead of magic numbers for each service
     switch (index) {
-      case 0: parts += partsPrices.value[model.value].screen.cheap; break
-      case 1: parts += partsPrices.value[model.value].battery.cheap; break
-      case 2: parts += partsPrices.value[model.value].backGlass + backGlassExcess; break
-      case 3: parts += partsPrices.value[model.value].chargePort + backGlassExcess; break
+      case SERVICE.SCREEN: parts += selectedModel.screen[quality]; break;
+      case SERVICE.BATTERY: parts += selectedModel.battery[quality]; break;
+      case SERVICE.BACK_GLASS: parts += selectedModel.backGlass + backGlassExcess; break;
+      case SERVICE.CHARGE_PORT: parts += selectedModel.chargePort + backGlassExcess; break;
     }
   });
 
-  // Add 10% tax
+  // Adding 10% tax
   const taxedParts = Math.round(parts * 1.1);
 
-  console.log(`parts price: ${parts}, taxed price: ${taxedParts}`)
-
   // Round up to closest 10's
-  return Math.round((basePrice + taxedParts)/10) * 10;
+  return Math.ceil((basePrice + taxedParts) / 10) * 10;
 }
 
 function calculateTime() {
