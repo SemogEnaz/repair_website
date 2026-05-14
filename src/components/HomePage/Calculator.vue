@@ -88,14 +88,14 @@
             </button>
           </div>
 
-          <!-- PRICE -->
+          <!-- PRICE DISPLAY-->
           <div class="price-card w-full sm:w-1/3 flex flex-col justify-between py-4 px-2">
 
-            <p class="rolling-price text-center font-bold text-3xl sm:text-6xl">
+            <p class="rolling-price text-center font-bold text-5xl sm:text-6xl">
               ${{ animatedPrice }}
             </p>
 
-            <p class="tech-muted text-sm text-center">
+            <p class="tech-muted text-xs sm: text-center">
               Time: {{ formattedTime }}
             </p>
 
