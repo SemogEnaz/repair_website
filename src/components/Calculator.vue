@@ -23,7 +23,7 @@
         <div class="flex flex-col sm:flex-row w-full gap-4">
 
           <!-- Model and Parts Price -->
-          <div class="flex flex-col items-center w-full sm:w-1/3 gap-2">
+          <div class="flex flex-col items-center w-full sm:w-1/3 gap-3 sm:gap-0">
 
             <!-- MODEL -->
             <div class="relative flex flex-col w-full !sm:w-1/3 self-start">
@@ -50,8 +50,8 @@
 
             <!-- PARTS PRICE -->
             <!-- https://codepen.io/WebsiteMentor/pen/abKeyWw -->
-            <div class="flex flex-col items-center gap-3">
-              <p>Parts cost:</p>
+            <div class="flex flex-col items-center justify-center gap-1 flex-start h-full">
+              <p class="">Parts cost:</p>
 
               <div class="flex items-center gap-2">
                 <input type="checkbox" v-model="isPremium">
