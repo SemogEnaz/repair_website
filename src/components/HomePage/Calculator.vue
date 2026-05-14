@@ -22,25 +22,48 @@
         <!-- Just Calculator -->
         <div class="flex flex-col sm:flex-row w-full gap-4">
 
-          <!-- MODEL -->
-          <div class="relative flex flex-col w-full sm:w-1/3 self-start">
-            <!-- Button -->
-            <button
-              class="selector-button w-full py-2 flex items-center justify-center gap-2"
-              @click="toggleDropdown"
-            >
-              {{ model ? `iPhone ${model}` : 'Select Model' }}
-              <span class="caret" :class="{ open: isOpen }"></span>
-            </button>
+          <!-- Model and Parts Price -->
+          <div class="flex flex-col items-center w-full sm:w-1/3 gap-3 sm:gap-0">
 
-            <!-- Dropdown -->
-            <div
-              v-if="isOpen"
-              class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50"
-            >
-              <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('11')">iPhone 11</div>
-              <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('12')">iPhone 12</div>
-              <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('13')">iPhone 13</div>
+            <!-- MODEL -->
+            <div class="relative flex flex-col w-full !sm:w-1/3 self-start">
+              <!-- Button -->
+              <button
+                class="selector-button w-full py-2 flex items-center justify-center gap-2"
+                @click="toggleDropdown"
+              >
+                {{ model ? `iPhone ${model}` : 'Select Model' }}
+                <span class="caret" :class="{ open: isOpen }"></span>
+              </button>
+
+              <!-- Dropdown -->
+              <div
+                v-if="isOpen"
+                class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50"
+              >
+                <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('11')">iPhone 11</div>
+                <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('12')">iPhone 12</div>
+                <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('13')">iPhone 13</div>
+              </div>
+
+            </div>
+
+            <!-- PARTS PRICE -->
+            <!-- https://codepen.io/WebsiteMentor/pen/abKeyWw -->
+            <div class="flex flex-col items-center justify-center gap-1 flex-start h-full">
+              <p class="">Parts quality:</p>
+
+              <div class="flex items-center gap-2">
+                <input type="checkbox" v-model="isPremium">
+
+                <div class="label-wrapper">
+                  <transition name="fade" mode="out-in">
+                    <p :key="isPremium">
+                      {{ isPremium ? 'Premium' : 'Budget' }}
+                    </p>
+                  </transition>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -122,7 +145,7 @@ import Alert from '../Alert.vue'
 // ---------------- DATA ----------------
 
 const alertRef = ref(null);
-
+const isPremium = ref(true)
 const model = ref('')
 const isOpen = ref(false)
 
@@ -139,13 +162,16 @@ const options = computed(() =>
   }))
 )
 
+// Customer contact details
 const phone = ref('');
 const email = ref('');
 
 // ---------------- PRICING ----------------
 
-const basePrice = 50;
+const basePrice = 50;       // Minimum profit
+const backGlassExcess = 20; // Excess for long or more specilized work
 
+// List of all the prices for all parts of all models
 const partsPrices = ref({});
 
 onMounted(async () => {
@@ -225,34 +251,38 @@ const toggleService = (index) => {
 
 // ---------------- LOGIC ----------------
 
+const SERVICE = {
+  SCREEN: 0,
+  BATTERY: 1,
+  BACK_GLASS: 2,
+  CHARGE_PORT: 3,
+};
+
 function calculatePrice() {
   let parts = 0;
-  const backGlassExcess = 20;
 
-  // If no service is selected, return 0
+  // Return if no service is selected
   if (!selectedServices.value.some(Boolean)) return 0;
 
+  const selectedModel = partsPrices.value[model.value];
+  const quality = isPremium.value ? "expensive" : "cheap";
+
   selectedServices.value.forEach((isSelected, index) => {
-    if (!isSelected) return
+    if (!isSelected) return;
 
-    console.log(model.value)
-
-    // Implement enumeration for each service type instead of magic numbers for each service
     switch (index) {
-      case 0: parts += partsPrices.value[model.value].screen.cheap; break
-      case 1: parts += partsPrices.value[model.value].battery.cheap; break
-      case 2: parts += partsPrices.value[model.value].backGlass + backGlassExcess; break
-      case 3: parts += partsPrices.value[model.value].chargePort + backGlassExcess; break
+      case SERVICE.SCREEN: parts += selectedModel.screen[quality]; break;
+      case SERVICE.BATTERY: parts += selectedModel.battery[quality]; break;
+      case SERVICE.BACK_GLASS: parts += selectedModel.backGlass + backGlassExcess; break;
+      case SERVICE.CHARGE_PORT: parts += selectedModel.chargePort + backGlassExcess; break;
     }
   });
 
-  // Add 10% tax
+  // Adding 10% tax
   const taxedParts = Math.round(parts * 1.1);
 
-  console.log(`parts price: ${parts}, taxed price: ${taxedParts}`)
-
   // Round up to closest 10's
-  return Math.round((basePrice + taxedParts)/10) * 10;
+  return Math.ceil((basePrice + taxedParts) / 10) * 10;
 }
 
 function calculateTime() {
@@ -401,4 +431,91 @@ console.log('Sending to URL:', url);
 .caret.open {
   transform: rotate(225deg);
 }
+
+input[type="checkbox"] {
+  position: relative;
+  width: 72px;
+  height: 38px;
+  appearance: none;
+  -webkit-appearance: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.95),
+    rgba(15, 23, 42, 0.95)
+  );
+
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 999px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.05),
+    inset 0 -2px 6px rgba(0,0,0,0.35),
+    0 0 0 rgba(59,130,246,0);
+}
+
+input[type="checkbox"]::before {
+  content: "";
+
+  position: absolute;
+  top: 3px;
+  left: 3px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.95),
+    rgba(226,232,240,0.95)
+  );
+
+  transition: all 0.25s ease;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.35),
+    inset 0 1px 1px rgba(255,255,255,0.4);
+}
+
+input[type="checkbox"]:checked {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.95),
+    rgba(59, 130, 246, 0.95)
+  );
+
+  border-color: rgba(96, 165, 250, 0.45);
+
+  box-shadow:
+    0 0 16px rgba(59,130,246,0.25),
+    inset 0 1px 2px rgba(255,255,255,0.08);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: translateX(34px);
+}
+
+.label-wrapper {
+  min-width: 80px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
 </style>
