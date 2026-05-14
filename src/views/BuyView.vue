@@ -4,6 +4,6 @@
 </template>
 
 <script setup lang="js">
-import BuyHero from '@/components/BuyHero.vue';
-import Tradein from '@/components/Tradein.vue';
+import BuyHero from '@/components/BuyPage/BuyHero.vue';
+import Tradein from '@/components/BuyPage/Tradein.vue';
 </script>

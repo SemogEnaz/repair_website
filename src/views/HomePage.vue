@@ -14,8 +14,8 @@
 
 <script setup>
 import Hero from '@/components/HomePage/Hero.vue';
-import Calculator from '@/components/Calculator.vue';
-import Contact from '@/components/Contact.vue';
+import Calculator from '@/components/HomePage/Calculator.vue';
+import Contact from '@/components/HomePage/Contact.vue';
 </script>
 
 <style scoped>
