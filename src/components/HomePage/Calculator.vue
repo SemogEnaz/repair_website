@@ -88,8 +88,8 @@
           <!-- PRICE -->
           <div class="price-card w-full sm:w-1/3 flex flex-col justify-between py-4 px-2">
 
-            <p class="text-center font-bold text-3xl sm:text-6xl">
-              ${{ calculatePrice() }}
+            <p class="rolling-price text-center font-bold text-3xl sm:text-6xl">
+              ${{ animatedPrice }}
             </p>
 
             <p class="tech-muted text-sm text-center">
@@ -139,7 +139,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import Alert from '../Alert.vue'
 
 // ---------------- DATA ----------------
@@ -364,9 +364,58 @@ console.log('Sending to URL:', url);
 
   alertRef.value.trigger("Thanks! I'll message you shortly to confirm details and arrange a time.")
 };
+
+const animatedPrice = ref(0)
+
+const finalPrice = computed(() => calculatePrice())
+
+watch(finalPrice, (newPrice, oldPrice) => {
+  const start = oldPrice || 0
+  const end = newPrice || 0
+  const duration = 450
+  const startTime = performance.now()
+
+  function animate(currentTime) {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(elapsed / duration, 1)
+
+    // ease-out effect
+    const eased = 1 - Math.pow(1 - progress, 3)
+
+    animatedPrice.value = Math.round(start + (end - start) * eased)
+
+    if (progress < 1) {
+      requestAnimationFrame(animate)
+    } else {
+      animatedPrice.value = end
+    }
+  }
+
+  requestAnimationFrame(animate)
+}, { immediate: true })
 </script>
 
 <style scoped>
+
+.rolling-price {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  text-shadow:
+    0 0 18px rgba(59, 130, 246, 0.28),
+    0 0 36px rgba(37, 99, 235, 0.18);
+  transition:
+    transform 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+.rolling-price {
+  font-family:
+    "SF Pro Display",
+    "Avenir Next",
+    system-ui,
+    sans-serif;
+}
+
 .calculator {
   margin-top: 20px;
   padding: 20px;
