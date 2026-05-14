@@ -8,8 +8,6 @@
 
   </div>
 
-  <!-- FLOAT BUTTON -->
-  <a href="#quote" class="floating">Get Quote</a>
 </template>
 
 <script setup>
