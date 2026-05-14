@@ -29,7 +29,10 @@
             <div class="relative flex flex-col w-full !sm:w-1/3 self-start">
               <!-- Button -->
               <button
-                class="selector-button w-full py-2 flex items-center justify-center gap-2"
+                :class="[
+                  'selector-button w-full py-2 flex items-center justify-center gap-2',
+                  model ? 'selected font-bold' : ''
+                ]"
                 @click="toggleDropdown"
               >
                 {{ model ? `iPhone ${model}` : 'Select Model' }}
@@ -382,6 +385,13 @@ console.log('Sending to URL:', url);
     transform 0.2s ease,
     border-color 0.2s ease,
     background 0.2s ease;
+}
+
+.selector-button.selected,
+.service-button.selected {
+  border-color: rgba(191, 219, 254, 0.6);
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  box-shadow: var(--shadow-blue);
 }
 
 .selector-button:hover,
