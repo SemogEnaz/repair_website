@@ -541,14 +541,8 @@ input[type="checkbox"]::before {
 }
 
 input[type="checkbox"]:checked {
-  background: linear-gradient(
-    135deg,
-    rgba(37, 99, 235, 0.95),
-    rgba(59, 130, 246, 0.95)
-  );
-
-  border-color: rgba(96, 165, 250, 0.45);
-
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  border-color: rgba(191, 219, 254, 0.6);
   box-shadow:
     0 0 16px rgba(59,130,246,0.25),
     inset 0 1px 2px rgba(255,255,255,0.08);
