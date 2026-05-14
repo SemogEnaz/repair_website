@@ -117,7 +117,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import Alert from './Alert.vue'
+import Alert from '../Alert.vue'
 
 // ---------------- DATA ----------------
 
