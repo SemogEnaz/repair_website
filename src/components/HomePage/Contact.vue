@@ -20,14 +20,22 @@
       </div>
 
     </section>
+
+    <Alert ref="alertRef" />
+
 </template>
 
 <script setup>
+import Alert from '../Alert.vue';
+import { ref } from 'vue';
+
+const alertRef = ref(null);
 
 function copyPhoneNumber() {
   const phoneNumber = "0411969004"
   navigator.clipboard.writeText(phoneNumber)
-  alert("Phone number copied to clipboard!")
+
+  alertRef.value.trigger("Phone number copied to clipboard!");
 }
 
 const openWhatsApp = () => {

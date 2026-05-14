@@ -38,11 +38,18 @@
 
       </div>
 
-  </div>
+    </div>
+
+  <Alert ref="alertRef"/>
+
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
+import { ref } from 'vue';
+import Alert from './components/Alert.vue';
+
+const alertRef = ref(null);
 
 const pages = [
   ['/', 'Home', '🏠'],
@@ -53,13 +60,13 @@ const pages = [
 function copyAddress() {
   const address = "2 Greenfield Drive, Clayton, Victoria"
   navigator.clipboard.writeText(address)
-  alert("Address copied to clipboard!")
+  alertRef.value.trigger("Address copied to clipboard!");
 }
 
 function copyPhoneNumber() {
   const phoneNumber = "0411969004"
   navigator.clipboard.writeText(phoneNumber)
-  alert("Phone number copied to clipboard!")
+  alertRef.value.trigger("Phone number copied to clipboard!")
 }
 
 </script>
