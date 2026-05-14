@@ -215,8 +215,6 @@ function csvToPartsPrices(csvText) {
     };
   }
 
-  console.log(partsPrices);
-
   return partsPrices;
 }
 
@@ -352,7 +350,6 @@ async function handleSubmit() {
   }
 
 const url = `${import.meta.env.VITE_API_URL}`;
-console.log('Sending to URL:', url);
 
   await fetch(url, {
     method: "POST",
