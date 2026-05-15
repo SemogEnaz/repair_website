@@ -1,7 +1,7 @@
 <template>
   <section class="tech-panel hero-panel text-center px-4 py-8 sm:p-10 m-5">
 
-    <p class="tech-eyebrow">Verified devices</p>
+    <p class="tech-eyebrow">Buy Perfect Second hand iPhones</p>
     <h2 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Browse Refurbished iPhones</h2>
 
     <div class="mt-8 flex justify-center">
