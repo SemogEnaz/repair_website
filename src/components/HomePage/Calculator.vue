@@ -48,7 +48,7 @@
 <script setup>
 import { ref } from 'vue'
 import Alert from '../Alert.vue'
-import Quote from './CalculatorComponents/Quote.vue';
+import Quote from './CalculatorComponents/QuoteGenerator.vue';
 import ServiceSummary from './CalculatorComponents/ServiceSummary.vue';
 import SubmitQuote from './CalculatorComponents/SubmitQuote.vue';
 
