@@ -3,7 +3,11 @@ export function loadClarity() {
   // Do not run in development mode
   if (!import.meta.env.PROD) return
 
+
+
   // Do not load for admin/testing users
+  // Run this on the recorded sites console:
+  // localStorage.setItem('admin-mode', 'true')
   if (localStorage.getItem('admin-mode') === 'true') {
     console.log('Clarity disabled for admin')
     return
