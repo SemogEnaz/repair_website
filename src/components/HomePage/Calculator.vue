@@ -21,7 +21,7 @@
 
         <!-- Just Calculator -->
         <!-- Cant send the alert ref down but we can send a funciton that changes the alert ref of the parent -->
-        <Quote v-model="quote" :Alert="(message) => alertRef?.trigger(message)"/>
+        <QuoteGenerator v-model="quote" :Alert="(message) => alertRef?.trigger(message)"/>
 
         <!-- Selected services summary -->
         <ServiceSummary :quote="quote"/>
@@ -48,9 +48,9 @@
 <script setup>
 import { ref } from 'vue'
 import Alert from '../Alert.vue'
-import Quote from './CalculatorComponents/QuoteGenerator.vue';
 import ServiceSummary from './CalculatorComponents/ServiceSummary.vue';
 import SubmitQuote from './CalculatorComponents/SubmitQuote.vue';
+import QuoteGenerator from './CalculatorComponents/QuoteGenerator.vue';
 
 // ---------------- DATA ----------------
 
@@ -70,51 +70,6 @@ const quote = ref({
 </script>
 
 <style scoped>
-
-.selector-button,
-.service-button {
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: var(--radius-md);
-  background: var(--surface-3);
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
-}
-
-.selector-button.selected,
-.service-button.selected {
-  border-color: rgba(191, 219, 254, 0.6);
-  background: linear-gradient(135deg, var(--accent), #2563eb);
-  box-shadow: var(--shadow-blue);
-}
-
-.selector-button:hover,
-.service-button:hover {
-  border-color: rgba(147, 197, 253, 0.42);
-  transform: translateY(-1px);
-}
-
-.service-button.selected {
-  border-color: rgba(191, 219, 254, 0.6);
-  background: linear-gradient(135deg, var(--accent), #2563eb);
-  box-shadow: var(--shadow-blue);
-}
-
-.dropdown {
-  border: 1px solid rgba(147, 197, 253, 0.24);
-  background: rgba(248, 250, 252, 0.96);
-  color: #0f172a;
-  overflow: hidden;
-}
-
-.dropdown-option {
-  color: #0f172a;
-}
-
-.dropdown-option:hover {
-  background: rgba(59, 130, 246, 0.12);
-}
 
 .price-card {
   border: 1px solid var(--line-strong);

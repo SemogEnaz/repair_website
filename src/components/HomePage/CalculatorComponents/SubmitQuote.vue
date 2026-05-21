@@ -43,7 +43,7 @@ async function handleSubmit() {
     return
   }
 
-  // Switch case with 
+  // Switch case with
 
   // Ready to connect to backend later
   const payload = {
