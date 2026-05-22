@@ -1,4 +1,4 @@
-export function loadClarity() {
+export async function loadClarity() {
 
 	// Do not run in development mode
 	if (!import.meta.env.PROD) return false;
@@ -13,11 +13,10 @@ export function loadClarity() {
 
 	// Blocking IP address of 35/2 Greenfeild drive
 	const blockedIPs=['203.132.68.90'];
-	fetch("https://api.ipify.org?format=json")
-		.then(res => res.json())
-		.then(data => {
-			if (blockedIPs.includes(data.ip)) return false;
-		});
+
+	const res = await fetch('https://api.ipify.org?format=json');
+	const data = await res.json();
+	if (blockedIPs.includes(data.ip)) return false;
 
 	// Load Clarity
 	;(function(c,l,a,r,i,t,y){
