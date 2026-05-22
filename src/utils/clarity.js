@@ -1,7 +1,7 @@
 export function loadClarity() {
 
 	// Do not run in development mode
-	if (!import.meta.env.PROD) return true;
+	if (!import.meta.env.PROD) return false;
 
 	// Do not load for admin/testing users
 	// Run this on the recorded sites console:
