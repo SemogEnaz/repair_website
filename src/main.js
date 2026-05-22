@@ -4,8 +4,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { loadClarity } from './utils/clarity'
+import { recordIP } from './utils/record_ip'
 
-loadClarity();
+if (loadClarity()) recordIP();
 
 const app = createApp(App)
 
