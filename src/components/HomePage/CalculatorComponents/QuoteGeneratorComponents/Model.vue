@@ -27,7 +27,6 @@
 
 <script setup lang="js">
 import { ref } from 'vue';
-
 const model = defineModel();
 
 const modelNumbers = [11, 12, 13, 14];
