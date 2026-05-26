@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="js">
-import { sendFacebookMessage } from '@/utils/message.js';
+import { sendFacebookMessage } from '../../../../utils/message';
 const { quote, Alert } = defineProps(['quote', 'Alert']);
 
 function getSelectedServices() {
