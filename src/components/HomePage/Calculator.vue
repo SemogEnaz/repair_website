@@ -2,7 +2,7 @@
   <section id="quote" class="tech-panel calculator flex flex-col items-center gap-6 px-4 py-8 sm:p-10">
 
     <p class="tech-eyebrow">Instant estimate</p>
-    <h1 class="text-2xl sm:text-4xl font-bold tracking-tight">
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-center">
       Calculate Repair Price Estimate
     </h1>
 

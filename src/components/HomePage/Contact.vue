@@ -1,5 +1,5 @@
 <template>
-    <section class="tech-panel hero !m-[20px_0]" id="contactLinks">
+    <section class="tech-panel hero m-[20px_0]!" id="contactLinks">
       <p class="tech-eyebrow">Book a repair</p>
       <h2>Tell us what happened</h2>
       <p class="tech-muted">
