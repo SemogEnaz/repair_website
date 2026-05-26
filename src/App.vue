@@ -52,8 +52,8 @@ import Alert from './components/Alert.vue';
 const alertRef = ref(null);
 
 const pages = [
-  ['/', 'Home', '🏠'],
-  ['/buy', 'Buy', '🛒'],
+  ['/', 'Home', '🛠️'],
+  ['/buy', 'Buy', '📱'],
   ['/about', 'About', 'ℹ️'],
 ];
 
