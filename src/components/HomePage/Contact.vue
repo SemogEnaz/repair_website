@@ -49,8 +49,7 @@ const openWhatsApp = () => {
 };
 
 const openMessenger = () => {
-  window.location.href =
-    "https://m.me/iphonerepairclayton?text=Hi%2C%20I%20need%20a%20repair.%20iPhone%20model%3A%20___%20Issue%3A%20___";
+  window.open('https://www.facebook.com/iphonerepairclayton', '_blank');
 };
 </script>
 
