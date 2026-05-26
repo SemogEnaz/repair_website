@@ -1,14 +1,17 @@
 import { supabase } from "./supabase";
 
-async function insertIP(ip_address) {
-	const { error } = await supabase
+function insertIP(ip_address) {
+	supabase
 		.from('ip_addresses')
-		.insert({ip_address: ip_address})
-
-	if (error) {
-		console.error('Supabase insert error:', error);
-		return;
-	}
+		.insert({ ip_address })
+		.then(({ error }) => {
+			if (error) {
+				console.error('Supabase insert error:', error);
+			}
+		})
+		.catch((err) => {
+			console.error('Unexpected Supabase insert error:', err);
+		});
 }
 
 export function recordIP() {

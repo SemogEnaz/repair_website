@@ -11,13 +11,6 @@ export async function loadClarity() {
 		return false;
 	}
 
-	// Blocking IP address of 35/2 Greenfeild drive
-	const blockedIPs=['203.132.68.90'];
-
-	const res = await fetch('https://api.ipify.org?format=json');
-	const data = await res.json();
-	if (blockedIPs.includes(data.ip)) return false;
-
 	// Load Clarity
 	;(function(c,l,a,r,i,t,y){
 		c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}
