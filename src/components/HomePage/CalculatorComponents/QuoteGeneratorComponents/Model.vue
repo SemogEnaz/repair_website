@@ -15,11 +15,11 @@
     <!-- Dropdown -->
     <div
       v-if="isOpen"
-      class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50"
-    >
-      <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('11')">iPhone 11</div>
-      <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('12')">iPhone 12</div>
-      <div class="dropdown-option p-3 cursor-pointer" @click="selectModel('13')">iPhone 13</div>
+      class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50">
+      <div
+	  	v-for="phone in phones" :key="phone"
+	  	class="dropdown-option p-3 cursor-pointer"
+		@click="selectModel(phone)">iPhone {{ phone }}</div>
     </div>
 
   </div>
@@ -27,18 +27,52 @@
 
 <script setup lang="js">
 import { ref } from 'vue';
+
 const model = defineModel();
 
-const isOpen = ref(false)
+const modelNumbers = [11, 12, 13, 14];
+
+const modelVariants = [
+	'Mini',
+	'Plus',
+	'Pro',
+	'Pro Max',
+];
+
+const modelVariantMasks = [
+	0b0011,
+	0b1011,
+	0b1011,
+	0b1111,
+];
+
+const phones = [];
+
+for (let i = 0; i < modelNumbers.length; i++) {
+	const modelNumber = modelNumbers[i];
+	const variantMask = modelVariantMasks[i];
+
+	phones.push(String(modelNumber));
+
+	for (let j = 0; j < modelVariants.length; j++) {
+		const bitPosition = modelVariants.length - 1 - j;
+
+		if (variantMask & (1 << bitPosition)) {
+			phones.push(`${modelNumber} ${modelVariants[j]}`);
+		}
+	}
+}
+
+const isOpen = ref(false);
 
 const toggleDropdown = () => {
-  isOpen.value = !isOpen.value
-}
+	isOpen.value = !isOpen.value;
+};
 
-const selectModel = (val) => {
-  model.value = val
-  isOpen.value = false
-}
+const selectModel = (value) => {
+	model.value = value;
+	isOpen.value = false;
+};
 </script>
 
 <style lang="css" scoped>
@@ -76,7 +110,8 @@ const selectModel = (val) => {
   border: 1px solid rgba(147, 197, 253, 0.24);
   background: rgba(248, 250, 252, 0.96);
   color: #0f172a;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 10.75rem;
 }
 
 .dropdown-option {

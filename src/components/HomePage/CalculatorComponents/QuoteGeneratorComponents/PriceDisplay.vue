@@ -45,6 +45,12 @@ onMounted(async () => {
   partsPrices.value = csvToPartsPrices(csvText);
 });
 
+function normalizeModel(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/\s+/g, '');
+}
+
 function csvToPartsPrices(csvText) {
   const lines = csvText.trim().split("\n").map(line => line.split(","));
 
@@ -52,7 +58,7 @@ function csvToPartsPrices(csvText) {
 
   for (let i = 3; i < lines.length; i++) {
     const row = lines[i];
-    const model = row[0]?.trim();
+	const model = normalizeModel(row[0]);
 
     if (!model) continue;
 
@@ -83,14 +89,22 @@ function toNumber(value) {
   return Number(value);
 }
 
+function getPartPrice(part, quality) {
+  if (typeof part === 'number') return part;
+
+  return part[quality] ?? part.cheap ?? part.expensive ?? 0;
+}
+
 function calculatePrice() {
   let parts = 0;
 
   // Return if no service is selected
   if (!quote.value.selectedServices.some(Boolean)) return 0;
 
-  const selectedModel = partsPrices.value[quote.value.model];
-  if (!selectedModel) return 0;
+const selectedModelKey = normalizeModel(quote.value.model);
+const selectedModel = partsPrices.value[selectedModelKey];
+
+if (!selectedModel) return 0;
 
   const quality = quote.value.isPremium ? "expensive" : "cheap";
 
@@ -98,8 +112,8 @@ function calculatePrice() {
     if (!isSelected) return;
 
     switch (index) {
-      case SERVICE.SCREEN: parts += selectedModel.screen[quality]; break;
-      case SERVICE.BATTERY: parts += selectedModel.battery[quality]; break;
+      case SERVICE.SCREEN: parts += getPartPrice(selectedModel.screen, quality); break;
+      case SERVICE.BATTERY: parts += getPartPrice(selectedModel.battery, quality); break;
       case SERVICE.BACK_GLASS: parts += selectedModel.backGlass + backGlassExcess; break;
       case SERVICE.CHARGE_PORT: parts += selectedModel.chargePort + backGlassExcess; break;
     }
