@@ -3,12 +3,11 @@
     <!-- Button -->
     <button
       :class="[
-        'selector-button w-full py-2 flex items-center justify-center gap-2',
+        'selector-button w-full py-2 px-1! flex items-center justify-center gap-2',
         model ? 'selected font-bold' : ''
       ]"
-      @click="toggleDropdown"
-    >
-      {{ model ? `iPhone ${model}` : 'Select Model' }}
+      @click="toggleDropdown">
+      <span class="">{{ model ? `iPhone ${model}` : 'Select Model' }}</span>
       <span class="caret" :class="{ open: isOpen }"></span>
     </button>
 
