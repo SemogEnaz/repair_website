@@ -27,7 +27,7 @@
         <ServiceSummary :quote="quote"/>
 
         <!-- Contact form information -->
-        <SubmitQuoteMessenger :quote="quote" :Alert="(message) => alertRef?.trigger(message)"/>
+		 <SubmitQuoteTelegram :quote="quote" />
 
       </div>
 
@@ -50,7 +50,8 @@ import { ref } from 'vue'
 import Alert from '../Alert.vue'
 import ServiceSummary from './CalculatorComponents/ServiceSummary.vue';
 import QuoteGenerator from './CalculatorComponents/QuoteGenerator.vue';
-import SubmitQuoteMessenger from './CalculatorComponents/SubmitQuote/SubmitQuoteMessenger.vue';
+//import SubmitQuoteMessenger from './CalculatorComponents/SubmitQuote/SubmitQuoteMessenger.vue';
+import SubmitQuoteTelegram from './CalculatorComponents/SubmitQuote/SubmitQuoteTelegram.vue';
 
 // ---------------- DATA ----------------
 
