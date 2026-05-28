@@ -29,17 +29,17 @@ async function handleSubmit() {
     return
   }
 
-  // Switch case with
-
   // Ready to connect to backend later
   const payload = {
-    model: quote.value.model,
-    services: quote.services.filter((_, i) => quote.value.selectedServices[i]),
-    price: quote.value.price,
+    model: quote.model,
+    services: quote.services.filter((_, i) => quote.selectedServices[i]),
+    price: quote.price,
     phone: phone.value,
   }
 
   const url = `${import.meta.env.VITE_API_URL}`;
+
+  console.log(url);
 
   await fetch(url, {
     method: "POST",

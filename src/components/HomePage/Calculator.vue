@@ -27,7 +27,7 @@
         <ServiceSummary :quote="quote"/>
 
         <!-- Contact form information -->
-		 <SubmitQuoteTelegram :quote="quote" />
+		 <SubmitQuoteTelegram :quote="quote" :Alert="(message) => alertRef?.trigger(message)"/>
 
       </div>
 
