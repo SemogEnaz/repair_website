@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"firebase emulators:start --only functions\"",
     "build": "vite build",
+    "build:test": "npm run build > /dev/null 2>&1 && echo \"Build passed\" || echo \"Build failed\"",
     "preview": "vite preview",
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
