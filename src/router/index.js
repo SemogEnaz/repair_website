@@ -7,7 +7,7 @@ const router = createRouter({
     { path: '/', name: 'home', component: HomePage },
     { path: '/about', name: 'about', component: () => import('@/views/AboutView.vue') },
     { path: '/buy', name: 'buy', component: () => import('@/views/BuyView.vue') },
-    { path: '/battery', name: 'battery', component: () => import('@/views/WhyBatteryRepairView.vue') },
+    { path: '/battery', name: 'battery', component: () => import('@/views/BatteryRepair.vue') },
   ],
   scrollBehavior(to, from, savedPosition) {
 
