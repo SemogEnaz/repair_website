@@ -5,6 +5,7 @@
     <Hero/>
     <Contact/>
     <Calculator/>
+	<BlogLinks />
 
   </div>
 
@@ -12,8 +13,9 @@
 
 <script setup>
 import Hero from '@/components/HomePage/Hero.vue';
-import Calculator from '@/components/HomePage/Calculator.vue';
 import Contact from '@/components/HomePage/Contact.vue';
+import Calculator from '@/components/HomePage/Calculator.vue';
+import BlogLinks from '@/components/HomePage/BlogLinks.vue';
 </script>
 
 <style scoped>
