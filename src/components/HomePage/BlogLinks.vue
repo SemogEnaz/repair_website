@@ -1,8 +1,8 @@
 <template>
-	<section class="tech-panel my-6! p-6 text-center">
-	<h2 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Our Blogs</h2>
+	<section class="tech-panel my-6! flex flex-col px-4 py-8 gap-3 text-center">
+	<h2 class="text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Our Blogs</h2>
 
-      <div class="flex flex-col items-center gap-3 mt-6 w-full">
+      <div class="flex flex-col items-center gap-3 w-full">
 
         <!-- Full width action -->
         <RouterLink

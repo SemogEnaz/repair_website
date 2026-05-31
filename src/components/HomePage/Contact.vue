@@ -1,12 +1,12 @@
 <template>
-    <section class="tech-panel hero m-[20px_0]!" id="contactLinks">
+    <section class="tech-panel hero my-6! px-4 py-8 text-center flex flex-col gap-3" id="contactLinks">
       <p class="tech-eyebrow">Book a repair</p>
-      <h2>Tell us what happened</h2>
+      <h2 class="text-3xl font-bold">Contact Us</h2>
       <p class="tech-muted">
         Send through your iPhone model, the issue, and your preferred repair time. We will confirm the best option for you.
       </p>
 
-      <div class="flex flex-col items-center gap-3 mt-6 w-full">
+      <div class="flex flex-col items-center gap-3 w-full">
 
         <!-- Top row (stack on mobile, side-by-side on desktop) -->
         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-2/3">
@@ -74,32 +74,6 @@ border: none;
 
 .messenger-btn:hover {
   border: none;
-}
-
-.page-shell {
-  padding: 20px;
-}
-
-.hero,
-.card {
-  padding: 28px 24px;
-}
-
-.hero {
-  text-align: center;
-}
-
-h2 {
-  margin-top: 4px;
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-h3 {
-  margin-top: 4px;
-  font-size: 1.35rem;
-  font-weight: 800;
 }
 
 </style>

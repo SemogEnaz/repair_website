@@ -1,5 +1,5 @@
 <template>
-  <section id="quote" class="tech-panel calculator flex flex-col items-center gap-6 px-4 py-8 sm:p-10">
+  <section id="quote" class="tech-panel calculator flex flex-col items-center gap-3 px-4 py-8 sm:p-10">
 
     <p class="tech-eyebrow">Instant estimate</p>
     <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-center">

@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col pb-20 sm:pb-0">
     <header class="px-3 pt-4 pb-2 sm:px-5">
-      <div class="relative tech-panel app-header p-4 sm:p-6 flex flex-col items-center gap-4">
+      <div class="relative tech-panel app-header px-4 py-8 sm:p-6 flex flex-col items-center gap-3">
 
         <!-- Title -->
-        <p class="tech-eyebrow">On-site Apple repair</p>
-        <h1 class="text-2xl sm:text-5xl font-bold text-center leading-tight tracking-tight">
+        <p class="tech-eyebrow">On-site iPhone repair</p>
+        <h1 class="text-3xl sm:text-5xl font-bold text-center leading-tight tracking-tight">
           iPhone Repair Clayton
         </h1>
 

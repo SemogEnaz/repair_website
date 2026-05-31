@@ -4,7 +4,7 @@
 
     <!-- Heading -->
     <p class="tech-eyebrow">Fast local repairs</p>
-    <h1 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Fast iPhone Repairs in Clayton</h1>
+    <h1 class="mt-2 text-3xl sm:text-4xl font-bold leading-tight tracking-tight">Fast iPhone Repairs in Clayton</h1>
     <h2 class="text-2xl sm:text-4xl font-bold text-blue-300 mt-1">Done in 30 Minutes*</h2>
     <p class="tech-soft mt-0 text-xs">*Back glass replacements take ~2 hours or 20 minutes, depending on availability.</p>
 
