@@ -1,5 +1,5 @@
 <template>
-    <span class="flex items-center sm:gap-2 gap-1"><span :class="dot_color"></span>{{ message }}</span>
+    <span class="flex items-center sm:gap-2 gap-1"><span :class="dot_color" class="dot"></span>{{ message }}</span>
 </template>
 
 <script setup>
@@ -11,34 +11,28 @@ const props = defineProps({
 });
 
 const colors = [
-  "dot-blue", 'dot-green', 'dot-amber'
+  "dot-blue", 'dot-green', 'dot-amber', 'dot-red'
 ];
 
 const dot_color = colors[props.color_selection] || 'dot-blue';
 </script>
 
 <style lang="css" scoped>
-.dot-blue {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 6px rgba(59,130,246,0.6);
+
+.dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: rgb(var(--dot-color));
+	box-shadow:
+		0 0 4px rgba(var(--dot-color), 1),
+		0 0 8px rgba(var(--dot-color), 0.95),
+		0 0 16px rgba(var(--dot-color), 0.7);
 }
 
-.dot-green {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgb(34, 197, 94); /* green-500 */
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.95);
-}
+.dot-blue { --dot-color: 59, 130, 246; }
+.dot-green { --dot-color: 34, 197, 94; }
+.dot-amber { --dot-color: 245, 158, 11; }
+.dot-red { --dot-color: 239, 68, 68; }
 
-.dot-amber {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgb(245, 158, 11); /* amber-500 */
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
-}
 </style>
