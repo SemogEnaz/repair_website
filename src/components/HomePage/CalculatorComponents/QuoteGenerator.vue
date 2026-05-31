@@ -5,7 +5,7 @@
     <div class="flex flex-col items-center w-full sm:w-1/3 gap-3 sm:gap-0">
 
       <!-- MODEL -->
-      <Model v-model="quote.model"/>
+      <Model v-model:model="quote.model" v-model:progress="progress"/>
 
       <!-- PARTS PRICE -->
       <!-- https://codepen.io/WebsiteMentor/pen/abKeyWw -->
@@ -28,7 +28,7 @@
     </div>
 
     <!-- SERVICES -->
-    <Service v-model="quote" :Alert=Alert />
+    <Service v-model:quote="quote" v-model:progress="progress" :Alert=Alert  />
 
     <!-- PRICE DISPLAY-->
     <PriceDisplay v-model="quote" />
@@ -41,6 +41,8 @@ import Model from './QuoteGeneratorComponents/Model.vue';
 import Service from './QuoteGeneratorComponents/Service.vue';
 import PriceDisplay from './QuoteGeneratorComponents/PriceDisplay.vue';
 
+import { ref } from 'vue';
+
 const quote = defineModel();
 const { Alert } = defineProps({
   Alert: {
@@ -48,6 +50,9 @@ const { Alert } = defineProps({
     required: true
   }
 });
+
+const progress = ref(0);
+
 </script>
 
 <style scoped>
@@ -132,4 +137,13 @@ input[type="checkbox"]:checked::before {
   transform: translateY(-4px);
 }
 
+</style>
+
+<style lang="css">
+.needs-attention {
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.8),
+    0 0 24px rgba(59, 130, 246, 0.6),
+    0 0 40px rgba(59, 130, 246, 0.4);
+}
 </style>

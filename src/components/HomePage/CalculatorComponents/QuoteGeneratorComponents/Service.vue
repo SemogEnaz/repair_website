@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col items-center w-full sm:w-1/3 gap-2">
+  <div
+  	:class='["flex flex-col items-center w-full sm:w-1/3 gap-2"]'>
     <button
       v-for="option in options"
       :key="option.value"
       @click="toggleService(option.position)"
       :class="[
         'service-button w-full py-2',
-        quote.selectedServices[option.position]
-          ? 'selected font-bold'
-          : ''
+        quote.selectedServices[option.position] ? 'selected font-bold' : '',
+		progress == 1 ? 'needs-attention' : ''
       ]"
     >
       {{ option.label }}
@@ -18,7 +18,8 @@
 
 <script setup lang="js">
 import { computed } from 'vue';
-const quote = defineModel();
+const quote = defineModel('quote');
+const progress = defineModel('progress')
 const { Alert } = defineProps(['Alert']);
 
 // Explain this later
@@ -36,6 +37,7 @@ const toggleService = (index) => {
     return
   }
   quote.value.selectedServices[index] = !quote.value.selectedServices[index]
+  progress.value += 1;
 }
 
 </script>
