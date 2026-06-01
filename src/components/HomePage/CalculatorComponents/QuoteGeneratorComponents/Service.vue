@@ -8,7 +8,7 @@
       :class="[
         'service-button w-full py-2',
         quote.selectedServices[option.position] ? 'selected font-bold' : '',
-		progress == 1 ? 'needs-soft-attention' : ''
+		progress == 1 ? 'needs-attention' : ''
       ]"
     >
       {{ option.label }}
