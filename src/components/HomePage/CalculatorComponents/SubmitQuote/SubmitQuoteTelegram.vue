@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 text-center mt-6">
+  <div class="flex flex-col gap-2 text-center">
 
       <p class="tech-eyebrow">Submit your repair details</p>
 

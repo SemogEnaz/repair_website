@@ -17,7 +17,7 @@
     <div class="tech-card flex flex-col sm:flex-row w-full gap-4 p-4">
 
       <!-- Calculator and Submission form-->
-      <div class="flex flex-col w-full gap-4">
+      <div class="flex flex-col w-full gap-3">
 
         <!-- Just Calculator -->
         <!-- Cant send the alert ref down but we can send a funciton that changes the alert ref of the parent -->
