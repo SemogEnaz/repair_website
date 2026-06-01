@@ -140,10 +140,18 @@ input[type="checkbox"]:checked::before {
 </style>
 
 <style lang="css">
-.needs-attention {
-  box-shadow:
-    0 0 12px rgba(59, 130, 246, 0.8),
-    0 0 24px rgba(59, 130, 246, 0.6),
-    0 0 40px rgba(59, 130, 246, 0.4);
+
+@media screen and (min-width: 640px) {
+	.needs-attention {
+		box-shadow:
+			0 0 12px rgba(59, 130, 246, 0.8),
+			0 0 24px rgba(59, 130, 246, 0.6),
+			0 0 40px rgba(59, 130, 246, 0.4);
+	}
+
+	.needs-soft-attention {
+		box-shadow:
+			0 0 12px rgba(59, 131, 246, 0.6);
+	}
 }
 </style>
