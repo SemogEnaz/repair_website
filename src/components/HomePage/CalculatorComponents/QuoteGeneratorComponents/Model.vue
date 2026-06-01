@@ -4,7 +4,8 @@
     <button
       :class="[
         'selector-button w-full py-2 px-1! flex items-center justify-center gap-2',
-        model ? 'selected font-bold' : ''
+        model ? 'selected font-bold' : '',
+		progress == 0 ? 'needs-attention' : ''
       ]"
       @click="toggleDropdown">
       <span class="">{{ model ? `iPhone ${model}` : 'Select Model' }}</span>
@@ -26,7 +27,8 @@
 
 <script setup lang="js">
 import { ref } from 'vue';
-const model = defineModel();
+const model = defineModel('model');
+const progress = defineModel('progress');
 
 const modelNumbers = [11, 12, 13, 14];
 
@@ -63,13 +65,20 @@ for (let i = 0; i < modelNumbers.length; i++) {
 
 const isOpen = ref(false);
 
+const updateProgress = () => {
+	progress.value += 1;
+}
+
 const toggleDropdown = () => {
 	isOpen.value = !isOpen.value;
 };
 
 const selectModel = (value) => {
+	if (!model.value) updateProgress();
+
 	model.value = value;
 	isOpen.value = false;
+
 };
 </script>
 
