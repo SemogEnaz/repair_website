@@ -74,9 +74,11 @@ const toggleDropdown = () => {
 };
 
 const selectModel = (value) => {
+	if (!model.value) updateProgress();
+
 	model.value = value;
 	isOpen.value = false;
-	updateProgress();
+
 };
 </script>
 
