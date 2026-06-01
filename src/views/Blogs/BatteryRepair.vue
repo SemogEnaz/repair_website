@@ -30,8 +30,6 @@ First and foremost, batteries are an energy source. When operated within their l
 
 		<p class="mt-4">
 			Battery Health indicates how much of the battery's original capacity it can still store.
-			For example, a battery with 80% health can hold approximately 80% of the charge it could
-			when new.
 		</p>
 
 		<p class="mt-4">
@@ -45,9 +43,9 @@ First and foremost, batteries are an energy source. When operated within their l
 		</h4>
 
 		<ol class="mt-1 pl-3 list-decimal list-inside space-y-0">
-			<li>Unexpected shutdowns during demanding tasks.</li>
-			<li>Performance is lowered by iOS as per “Batterygate”.</li>
-			<li>Reduced battery duration when in use.</li>
+			<li>Unexpected & random shutdowns</li>
+			<li>Performance lowered by iOS as per “Batterygate”.</li>
+			<li>Reduced battery duration.</li>
 			<li>Increased heat generation due to higher internal resistance.</li>
 			<li>Greater risk of complete battery failure.</li>
 		</ol>
@@ -80,8 +78,8 @@ First and foremost, batteries are an energy source. When operated within their l
 
 	<p class="mt-4">
 		Battery replacement is one of the most cost-effective upgrades you can make to an iPhone.
-		A new battery can improve daily usability, reduce power-related issues, and make the device
-		more reliable for continued use or resale.
+		A new battery can improve daily usability, reduce power-related issues, and
+		<span class="text-blue-300 italic">make the device more reliable for continued use or resale.</span>
 	</p>
 
 	<h4 class="mt-6 font-semibold">
@@ -89,9 +87,9 @@ First and foremost, batteries are an energy source. When operated within their l
 	</h4>
 
 	<ol class="mt-1 pl-3 list-decimal list-inside space-y-0">
-		<li>Restore battery life closer to the device's original performance.</li>
-		<li>Reduce the likelihood of unexpected shutdowns.</li>
-		<li>Improve responsiveness when performance management has been applied.</li>
+		<li>Restore battery life to the device's original performance.</li>
+		<li>Stop of all unexpected shutdowns.</li>
+		<li>Improve responsiveness by providing maximum power output</li>
 		<li>Extend the useful life of the device for several more years.</li>
 		<li>Increase the resale value and attractiveness of the phone to future buyers.</li>
 	</ol>
@@ -100,6 +98,13 @@ First and foremost, batteries are an energy source. When operated within their l
 		For many iPhones, a battery replacement can provide a noticeably better user experience
 		without the expense of purchasing a new device.
 	</p>
+
+	<div class="mt-8 flex justify-center">
+		<RouterLink to="/#quote" class="tech-button sm:px-8 px-5 py-3">
+			Book a Battery Replacement Today
+		</RouterLink>
+	</div>
+
 </section>
 
 </template>
