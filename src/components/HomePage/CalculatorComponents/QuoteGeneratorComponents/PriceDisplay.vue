@@ -115,7 +115,7 @@ if (!selectedModel) return 0;
       case SERVICE.SCREEN: parts += getPartPrice(selectedModel.screen, quality); break;
       case SERVICE.BATTERY: parts += getPartPrice(selectedModel.battery, quality); break;
       case SERVICE.BACK_GLASS: parts += selectedModel.backGlass + backGlassExcess; break;
-      case SERVICE.CHARGE_PORT: parts += selectedModel.chargePort + backGlassExcess; break;
+      case SERVICE.CHARGE_PORT: parts += selectedModel.chargePort; break;
     }
   });
 
