@@ -21,7 +21,7 @@ function withRequestSecurity(handler) {
         if (allowedOrigins.includes(origin)) {
           res.set("Access-Control-Allow-Origin", origin);
           res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-          res.set("Access-Control-Allow-Headers", "Content-Type");
+          res.set("Access-Control-Allow-Headers", "Content-Type, x-api-key");
           return res.status(204).send("");
         }
 
@@ -52,7 +52,11 @@ function withRequestSecurity(handler) {
 }
 
 async function sendMessage(message) {
-  await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+  if (!botToken || !chatId) {
+    throw new Error("Telegram is not configured");
+  }
+
+  const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -62,6 +66,19 @@ async function sendMessage(message) {
       text: message
     })
   });
+
+  const responseText = await response.text();
+  let responseBody = null;
+
+  try {
+    responseBody = JSON.parse(responseText);
+  } catch {
+    responseBody = null;
+  }
+
+  if (!response.ok || responseBody?.ok === false) {
+    throw new Error("Telegram message failed");
+  }
 }
 
 exports.sendRepairRequest = onRequest({ cors: true }, withRequestSecurity(async (req, res) => {
@@ -71,8 +88,8 @@ exports.sendRepairRequest = onRequest({ cors: true }, withRequestSecurity(async 
 	price = Number(price) || 0;
 
     // Basic validation & early returns
-    if (!model || !Array.isArray(services) || services.length === 0) return res.status(400).json({ error: "Invalid request" });
-    if (!phone) return res.status(400).json({ error: "Contact required" });
+    if (!model || !Array.isArray(services) || services.length === 0) return res.status(400).json({ success: false, error: "Invalid request" });
+    if (!phone) return res.status(400).json({ success: false, error: "Contact required" });
 
     const message = `\
 🔧 New Repair Request
@@ -92,7 +109,7 @@ exports.sendRepairRequest = onRequest({ cors: true }, withRequestSecurity(async 
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ success: false, error: "Unable to send repair request" });
   }})
 );
 

@@ -23,13 +23,27 @@ const { quote, Alert } = defineProps(['quote', 'Alert']);
 // Customer contact details
 const phone = ref('');
 
+const failureMessage = 'Sorry, the quote system is down and your repair quote was not submitted. Please contact me directly using the WhatsApp, Messenger, or phone resources on the home page.';
+
+function showFailureAlert() {
+  Alert(failureMessage, { variant: 'failure' })
+}
+
 async function handleSubmit() {
   if (!phone.value) {
     Alert('Please enter a phone number so I can contact you for further details. Thank you!')
     return
   }
 
-  console.log(quote.price);
+  if (!quote.model) {
+    Alert('Please select an iPhone model.')
+    return
+  }
+
+  if (!quote.selectedServices.some(Boolean)) {
+    Alert('Please select at least one repair service.')
+    return
+  }
 
   // Ready to connect to backend later
   const payload = {
@@ -39,18 +53,40 @@ async function handleSubmit() {
     phone: phone.value,
   }
 
-  const url = `${import.meta.env.VITE_API_URL}`;
+  const url = import.meta.env.VITE_API_URL;
 
-  console.log(url);
+  if (!url) {
+    showFailureAlert()
+    return
+  }
 
-  await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": "supersecret123"
-    },
-    body: JSON.stringify(payload)
-  });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "supersecret123"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    let result = null;
+
+    try {
+      result = await response.json();
+    } catch {
+      result = null;
+    }
+
+    if (!response.ok || result?.success !== true) {
+      showFailureAlert()
+      return
+    }
+  } catch (err) {
+    console.error('Repair quote submission failed:', err)
+    showFailureAlert()
+    return
+  }
 
   console.log('Form submitted:', payload)
 

@@ -21,13 +21,13 @@
 
         <!-- Just Calculator -->
         <!-- Cant send the alert ref down but we can send a funciton that changes the alert ref of the parent -->
-        <QuoteGenerator v-model="quote" :Alert="(message) => alertRef?.trigger(message)"/>
+        <QuoteGenerator v-model="quote" :Alert="(...args) => alertRef?.trigger(...args)"/>
 
         <!-- Selected services summary -->
         <ServiceSummary :quote="quote"/>
 
         <!-- Contact form information -->
-		 <SubmitQuoteTelegram :quote="quote" :Alert="(message) => alertRef?.trigger(message)"/>
+		 <SubmitQuoteTelegram :quote="quote" :Alert="(...args) => alertRef?.trigger(...args)"/>
 
       </div>
 
