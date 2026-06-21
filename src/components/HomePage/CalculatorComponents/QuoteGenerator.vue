@@ -14,7 +14,7 @@
     </div>
 
     <!-- SERVICES -->
-    <Service v-model:quote="quote" v-model:progress="progress" :Alert=Alert  />
+    <Service v-model:quote="quote" v-model:progress="progress" :Alert="Alert"  />
 
     <!-- PRICE DISPLAY-->
     <PriceDisplay v-model="quote" />

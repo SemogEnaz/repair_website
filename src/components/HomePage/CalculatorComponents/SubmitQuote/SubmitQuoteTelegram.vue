@@ -29,6 +29,8 @@ async function handleSubmit() {
     return
   }
 
+  console.log(quote.price);
+
   // Ready to connect to backend later
   const payload = {
     model: quote.model,

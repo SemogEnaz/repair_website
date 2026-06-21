@@ -36,8 +36,16 @@ const toggleService = (index) => {
     Alert('Please select an iPhone model first!')
     return
   }
-  quote.value.selectedServices[index] = !quote.value.selectedServices[index]
-  progress.value += 1;
+
+  const updatedServices = [...quote.value.selectedServices]
+  updatedServices[index] = !updatedServices[index]
+
+  quote.value = {
+    ...quote.value,
+    selectedServices: updatedServices
+  }
+
+  progress.value += 1
 }
 
 </script>

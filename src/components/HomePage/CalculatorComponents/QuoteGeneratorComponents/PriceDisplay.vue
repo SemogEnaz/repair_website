@@ -158,6 +158,14 @@ const finalPrice = computed(() => calculatePrice())
 watch(finalPrice, (newPrice, oldPrice) => {
   const start = oldPrice || 0
   const end = newPrice || 0
+
+  if (quote.value.price !== end) {
+    quote.value = {
+      ...quote.value,
+      price: end
+    }
+  }
+
   const duration = 450
   const startTime = performance.now()
 
