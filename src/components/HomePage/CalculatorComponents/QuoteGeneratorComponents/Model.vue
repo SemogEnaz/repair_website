@@ -30,7 +30,7 @@ import { ref } from 'vue';
 const model = defineModel('model');
 const progress = defineModel('progress');
 
-const modelNumbers = [11, 12, 13, 14];
+const modelNumbers = [11, 12, 13, 14, 15];
 
 const modelVariants = [
 	'Mini',
@@ -43,7 +43,8 @@ const modelVariantMasks = [
 	0b0011,
 	0b1011,
 	0b1011,
-	0b1111,
+	0b0111,
+	0b0111,
 ];
 
 const phones = [];
