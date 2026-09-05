@@ -1,8 +1,32 @@
 const { onRequest } = require("firebase-functions/v2/https");
+const { validatePhoneNumber } = require("./phoneValidation");
 require("dotenv").config();
 
 const botToken = process.env.BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
+const allowedModels = new Set([
+  "11",
+  "11 Pro",
+  "11 Pro Max",
+  "12",
+  "12 Mini",
+  "12 Pro",
+  "12 Pro Max",
+  "13",
+  "13 Mini",
+  "13 Pro",
+  "13 Pro Max",
+  "14",
+  "14 Plus",
+  "14 Pro",
+  "14 Pro Max",
+  "15",
+  "15 Plus",
+  "15 Pro",
+  "15 Pro Max",
+]);
+const allowedServices = new Set(["screen", "battery", "back glass", "charge port"]);
+const maxRepairPrice = 3000;
 
 // checks origin location as middle ware
 const allowedOrigins = [
@@ -73,7 +97,7 @@ async function sendMessage(message) {
   try {
     responseBody = JSON.parse(responseText);
   } catch {
-    responseBody = null;
+    // Telegram can return non-JSON text on upstream errors.
   }
 
   if (!response.ok || responseBody?.ok === false) {
@@ -81,15 +105,46 @@ async function sendMessage(message) {
   }
 }
 
+function normalizeQuoteText(value) {
+  return String(value ?? "").trim().replace(/\s+/g, " ");
+}
+
+function validateSelectedServices(services) {
+  if (!Array.isArray(services)) return null;
+
+  const normalizedServices = [
+    ...new Set(services.map((service) => normalizeQuoteText(service).toLowerCase())),
+  ];
+
+  if (!normalizedServices.length) return null;
+
+  return normalizedServices.every((service) => allowedServices.has(service))
+    ? normalizedServices
+    : null;
+}
+
+function normalizeRepairPrice(price) {
+  const normalizedPrice = Number(price);
+
+  if (!Number.isFinite(normalizedPrice) || normalizedPrice < 0) return 0;
+
+  return Math.min(normalizedPrice, maxRepairPrice);
+}
+
 exports.sendRepairRequest = onRequest({ cors: true }, withRequestSecurity(async (req, res) => {
   try {
 
     let { model, services, phone, price } = req.body || {};
-	price = Number(price) || 0;
+    model = normalizeQuoteText(model);
+    services = validateSelectedServices(services);
+    price = normalizeRepairPrice(price);
+    const phoneValidation = validatePhoneNumber(phone);
 
     // Basic validation & early returns
-    if (!model || !Array.isArray(services) || services.length === 0) return res.status(400).json({ success: false, error: "Invalid request" });
-    if (!phone) return res.status(400).json({ success: false, error: "Contact required" });
+    if (!allowedModels.has(model) || !services) return res.status(400).json({ success: false, error: "Invalid quote details. Please refresh and try again." });
+    if (!phoneValidation.isValid) return res.status(400).json({ success: false, error: phoneValidation.message });
+
+    phone = phoneValidation.phone;
 
     const message = `\
 🔧 New Repair Request

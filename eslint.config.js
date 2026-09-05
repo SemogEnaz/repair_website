@@ -22,6 +22,18 @@ export default defineConfig([
   },  
 
   js.configs.recommended,
+
+  {
+    name: 'functions/node-files',
+    files: ['functions/**/*.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+
   ...pluginVue.configs['flat/essential'],
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
