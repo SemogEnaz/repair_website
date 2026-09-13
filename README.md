@@ -1,5 +1,23 @@
 # repair_website
 
+## SEO build and deployment
+
+Run `npm run build` and publish `dist`. This renders the public Vue routes to HTML,
+generates their metadata and sitemap, and includes the interactive client app.
+Do not deploy with `vite build` directly: that skips the SEO build step.
+
+Run `npm run build:test` to build and check the generated pages. `npm run preview`
+opens the production build locally. Hosting must serve each page's own HTML and
+return HTTP 404 for unknown URLs, rather than rewrite every URL to the homepage.
+
+Business details live in `src/data/business.js`, repair content in
+`src/data/services.js`, and page metadata in `src/utils/seo.js`. Add new indexable
+routes to the shared page list so they are rendered and included in the sitemap.
+The visible price table uses the existing calculator pricing logic.
+
+See [the September 2026 SEO audit and marketing plan](docs/seo-and-marketing-plan.md)
+for profile copy, tools, the AUD $20–$50 budget plan and deployment instructions.
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
