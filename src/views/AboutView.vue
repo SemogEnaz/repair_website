@@ -32,8 +32,40 @@
         <p class="tech-muted">If something does not feel right after the repair, we will help make it right.</p>
       </article>
     </section>
+
+    <section id="location" class="tech-panel location-panel" aria-labelledby="location-heading">
+      <div class="location-details">
+        <div>
+          <p class="tech-eyebrow">Visit us</p>
+          <h2 id="location-heading" class="text-2xl font-bold">Find us in Clayton</h2>
+          <address class="tech-muted mt-2 not-italic">
+            2 Greenfield Drive, Clayton VIC 3168, Australia
+          </address>
+          <p class="tech-soft mt-2 text-sm">Message us to confirm your repair time before you visit.</p>
+        </div>
+        <a
+          class="tech-button directions-link"
+          href="https://www.google.com/maps/dir/?api=1&destination=2%20Greenfield%20Drive%2C%20Clayton%20VIC%203168%2C%20Australia&destination_place_id=ChIJRSS_sNdq1moRF7d4ZJJ736g"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Get directions
+        </a>
+      </div>
+      <iframe
+        class="location-map"
+        :src="locatorUrl"
+        title="Map showing iPhone Repair Clayton at 2 Greenfield Drive"
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+    </section>
   </main>
 </template>
+
+<script setup>
+const locatorUrl = `${import.meta.env.BASE_URL}store-locator.html`
+</script>
 
 <style scoped>
 .page-shell {
@@ -64,5 +96,47 @@ h3 {
   display: grid;
   gap: 14px;
   margin-top: 20px;
+}
+
+.location-panel {
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.location-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 24px;
+}
+
+.directions-link {
+  padding: 12px 20px;
+}
+
+.directions-link:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 4px;
+}
+
+.location-map {
+  display: block;
+  width: 100%;
+  height: 440px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: #0f172a;
+}
+
+@media (max-width: 639px) {
+  .directions-link {
+    width: 100%;
+  }
+
+  .location-map {
+    height: 480px;
+  }
 }
 </style>
