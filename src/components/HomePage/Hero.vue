@@ -5,11 +5,11 @@
     <!-- Heading -->
     <p class="tech-eyebrow">Fast local repairs</p>
     <h1 class="mt-2 text-3xl sm:text-4xl font-bold leading-tight tracking-tight">Fast iPhone Repairs in Clayton</h1>
-    <h2 class="text-2xl sm:text-4xl font-bold text-blue-300 mt-1">Done in 30 Minutes*</h2>
-    <p class="tech-soft mt-0 text-xs">*Back glass replacements take ~2 hours or 20 minutes, depending on availability.</p>
+    <p class="text-2xl sm:text-3xl font-bold text-blue-300 mt-1">Screen &amp; battery repairs in around 30 minutes*</p>
+    <p class="tech-soft mt-2 text-xs">*Timing depends on the repair and parts availability. Back glass repairs can take around two hours. Confirm your appointment before visiting.</p>
 
     <!-- Description -->
-    <p class="tech-muted pt-4 text-sm sm:text-base max-w-xl mx-auto">Screens, batteries, and more. Same-day service.</p>
+    <p class="tech-muted pt-4 text-sm sm:text-base max-w-xl mx-auto">Screen replacement, battery replacement, back glass and charging port repairs at 2 Greenfield Drive, Clayton. Check an estimate and book a repair.</p>
 
     <!-- Buttons -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md mx-auto">
@@ -20,7 +20,7 @@
     <!-- Trust -->
     <div class="tech-soft mt-6 text-xs sm:text-sm flex flex-wrap justify-center items-center sm:gap-x-4 gap-x-2 gap-y-2">
       <Dot message="Same-day repairs" />
-      <Dot message="No data loss" />
+      <Dot message="Clear repair estimates" />
       <Dot message="Warranty included" />
     </div>
 

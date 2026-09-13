@@ -10,6 +10,7 @@
           id="quote-phone"
           v-model="phone"
           type="tel"
+          aria-label="Your phone number"
           inputmode="tel"
           autocomplete="tel"
           maxlength="32"
@@ -40,6 +41,7 @@
 <script setup lang="js">
 import { ref } from 'vue';
 import { sanitizePhoneInput, validatePhoneNumber } from '@/utils/phoneValidation.js';
+import { trackQuoteSuccess } from '@/utils/analytics.js';
 
 const { quote, Alert } = defineProps(['quote', 'Alert']);
 
@@ -140,7 +142,7 @@ async function handleSubmit() {
     return
   }
 
-  console.log('Form submitted:', payload)
+  trackQuoteSuccess()
 
   Alert("Thanks! I'll message you shortly to confirm details and arrange a time.")
 };

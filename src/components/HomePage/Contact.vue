@@ -10,47 +10,23 @@
 
         <!-- Top row (stack on mobile, side-by-side on desktop) -->
         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-2/3">
-          <button class="tech-button whatsapp-btn w-full" @click="openWhatsApp">💬 WhatsApp</button>
-          <button class="tech-button messenger-btn w-full" @click="openMessenger">💬 Messenger</button>
+          <a :href="business.whatsapp" target="_blank" rel="noopener noreferrer" class="tech-button whatsapp-btn w-full px-5 py-3" @click="trackContact('whatsapp')">💬 WhatsApp</a>
+          <a :href="business.facebook" target="_blank" rel="noopener noreferrer" class="tech-button messenger-btn w-full px-5 py-3" @click="trackContact('facebook')">💬 Facebook</a>
         </div>
 
         <!-- Full width action -->
-        <button class="tech-button secondary w-full sm:w-2/3" @click="copyPhoneNumber">📞 Copy Phone Number</button>
+        <a :href="`tel:${business.phone}`" class="tech-button secondary w-full sm:w-2/3 px-5 py-3" @click="trackContact('phone')">📞 Call {{ business.displayPhone }}</a>
 
       </div>
 
     </section>
 
-    <Alert ref="alertRef" />
 
 </template>
 
 <script setup>
-import Alert from '../Alert.vue';
-import { ref } from 'vue';
-
-const alertRef = ref(null);
-
-function copyPhoneNumber() {
-  const phoneNumber = "0411969004"
-  navigator.clipboard.writeText(phoneNumber)
-
-  alertRef.value.trigger("Phone number copied to clipboard!");
-}
-
-const openWhatsApp = () => {
-  const phone = "61431933409"; // your number (no +, no spaces)
-  const message = encodeURIComponent(
-    "Hi, I'd like to enquire about an iPhone repair."
-  );
-
-  const url = `https://wa.me/${phone}?text=${message}`;
-  window.open(url, "_blank");
-};
-
-const openMessenger = () => {
-  window.open('https://www.facebook.com/iphonerepairclayton', '_blank');
-};
+import { business } from '@/data/business.js';
+import { trackContact } from '@/utils/analytics.js';
 </script>
 
 <style scoped>

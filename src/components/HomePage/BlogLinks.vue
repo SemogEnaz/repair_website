@@ -1,6 +1,6 @@
 <template>
 	<section class="tech-panel my-6! flex flex-col px-4 py-8 gap-3 text-center">
-	<h2 class="text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Our Blogs</h2>
+	<h2 class="text-2xl sm:text-4xl font-bold leading-tight tracking-tight">iPhone repair advice</h2>
 
       <div class="flex flex-col items-center gap-3 w-full">
 
@@ -17,6 +17,6 @@
 
 <script setup>
 const blogs = [
-	['Battery Health', '/battery']
+	['Understanding iPhone battery health', '/battery']
 ]
 </script>

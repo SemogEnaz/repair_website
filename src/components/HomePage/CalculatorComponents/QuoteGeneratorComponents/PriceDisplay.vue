@@ -61,6 +61,11 @@ watch(finalPrice, (newPrice, oldPrice) => {
     }
   }
 
+  if (import.meta.env.SSR) {
+    animatedPrice.value = end
+    return
+  }
+
   const duration = 450
   const startTime = performance.now()
 

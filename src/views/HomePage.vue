@@ -1,13 +1,15 @@
 <template>
 
-  <div class="container">
+  <main id="main-content" class="container">
 
     <Hero/>
     <Contact/>
     <Calculator/>
+    <RepairServices />
+    <BusinessDetails />
 	<BlogLinks />
 
-  </div>
+  </main>
 
 </template>
 
@@ -16,6 +18,8 @@ import Hero from '@/components/HomePage/Hero.vue';
 import Contact from '@/components/HomePage/Contact.vue';
 import Calculator from '@/components/HomePage/Calculator.vue';
 import BlogLinks from '@/components/HomePage/BlogLinks.vue';
+import RepairServices from '@/components/HomePage/RepairServices.vue';
+import BusinessDetails from '@/components/BusinessDetails.vue';
 </script>
 
 <style scoped>

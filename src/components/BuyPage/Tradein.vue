@@ -8,7 +8,7 @@
       <p class="tech-muted">Trade-ins accepted (iPhone only)</p>
       <p class="tech-muted">Send model + memory capacity + condition for a quick quote. eg:</p>
       <p class="tech-muted">iPhone XS 64GB, crack on screen only.</p>
-      <p class="tech-soft mt-0 text-xs">Damaged iphones are accepted. Please mention that you would like to trand-in when you contact us</p>
+      <p class="tech-soft mt-0 text-xs">Damaged iphones are accepted. Please mention that you would like to trade in when you contact us</p>
     </div>
 
   </section>

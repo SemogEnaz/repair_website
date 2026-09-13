@@ -1,8 +1,8 @@
 <template>
-  <main class="page-shell">
+  <main id="main-content" class="page-shell">
     <section class="tech-panel hero hero-panel !py-8">
       <p class="tech-eyebrow">About the service</p>
-      <h2 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Apple-style care, local repair speed</h2>
+      <h1 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">About iPhone Repair Clayton</h1>
       <p class="tech-muted mt-4">
         We focus on practical iPhone repairs with clear quotes, tidy workmanship, and fast turnaround for Clayton locals.
       </p>
@@ -13,7 +13,7 @@
         <p class="tech-eyebrow">Parts</p>
         <h3>Quality-first repairs</h3>
         <p class="tech-muted">Every repair is handled carefully with parts selected for reliable everyday use.</p>
-        <br><p class="tech-muted">We source our parts from Crazy Parts, so all our repairs come with a garuntee of quality as well as a warranty of 12 months if you should face any post purchase issues</p>
+        <br><p class="tech-muted">We source our parts from Crazy Parts, so all our repairs come with a guarantee of quality as well as a warranty of 12 months if you should face any post purchase issues</p>
         <br><p class="tech-muted">You can have a look at their website here:
           <a href="https://www.crazyparts.com.au/" target="_blank" rel="noopener noreferrer" class="!font-bold !text-blue-300 !hover:text-blue-200"> Crazy Parts</a>
         </p>
@@ -23,7 +23,7 @@
         <p class="tech-eyebrow">Process</p>
         <h3>Simple, transparent, quick</h3>
         <p class="tech-muted">You get the estimate first, then a clear repair window before any work begins.</p>
-        <p class="tech-muted">We take great pride and exceptional care in handeling your device. It will be throughly cleaned and sealed once work is complete.</p>
+        <p class="tech-muted">We take great pride and exceptional care in handling your device. It will be thoroughly cleaned and sealed once work is complete.</p>
       </article>
 
       <article class="tech-card card">
@@ -41,11 +41,11 @@
           <address class="tech-muted mt-2 not-italic">
             2 Greenfield Drive, Clayton VIC 3168, Australia
           </address>
-          <p class="tech-soft mt-2 text-sm">Message us to confirm your repair time before you visit.</p>
+          <p class="tech-soft mt-2 text-sm">{{ business.visitNote }}</p>
         </div>
         <a
           class="tech-button directions-link"
-          href="https://www.google.com/maps/dir/?api=1&destination=2%20Greenfield%20Drive%2C%20Clayton%20VIC%203168%2C%20Australia&destination_place_id=ChIJRSS_sNdq1moRF7d4ZJJ736g"
+          :href="business.directions"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -64,6 +64,7 @@
 </template>
 
 <script setup>
+import { business } from '@/data/business.js'
 const locatorUrl = `${import.meta.env.BASE_URL}store-locator.html`
 </script>
 

@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  z-index: 100;
+  transform: translateY(-150%);
+  padding: 12px 20px;
+  background: #1e40af;
+  color: white;
+}
+.skip-link:focus { transform: translateY(0); }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 4px;
+}
+
 :root {
   color-scheme: dark;
   font-family:

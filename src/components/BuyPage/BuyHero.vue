@@ -2,12 +2,13 @@
   <section class="tech-panel hero-panel text-center px-4 py-8 sm:p-10 m-5">
 
     <p class="tech-eyebrow">Buy The Perfect Second hand iPhone</p>
-    <h2 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Browse Refurbished iPhones</h2>
+    <h1 class="mt-2 text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Second-hand iPhones in Clayton</h1>
 
     <div class="mt-8 flex justify-center">
       <a
         href="https://www.facebook.com/marketplace/profile/100077201046828/"
         target="_blank"
+        rel="noopener noreferrer"
         class="tech-button px-5 py-3"
       >
         View Marketplace Listings

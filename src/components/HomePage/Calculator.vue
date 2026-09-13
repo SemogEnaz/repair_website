@@ -2,9 +2,10 @@
   <section id="quote" class="tech-panel calculator flex flex-col items-center gap-3 px-4 py-8 sm:p-10">
 
     <p class="tech-eyebrow">Instant estimate</p>
-    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-center">
       Calculate Repair Price Estimate
-    </h1>
+    </h2>
+    <noscript><p class="tech-muted">Enable JavaScript to calculate an estimate, or <a href="tel:+61411969004" class="underline">call 0411 969 004</a> for a quote.</p></noscript>
 
     <!-- Column Titles (desktop only) -->
     <div class="tech-card hidden sm:flex w-full gap-4 justify-evenly p-4 text-sm">

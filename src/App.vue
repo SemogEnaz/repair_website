@@ -1,19 +1,20 @@
 <template>
   <div class="flex flex-col pb-20 sm:pb-0">
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <header class="px-3 pt-4 pb-2 sm:px-5">
       <div class="relative tech-panel app-header px-4 py-8 sm:p-6 flex flex-col items-center gap-3">
 
         <!-- Title -->
-        <p class="tech-eyebrow">On-site iPhone repair</p>
-        <h1 class="text-3xl sm:text-5xl font-bold text-center leading-tight tracking-tight">
-          iPhone Repair Clayton
-        </h1>
+        <p class="tech-eyebrow">iPhone repairs by appointment</p>
+        <RouterLink to="/" class="text-3xl sm:text-5xl font-bold text-center leading-tight tracking-tight">
+          {{ business.name }}
+        </RouterLink>
 
         <div class="flex flex-col gap-0 sm:mb-2">
           <!-- Address & Phone Number -->
           <div class="flex flex-row gap-3">
-            <p class="tech-muted cursor-pointer text-xs sm:text-base text-center hover:text-blue-300 transition" @click="copyAddress">2 Greenfield Drive, Clayton, Victoria</p>
-            <p class="tech-muted cursor-pointer text-xs sm:text-base text-center hover:text-blue-300 transition" @click="copyPhoneNumber">0411 969 004</p>
+            <a :href="business.directions" target="_blank" rel="noopener noreferrer" class="tech-muted text-xs sm:text-base text-center hover:text-blue-300 transition" @click="trackContact('directions')">2 Greenfield Drive, Clayton VIC 3168</a>
+            <a :href="`tel:${business.phone}`" class="tech-muted text-xs sm:text-base text-center hover:text-blue-300 transition" @click="trackContact('phone')">{{ business.displayPhone }}</a>
           </div>
         </div>
 
@@ -26,7 +27,18 @@
       </div>
     </header>
 
+    <Breadcrumbs />
     <RouterView />
+    <footer class="mx-5 mb-6 p-5 border-t border-slate-700 text-sm tech-soft">
+      <p class="font-bold">{{ business.name }}</p>
+      <p class="mt-2">{{ business.hours }} · By appointment</p>
+      <nav class="flex flex-wrap gap-x-5 gap-y-3 mt-4" aria-label="Footer">
+        <RouterLink to="/repair-prices" class="underline">Repair prices</RouterLink>
+        <RouterLink to="/contact" class="underline">Contact &amp; directions</RouterLink>
+        <RouterLink to="/about" class="underline">About &amp; warranty</RouterLink>
+        <a :href="business.googleProfile" target="_blank" rel="noopener noreferrer" class="underline">Google reviews</a>
+      </nav>
+    </footer>
 
       <!-- Mobile bottom nav -->
       <div class="sm:hidden fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md border-t border-slate-700 z-50">
@@ -40,34 +52,21 @@
 
     </div>
 
-  <Alert ref="alertRef"/>
 
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-import { ref } from 'vue';
-import Alert from './components/Alert.vue';
-
-const alertRef = ref(null);
+import Breadcrumbs from './components/Breadcrumbs.vue';
+import { business } from './data/business.js';
+import { trackContact } from './utils/analytics.js';
 
 const pages = [
   ['/', 'Home', '🛠️'],
+  ['/repair-prices', 'Prices', '💲'],
+  ['/contact', 'Contact', '📞'],
   ['/buy', 'Buy', '📱'],
-  ['/about', 'About', 'ℹ️'],
 ];
-
-function copyAddress() {
-  const address = "2 Greenfield Drive, Clayton, Victoria"
-  navigator.clipboard.writeText(address)
-  alertRef.value.trigger("Address copied to clipboard!");
-}
-
-function copyPhoneNumber() {
-  const phoneNumber = "0411969004"
-  navigator.clipboard.writeText(phoneNumber)
-  alertRef.value.trigger("Phone number copied to clipboard!")
-}
 
 </script>
 

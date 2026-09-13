@@ -1,6 +1,8 @@
 <template>
+  <main id="main-content">
   <BuyHero />
   <Tradein />
+  </main>
 </template>
 
 <script setup lang="js">

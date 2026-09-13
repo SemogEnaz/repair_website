@@ -1,12 +1,14 @@
 export async function loadClarity() {
 
 	// Do not run in development mode
-	if (!import.meta.env.PROD) return false;
+	if (!import.meta.env.PROD || window.location.hostname !== 'iphonerepairclayton.com') return false;
 
 	// Do not load for admin/testing users
 	// Run this on the recorded sites console:
 	// localStorage.setItem('admin-mode', 'true')
-	if (localStorage.getItem('admin-mode') === 'true') {
+	let adminMode
+	try { adminMode = localStorage.getItem('admin-mode') === 'true' } catch { return false }
+	if (adminMode) {
 		console.log('Clarity disabled for admin')
 		return false;
 	}

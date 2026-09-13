@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"vite\" \"firebase emulators:start --only functions\"",
-    "build": "vite build",
-    "build:test": "npm run build > /dev/null 2>&1 && echo \"Build passed\" || echo \"Build failed\"",
+    "build": "node scripts/build.js",
+    "build:test": "npm run build && node --test scripts/seo.test.js",
+    "test:seo": "node --test scripts/seo.test.js",
     "preview": "vite preview",
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",

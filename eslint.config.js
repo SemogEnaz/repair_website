@@ -24,6 +24,11 @@ export default defineConfig([
   js.configs.recommended,
 
   {
+    files: ['scripts/**/*.js'],
+    languageOptions: { globals: globals.node },
+  },
+
+  {
     name: 'functions/node-files',
     files: ['functions/**/*.js'],
     languageOptions: {
