@@ -25,7 +25,7 @@ const allowedModels = new Set([
   "15 Pro",
   "15 Pro Max",
 ]);
-const allowedServices = new Set(["screen", "battery", "back glass", "charge port"]);
+const allowedServices = new Set(["screen", "battery", "back glass", "housing", "charge port"]);
 const maxRepairPrice = 3000;
 
 // checks origin location as middle ware

@@ -2,6 +2,7 @@ export const REPAIR_SERVICE = Object.freeze({
   SCREEN: 'screen',
   BATTERY: 'battery',
   BACK_GLASS: 'back glass',
+  HOUSING: 'housing',
   CHARGE_PORT: 'charge port',
 })
 
@@ -15,28 +16,39 @@ const DEFAULT_REPAIR_PRICES = Object.freeze({
     [PRICE_QUALITY.BUDGET]: 80,
     [PRICE_QUALITY.PREMIUM]: 120,
   }),
-  [REPAIR_SERVICE.BATTERY]: 80,
-  [REPAIR_SERVICE.BACK_GLASS]: 150,
+  [REPAIR_SERVICE.BATTERY]: Object.freeze({
+    [PRICE_QUALITY.BUDGET]: 80,
+    [PRICE_QUALITY.PREMIUM]: 100,
+  }),
+  [REPAIR_SERVICE.BACK_GLASS]: Object.freeze({
+    [PRICE_QUALITY.BUDGET]: 70,
+    [PRICE_QUALITY.PREMIUM]: 90,
+  }),
+  [REPAIR_SERVICE.HOUSING]: 150,
   [REPAIR_SERVICE.CHARGE_PORT]: 120,
 })
 
-// Add future model-specific prices here using normalizeModelName(model) as the key.
-// Example: '15promax': { [REPAIR_SERVICE.SCREEN]: { premium: 180 } }
-const MODEL_PRICE_OVERRIDES = Object.freeze({})
+const BACK_GLASS_MODELS = new Set(['14', '14plus', '15', '15plus', '15pro', '15promax'])
+
+const MODEL_PRICE_OVERRIDES = Object.freeze(
+  Object.fromEntries(
+    [...BACK_GLASS_MODELS].map((model) => [model, { [REPAIR_SERVICE.HOUSING]: 120 }]),
+  ),
+)
 
 const BUNDLE_DISCOUNTS = Object.freeze([
   {
-    services: [REPAIR_SERVICE.SCREEN, REPAIR_SERVICE.BACK_GLASS],
+    services: [REPAIR_SERVICE.SCREEN, REPAIR_SERVICE.HOUSING],
     amount: 20,
   },
   {
-    services: [REPAIR_SERVICE.BACK_GLASS, REPAIR_SERVICE.CHARGE_PORT],
+    services: [REPAIR_SERVICE.HOUSING, REPAIR_SERVICE.CHARGE_PORT],
     amount: 70,
   },
   {
     services: [
       REPAIR_SERVICE.SCREEN,
-      REPAIR_SERVICE.BACK_GLASS,
+      REPAIR_SERVICE.HOUSING,
       REPAIR_SERVICE.BATTERY,
     ],
     amount: 30,
@@ -56,6 +68,12 @@ export function normalizeModelName(value) {
     .toLowerCase()
     .replace(/^iphone\s*/, '')
     .replace(/[^a-z0-9]+/g, '')
+}
+
+export function getAvailableRepairServices(model) {
+  return Object.values(REPAIR_SERVICE).filter(
+    (service) => service !== REPAIR_SERVICE.BACK_GLASS || BACK_GLASS_MODELS.has(normalizeModelName(model)),
+  )
 }
 
 export function calculateRepairPrice(quote) {
@@ -82,9 +100,16 @@ function getSelectedServices(quote) {
     return []
   }
 
-  return quote.services
+  const availableServices = new Set(getAvailableRepairServices(quote.model))
+  const selected = quote.services
     .filter((_, index) => quote.selectedServices[index])
     .map(normalizeServiceName)
+    .filter((service) => availableServices.has(service))
+
+  // A full housing replacement takes precedence over a glass-only repair.
+  return [...new Set(selected)].filter(
+    (service) => service !== REPAIR_SERVICE.BACK_GLASS || !selected.includes(REPAIR_SERVICE.HOUSING),
+  )
 }
 
 function normalizeServiceName(value) {

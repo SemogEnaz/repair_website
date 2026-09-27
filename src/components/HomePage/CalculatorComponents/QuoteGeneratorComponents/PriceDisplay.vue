@@ -16,6 +16,7 @@ const timeEstimates = {
   'screen': 30,
   'battery': 30,
   'back glass': 120,
+  'housing': 120,
   'charge port': 40
 }
 

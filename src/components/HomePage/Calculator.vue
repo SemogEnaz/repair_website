@@ -47,7 +47,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { getAvailableRepairServices } from '@/utils/pricing'
 import Alert from '../Alert.vue'
 import ServiceSummary from './CalculatorComponents/ServiceSummary.vue';
 import QuoteGenerator from './CalculatorComponents/QuoteGenerator.vue';
@@ -58,7 +59,7 @@ import SubmitQuoteTelegram from './CalculatorComponents/SubmitQuote/SubmitQuoteT
 
 const alertRef = ref(null);
 
-const services = ['screen', 'battery', 'back glass', 'charge port']
+const services = getAvailableRepairServices('')
 
 const quote = ref({
   model: '',
@@ -68,6 +69,18 @@ const quote = ref({
   price: 0,
   time: '',
 });
+
+watch(() => quote.value.model, (model) => {
+  const selected = new Set(
+    quote.value.services.filter((_, index) => quote.value.selectedServices[index]),
+  )
+  const services = getAvailableRepairServices(model)
+  quote.value = {
+    ...quote.value,
+    services,
+    selectedServices: services.map((service) => selected.has(service)),
+  }
+}, { flush: 'sync' });
 
 </script>
 

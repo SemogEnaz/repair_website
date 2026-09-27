@@ -18,6 +18,7 @@
 
 <script setup lang="js">
 import { computed } from 'vue';
+import { REPAIR_SERVICE } from '@/utils/pricing';
 const quote = defineModel('quote');
 const progress = defineModel('progress')
 const { Alert } = defineProps(['Alert']);
@@ -39,6 +40,13 @@ const toggleService = (index) => {
 
   const updatedServices = [...quote.value.selectedServices]
   updatedServices[index] = !updatedServices[index]
+
+  const service = quote.value.services[index]
+  if (updatedServices[index] && [REPAIR_SERVICE.BACK_GLASS, REPAIR_SERVICE.HOUSING].includes(service)) {
+    const otherService = service === REPAIR_SERVICE.HOUSING ? REPAIR_SERVICE.BACK_GLASS : REPAIR_SERVICE.HOUSING
+    const otherIndex = quote.value.services.indexOf(otherService)
+    if (otherIndex !== -1) updatedServices[otherIndex] = false
+  }
 
   quote.value = {
     ...quote.value,

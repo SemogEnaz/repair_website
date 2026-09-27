@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test:pricing": "node --test scripts/pricing.test.js",
     "dev": "concurrently \"vite\" \"firebase emulators:start --only functions\"",
     "build": "node scripts/build.js",
     "build:test": "npm run build && node --test scripts/seo.test.js",
