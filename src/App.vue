@@ -43,10 +43,6 @@
       <!-- Mobile bottom nav -->
       <div class="bottom-bar fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-md border-t border-slate-700 z-50">
 
-        <div v-if="isHome" class="quote-dock">
-          <RouterLink to="/#quote" class="tech-button w-full px-5 py-3">Get Instant Quote</RouterLink>
-        </div>
-
         <nav aria-label="Mobile navigation" class="mobile-nav sm:hidden flex justify-around items-center pt-2">
           <RouterLink v-for="page in pages" :key="page[0]" :to="page[0]" class="nav-item text-4xl" active-class="nav-active">
             {{ page[2] }}<span class="text-base">{{ page[1] }}</span></RouterLink>
@@ -118,19 +114,9 @@ header {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.quote-dock {
-  max-width: 800px;
-  margin-inline: auto;
-  padding: 12px 20px;
-}
-
 @media (max-width: 639px) {
   .app-shell {
     padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .app-shell--home {
-    padding-bottom: calc(164px + env(safe-area-inset-bottom, 0px));
   }
 
   .app-shell--home .app-header {
@@ -141,20 +127,6 @@ header {
     display: block;
   }
 
-  .app-shell--home .mobile-nav {
-    padding-top: 0;
-  }
-}
-
-/* Keep the action visible in landscape phones and short desktop windows too. */
-@media (min-width: 640px) and (max-height: 700px) {
-  .app-shell--home {
-    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .app-shell--home .bottom-bar {
-    display: block;
-  }
 }
 
 .nav-item {

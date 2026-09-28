@@ -9,9 +9,9 @@
     <p class="tech-muted mt-3 text-base max-w-md mx-auto">Screen, battery, back glass &amp; charging port repairs. By appointment.</p>
 
     <!-- Buttons -->
-    <div class="mt-5 flex items-center justify-center gap-3 w-full max-w-md mx-auto">
-      <RouterLink to="/#quote" class="tech-button hero-quote w-full sm:flex-1 px-5 py-3">Get Instant Quote</RouterLink>
-      <RouterLink to="/#contactLinks" class="tech-button secondary w-full sm:flex-1 px-5 py-3">Message Now</RouterLink>
+    <div class="mt-5 flex flex-col items-center justify-center gap-3 w-full max-w-md mx-auto">
+      <RouterLink to="/#quote" class="tech-button w-full px-5 py-3">Get Instant Quote</RouterLink>
+      <RouterLink to="/#contactLinks" class="tech-button secondary w-full px-5 py-3">Message Now</RouterLink>
     </div>
 
     <!-- Trust -->
@@ -48,10 +48,4 @@ import Dot from '../Dot.vue';
   z-index: 1;
 }
 
-/* The same action lives above the bottom navigation on small/short screens. */
-@media (max-width: 639px), (max-height: 700px) {
-  .hero-quote {
-    display: none;
-  }
-}
 </style>
