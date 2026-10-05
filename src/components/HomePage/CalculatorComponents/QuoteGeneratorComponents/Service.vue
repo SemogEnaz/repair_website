@@ -14,8 +14,8 @@
     >
       <span class="service-label">
         {{ option.label }}
-        <span v-if="option.value === REPAIR_SERVICE.SCREEN" class="screen-technology">
-          ({{ quote.isPremium ? 'OLED' : 'LCD' }})
+        <span v-if="option.value === REPAIR_SERVICE.SCREEN && quote.isPremium" class="screen-technology">
+          (OLED)
         </span>
       </span>
     </button>
