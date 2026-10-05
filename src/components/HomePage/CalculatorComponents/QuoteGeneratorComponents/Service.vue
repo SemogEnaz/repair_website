@@ -12,13 +12,19 @@
 		progress == 1 ? 'needs-attention' : ''
       ]"
     >
-      {{ option.label }}
+      <span class="service-label">
+        {{ option.label }}
+        <span v-if="option.value === REPAIR_SERVICE.SCREEN" class="screen-technology">
+          ({{ quote.isPremium ? 'OLED' : 'LCD' }})
+        </span>
+      </span>
     </button>
   </div>
 </template>
 
 <script setup lang="js">
 import { computed } from 'vue';
+import { REPAIR_SERVICE } from '@/utils/pricing';
 const quote = defineModel('quote');
 const progress = defineModel('progress')
 const { Alert } = defineProps(['Alert']);
@@ -52,6 +58,23 @@ const toggleService = (index) => {
 </script>
 
 <style lang="css" scoped>
+.service-label {
+  position: relative;
+  display: inline-block;
+}
+
+.screen-technology {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(calc(-50% + 2px));
+  margin-left: 0.35rem;
+  font-size: 0.75em;
+  font-weight: 400;
+  opacity: 0.65;
+  white-space: nowrap;
+}
+
 .selector-button,
 .service-button {
   border: 1px solid rgba(148, 163, 184, 0.16);
