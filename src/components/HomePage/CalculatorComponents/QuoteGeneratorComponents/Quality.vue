@@ -13,6 +13,9 @@
 				</transition>
 			</div>
         </div>
+        <p class="tech-muted mt-2 max-w-48 text-center text-xs leading-relaxed">
+          Genuine screens &amp; batteries available. Contact for a quote.
+        </p>
     </div>
 </template>
 

@@ -38,6 +38,10 @@ const MODEL_PRICE_OVERRIDES = Object.freeze(
 
 const BUNDLE_DISCOUNTS = Object.freeze([
   {
+    services: [REPAIR_SERVICE.BACK_GLASS, REPAIR_SERVICE.HOUSING],
+    amount: 10,
+  },
+  {
     services: [REPAIR_SERVICE.SCREEN, REPAIR_SERVICE.HOUSING],
     amount: 20,
   },

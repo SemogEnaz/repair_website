@@ -55,12 +55,22 @@ test('existing housing bundle discounts and premium price floor are preserved', 
   assert.equal(price('15', ['back glass', 'charge port']), 190)
 })
 
-test('back glass and housing can be quoted together wherever both are available', () => {
+test('back glass and housing cost $180 budget or $200 premium wherever both are available', () => {
   for (const model of backGlassModels) {
-    assert.equal(price(model, ['back glass', 'housing']), 190, model)
-    assert.equal(price(model, ['back glass', 'housing'], true), 210, model)
-    assert.equal(price(model, ['screen', 'back glass', 'housing']), 250, model)
-    assert.equal(price(model, ['housing', 'back glass', 'charge port']), 240, model)
+    assert.equal(price(model, ['back glass', 'housing']), 180, model)
+    assert.equal(price(model, ['back glass', 'housing'], true), 200, model)
+    assert.equal(price(model, ['screen', 'back glass', 'housing']), 240, model)
+    assert.equal(price(model, ['housing', 'back glass', 'charge port']), 230, model)
+    for (const isPremium of [false, true]) {
+      for (const service of ['back glass', 'housing']) {
+        assert.equal(calculateRepairPrice({
+          model,
+          services: ['back glass', 'housing'],
+          selectedServices: ['back glass', 'housing'].map((value) => value === service),
+          isPremium,
+        }), price(model, [service], isPremium), `${model}: only ${service} selected`)
+      }
+    }
   }
 })
 
@@ -79,7 +89,7 @@ test('every available repair combination has a positive finite price in both qua
 })
 
 test('quotes cannot double-charge duplicate services and empty quotes remain zero', () => {
-  assert.equal(price('15', ['back glass', 'housing', 'back glass']), 190)
+  assert.equal(price('15', ['back glass', 'housing', 'back glass']), 180)
   assert.equal(price('15', ['battery', 'battery'], true), 100)
   assert.equal(price('', ['battery']), 0)
   assert.equal(price('15', []), 0)
