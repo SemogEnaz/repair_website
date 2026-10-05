@@ -106,10 +106,7 @@ function getSelectedServices(quote) {
     .map(normalizeServiceName)
     .filter((service) => availableServices.has(service))
 
-  // A full housing replacement takes precedence over a glass-only repair.
-  return [...new Set(selected)].filter(
-    (service) => service !== REPAIR_SERVICE.BACK_GLASS || !selected.includes(REPAIR_SERVICE.HOUSING),
-  )
+  return [...new Set(selected)]
 }
 
 function normalizeServiceName(value) {
