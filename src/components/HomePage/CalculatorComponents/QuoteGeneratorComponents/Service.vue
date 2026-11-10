@@ -12,10 +12,12 @@
 		progress == 1 ? 'needs-attention' : ''
       ]"
     >
-      <span class="service-label">
-        {{ option.label }}
-        <span v-if="option.value === REPAIR_SERVICE.SCREEN && quote.isPremium" class="screen-technology">
-          (OLED)
+      <span class="service-label" :class="{ 'has-premium-feature': quote.isPremium && option.premiumFeature }">
+        <span>{{ option.label }}</span>
+        <span v-if="option.premiumFeature" class="premium-feature" :aria-hidden="!quote.isPremium">
+          <span class="premium-feature-clip">
+            <span class="premium-feature-text">{{ option.premiumFeature }}</span>
+          </span>
         </span>
       </span>
     </button>
@@ -34,6 +36,10 @@ const options = computed(() =>
   quote.value.services.map((service, index) => ({
     label: service.charAt(0).toUpperCase() + service.slice(1),
     value: service,
+    premiumFeature: {
+      [REPAIR_SERVICE.SCREEN]: '(OLED)',
+      [REPAIR_SERVICE.BATTERY]: '(DIAGNOSABLE)',
+    }[service],
     position: index,
   }))
 );
@@ -59,20 +65,50 @@ const toggleService = (index) => {
 
 <style lang="css" scoped>
 .service-label {
-  position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
-.screen-technology {
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(calc(-50% + 2px));
-  margin-left: 0.35rem;
+.premium-feature {
+  display: inline-grid;
+  grid-template-columns: 0fr;
   font-size: 0.75em;
   font-weight: 400;
-  opacity: 0.65;
+  transition: grid-template-columns 220ms ease 120ms;
+}
+
+.premium-feature-clip {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.premium-feature-text {
+  display: block;
+  padding-left: 0.35rem;
+  opacity: 0;
+  transform: translateY(0.65em);
   white-space: nowrap;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.has-premium-feature .premium-feature {
+  grid-template-columns: 1fr;
+  transition-delay: 0ms;
+}
+
+.has-premium-feature .premium-feature-text {
+  opacity: 0.65;
+  transform: translateY(0);
+  transition-duration: 200ms;
+  transition-delay: 220ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-feature,
+  .premium-feature-text {
+    transition: none;
+  }
 }
 
 .selector-button,

@@ -15,7 +15,7 @@ const quote = defineModel();
 const timeEstimates = {
   'screen': 30,
   'battery': 30,
-  'back glass': 120,
+  'back glass': 75,
   'housing': 120,
   'charge port': 40
 }
@@ -33,7 +33,8 @@ function calculateTime() {
     total += timeEstimates[service]
   }
 
-  return total
+  // Additional repairs fit within the two-hour housing replacement time.
+  return Math.min(total, 120)
 };
 
 const formattedTime = computed(() => {
