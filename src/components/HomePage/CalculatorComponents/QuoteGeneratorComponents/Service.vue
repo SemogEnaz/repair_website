@@ -68,6 +68,13 @@ const toggleService = (index) => {
   display: inline-flex;
   align-items: baseline;
   justify-content: center;
+  transform: translateX(0);
+  transition: transform 450ms ease 250ms;
+}
+
+.service-label.has-premium-feature {
+  transform: translateX(6px);
+  transition-delay: 0ms;
 }
 
 .premium-feature {
@@ -75,7 +82,7 @@ const toggleService = (index) => {
   grid-template-columns: 0fr;
   font-size: 0.75em;
   font-weight: 400;
-  transition: grid-template-columns 220ms ease 120ms;
+  transition: grid-template-columns 450ms ease 250ms;
 }
 
 .premium-feature-clip {
@@ -89,7 +96,7 @@ const toggleService = (index) => {
   opacity: 0;
   transform: translateY(0.65em);
   white-space: nowrap;
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition: opacity 250ms ease, transform 250ms ease;
 }
 
 .has-premium-feature .premium-feature {
@@ -100,11 +107,12 @@ const toggleService = (index) => {
 .has-premium-feature .premium-feature-text {
   opacity: 0.65;
   transform: translateY(0);
-  transition-duration: 200ms;
-  transition-delay: 220ms;
+  transition-duration: 350ms;
+  transition-delay: 450ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .service-label,
   .premium-feature,
   .premium-feature-text {
     transition: none;
