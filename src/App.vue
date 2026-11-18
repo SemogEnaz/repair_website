@@ -66,9 +66,9 @@ const route = useRoute();
 const isHome = computed(() => route.name === 'home');
 
 const pages = [
-  ['/', 'Home', '🛠️'],
-  ['/repair-prices', 'Prices', '💲'],
-  ['/contact', 'Contact', '📞'],
+  ['/', 'Home', '🏠'],
+  ['/repair-prices', 'Prices', '🛠️'],
+  ['/contact', 'Contact', '☎️'],
   ['/buy', 'Buy', '📱'],
 ];
 
