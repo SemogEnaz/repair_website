@@ -9,9 +9,9 @@ function quote(services, isPremium = false, model = '15') {
 
 test('public price ranges exclude unavailable repairs and include Premium batteries', () => {
   assert.deepEqual(getRepairPriceRange('back glass'), { min: 100, max: 100 })
-  assert.deepEqual(getRepairPriceRange('battery'), { min: 80, max: 80 })
-  assert.deepEqual(getRepairPriceRange('battery', true), { min: 100, max: 100 })
-  assert.deepEqual(getRepairPriceRange('housing'), { min: 120, max: 150 })
+  assert.deepEqual(getRepairPriceRange('battery'), { min: 80, max: 90 })
+  assert.deepEqual(getRepairPriceRange('battery', true), { min: 100, max: 150 })
+  assert.deepEqual(getRepairPriceRange('housing'), { min: 120, max: 250 })
   assert.equal(getRepairPriceRange('unavailable'), null)
 })
 

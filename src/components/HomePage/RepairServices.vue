@@ -22,7 +22,7 @@
 			</RouterLink>
 		</div>
 		<p class="tech-muted mt-5">
-			Our calculator lists iPhone 11, 12, 13, 14 and 15 models, including available Mini,
+			Our calculator lists iPhone 11 through 16, including iPhone 16e and available Mini,
 			Plus, Pro and Pro Max variants. For another model, contact us to check parts and repair
 			availability.
 		</p>

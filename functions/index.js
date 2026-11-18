@@ -25,6 +25,11 @@ const allowedModels = new Set([
   "15 Plus",
   "15 Pro",
   "15 Pro Max",
+  "16e",
+  "16",
+  "16 Plus",
+  "16 Pro",
+  "16 Pro Max",
 ]);
 const allowedServices = new Set(["screen", "battery", "back glass", "housing", "charge port"]);
 const maxRepairPrice = 3000;

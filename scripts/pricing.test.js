@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { calculateRepairPrice, getAvailableRepairServices } from '../src/utils/pricing.js'
+import { calculateRepairPrice, getAvailableRepairServices, SUPPORTED_MODELS } from '../src/utils/pricing.js'
 
 const housingOnlyModels = [
   '11', '11 Pro', '11 Pro Max',
@@ -16,7 +16,7 @@ function price(model, services, isPremium = false) {
   })
 }
 
-test('every supported model has $80 budget and $100 premium batteries', () => {
+test('iPhone 11 through 15 have $80 budget and $100 premium batteries', () => {
   for (const model of [...housingOnlyModels, ...backGlassModels]) {
     assert.equal(price(model, ['battery']), 80, model)
     assert.equal(price(model, ['battery'], true), 100, model)
@@ -44,6 +44,27 @@ test('14, 14 Plus and the 15 series offer $100 back glass and fixed-price housin
   assert.equal(price('iPhone 14 Pro Max', ['housing']), 150)
 })
 
+test('iPhone 16 models offer the listed single repairs in both parts qualities', () => {
+  const cases = [
+    // Model, budget/premium screen, budget/premium battery, housing
+    ['16e', 90, 150, 90, 120, 180],
+    ['16', 90, 150, 90, 120, 200],
+    ['16 Plus', 90, 150, 90, 120, 220],
+    ['16 Pro', 90, 150, 90, 120, 250],
+    ['16 Pro Max', 100, 180, 90, 150, 250],
+  ]
+  for (const [model, screen, premiumScreen, battery, premiumBattery, housing] of cases) {
+    assert.ok(SUPPORTED_MODELS.includes(model), model)
+    for (const [service, budget, premium] of [
+      ['screen', screen, premiumScreen], ['battery', battery, premiumBattery],
+      ['charge port', 120, 120], ['back glass', 100, 100], ['housing', housing, housing],
+    ]) {
+      assert.equal(price(model, [service]), budget, model + ' budget ' + service)
+      assert.equal(price(model, [service], true), premium, model + ' premium ' + service)
+    }
+  }
+})
+
 test('existing housing bundle discounts and premium price floor are preserved', () => {
   assert.equal(price('13', ['screen', 'housing']), 210)
   assert.equal(price('13', ['housing', 'charge port']), 200)
@@ -55,7 +76,7 @@ test('existing housing bundle discounts and premium price floor are preserved', 
   assert.equal(price('15', ['back glass', 'charge port']), 220)
 })
 
-test('back glass and housing cost $210 in either quality setting wherever both are available', () => {
+test('back glass and housing cost $210 on supported iPhone 14 and 15 models', () => {
   for (const model of backGlassModels) {
     assert.equal(price(model, ['back glass', 'housing']), 210, model)
     assert.equal(price(model, ['back glass', 'housing'], true), 210, model)
@@ -75,7 +96,7 @@ test('back glass and housing cost $210 in either quality setting wherever both a
 })
 
 test('every available repair combination has a positive finite price in both quality tiers', () => {
-  for (const model of [...housingOnlyModels, ...backGlassModels]) {
+  for (const model of SUPPORTED_MODELS) {
     const services = getAvailableRepairServices(model)
     for (let mask = 1; mask < 2 ** services.length; mask++) {
       const selectedServices = services.map((_, index) => Boolean(mask & (1 << index)))

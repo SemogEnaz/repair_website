@@ -12,6 +12,7 @@ export const SUPPORTED_MODELS = Object.freeze([
   '13', '13 Mini', '13 Pro', '13 Pro Max',
   '14', '14 Plus', '14 Pro', '14 Pro Max',
   '15', '15 Plus', '15 Pro', '15 Pro Max',
+  '16e', '16', '16 Plus', '16 Pro', '16 Pro Max',
 ])
 
 export const REPAIR_TIME_MINUTES = Object.freeze({
@@ -36,18 +37,35 @@ const DEFAULT_REPAIR_PRICES = Object.freeze({
     [PRICE_QUALITY.BUDGET]: 80,
     [PRICE_QUALITY.PREMIUM]: 100,
   }),
-  [REPAIR_SERVICE.BACK_GLASS]: 100,
   [REPAIR_SERVICE.HOUSING]: 150,
   [REPAIR_SERVICE.CHARGE_PORT]: 120,
 })
 
-const BACK_GLASS_MODELS = new Set(['14', '14plus', '15', '15plus', '15pro', '15promax'])
+const REAR_REPAIR_PRICES_14_15 = { 'back glass': 100, housing: 120 }
+const IPHONE_16_PRICES = {
+  screen: { budget: 90, premium: 150 },
+  battery: { budget: 90, premium: 120 },
+  'back glass': 100,
+}
 
-const MODEL_PRICE_OVERRIDES = Object.freeze(
-  Object.fromEntries(
-    [...BACK_GLASS_MODELS].map((model) => [model, { [REPAIR_SERVICE.HOUSING]: 120 }]),
-  ),
-)
+const MODEL_PRICE_OVERRIDES = Object.freeze({
+  '14': REAR_REPAIR_PRICES_14_15,
+  '14plus': REAR_REPAIR_PRICES_14_15,
+  '15': REAR_REPAIR_PRICES_14_15,
+  '15plus': REAR_REPAIR_PRICES_14_15,
+  '15pro': REAR_REPAIR_PRICES_14_15,
+  '15promax': REAR_REPAIR_PRICES_14_15,
+  '16e': { ...IPHONE_16_PRICES, housing: 180 },
+  '16': { ...IPHONE_16_PRICES, housing: 200 },
+  '16plus': { ...IPHONE_16_PRICES, housing: 220 },
+  '16pro': { ...IPHONE_16_PRICES, housing: 250 },
+  '16promax': {
+    ...IPHONE_16_PRICES,
+    screen: { budget: 100, premium: 180 },
+    battery: { budget: 90, premium: 150 },
+    housing: 250,
+  },
+})
 
 const BUNDLE_DISCOUNTS = Object.freeze([
   {
@@ -88,9 +106,8 @@ export function normalizeModelName(value) {
 }
 
 export function getAvailableRepairServices(model) {
-  return Object.values(REPAIR_SERVICE).filter(
-    (service) => service !== REPAIR_SERVICE.BACK_GLASS || BACK_GLASS_MODELS.has(normalizeModelName(model)),
-  )
+  const prices = getModelRepairPrices(model)
+  return Object.values(REPAIR_SERVICE).filter((service) => Object.hasOwn(prices, service))
 }
 
 export function calculateRepairPrice(quote) {

@@ -17,9 +17,9 @@
       v-if="isOpen"
       class="dropdown absolute top-full left-0 mt-2 w-full rounded-lg shadow-lg z-50">
       <div
-	  	v-for="phone in phones" :key="phone"
-	  	class="dropdown-option p-3 cursor-pointer"
-		@click="selectModel(phone)">iPhone {{ phone }}</div>
+        v-for="phone in SUPPORTED_MODELS" :key="phone"
+        class="dropdown-option p-3 cursor-pointer"
+        @click="selectModel(phone)">iPhone {{ phone }}</div>
     </div>
 
   </div>
@@ -27,42 +27,9 @@
 
 <script setup lang="js">
 import { ref } from 'vue';
+import { SUPPORTED_MODELS } from '@/utils/pricing.js';
 const model = defineModel('model');
 const progress = defineModel('progress');
-
-const modelNumbers = [11, 12, 13, 14, 15];
-
-const modelVariants = [
-	'Mini',
-	'Plus',
-	'Pro',
-	'Pro Max',
-];
-
-const modelVariantMasks = [
-	0b0011,
-	0b1011,
-	0b1011,
-	0b0111,
-	0b0111,
-];
-
-const phones = [];
-
-for (let i = 0; i < modelNumbers.length; i++) {
-	const modelNumber = modelNumbers[i];
-	const variantMask = modelVariantMasks[i];
-
-	phones.push(String(modelNumber));
-
-	for (let j = 0; j < modelVariants.length; j++) {
-		const bitPosition = modelVariants.length - 1 - j;
-
-		if (variantMask & (1 << bitPosition)) {
-			phones.push(`${modelNumber} ${modelVariants[j]}`);
-		}
-	}
-}
 
 const isOpen = ref(false);
 

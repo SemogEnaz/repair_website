@@ -36,7 +36,7 @@
 				</table>
 			</div>
 			<p class="tech-muted text-sm mt-4">
-				Glass-only back repairs are available for iPhone 14, 14 Plus and the 15 series.
+				Glass-only back repairs are available for iPhone 14, 14 Plus and all listed iPhone 15 and 16 models.
 				Other listed models may need a housing replacement. Contact us for a quote if
 				your repair is not available in the calculator.
 			</p>
@@ -48,7 +48,7 @@
 		<section class="tech-card p-6 mt-5">
 			<h2 class="text-xl font-bold">Which iPhone models can I select?</h2>
 			<p class="tech-muted mt-3">
-				The calculator includes iPhone 11, 12, 13, 14 and 15, with their available Mini,
+				The calculator includes iPhone 11 through 16, including iPhone 16e and available Mini,
 				Plus, Pro and Pro Max variants. If your model is not listed, contact us to check
 				whether we can source the part and quote the repair.
 			</p>

@@ -97,9 +97,9 @@ test('price page never advertises unavailable back-glass repairs as free and sho
 	const table = html.split('<tbody>')[1].split('</tbody>')[0]
 	assert.ok(!table.includes('$0'), 'Public price table must not quote an unavailable repair at zero')
 	assert.match(table, /iPhone back glass repair[\s\S]*?\$100/)
-	assert.match(table, /iPhone battery replacement[\s\S]*?\$80 budget \/ \$100 premium/)
+	assert.match(table, /iPhone battery replacement[\s\S]*?\$80–\$90 budget \/ \$100–\$150 premium/)
 	assert.ok(table.includes('iPhone housing replacement'))
-	assert.ok(table.includes('$120–$150'))
+	assert.ok(table.includes('$120–$250'))
 })
 
 test('home page presents the calculator before contact and replaces the empty zero estimate with guidance', async () => {
