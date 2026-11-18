@@ -2,7 +2,7 @@
   <section id="quote" class="tech-panel calculator flex flex-col items-center gap-3 px-4 py-5 sm:p-10" :class="{ 'my-6': headingTag !== 'h1' }">
 
     <component :is="headingTag" class="text-3xl sm:text-4xl font-bold tracking-tight text-center">
-      Repair price calculator
+      Price Calculator
     </component>
     <noscript><p class="tech-muted">Enable JavaScript to calculate an estimate, or <a href="tel:+61411969004" class="underline">call 0411 969 004</a> for a quote.</p></noscript>
 

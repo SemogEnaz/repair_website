@@ -3,10 +3,10 @@
   <section class="tech-panel hero-panel text-center px-4 py-6 sm:p-8">
 
     <!-- Heading -->
-    <h1 class="text-3xl sm:text-4xl font-bold leading-tight tracking-tight">iPhone Repairs in Clayton</h1>
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight tracking-tight">Quick iPhone Repairs</h1>
 
     <!-- Description -->
-    <p class="tech-muted mt-3 text-base max-w-md mx-auto">Screen, battery, back glass &amp; charging port repairs. By appointment.</p>
+    <p class="tech-muted mt-3 text-base max-w-md mx-auto">Screen, battery, back glass &amp; charging port repairs. <b>By appointment.</b></p>
 
     <!-- Buttons -->
     <div class="mt-5 flex flex-col items-center justify-center gap-3 w-full max-w-md mx-auto">

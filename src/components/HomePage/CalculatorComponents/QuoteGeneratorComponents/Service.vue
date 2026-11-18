@@ -1,6 +1,5 @@
 <template>
-  <div
-  	:class='["flex flex-col items-center w-full sm:w-1/3 gap-2"]'>
+  <div class="grid w-full grid-cols-2 gap-2 sm:flex sm:w-1/3 sm:flex-col">
     <button
       v-for="option in options"
       :key="option.value"
@@ -8,6 +7,7 @@
       :aria-pressed="Boolean(quote.selectedServices[option.position])"
       :class="[
         'service-button w-full py-2',
+        option.sharesRow ? 'col-span-1' : 'col-span-2',
         quote.selectedServices[option.position] ? 'selected font-bold' : '',
 		progress == 1 ? 'needs-attention' : ''
       ]"
@@ -31,11 +31,17 @@ const quote = defineModel('quote');
 const progress = defineModel('progress')
 const { Alert } = defineProps(['Alert']);
 
-// Explain this later
+const hasRearRepairPair = computed(() =>
+  quote.value.services.includes(REPAIR_SERVICE.BACK_GLASS) &&
+  quote.value.services.includes(REPAIR_SERVICE.HOUSING)
+);
+
 const options = computed(() =>
   quote.value.services.map((service, index) => ({
     label: service.charAt(0).toUpperCase() + service.slice(1),
     value: service,
+    sharesRow: hasRearRepairPair.value &&
+      (service === REPAIR_SERVICE.BACK_GLASS || service === REPAIR_SERVICE.HOUSING),
     premiumFeature: {
       [REPAIR_SERVICE.SCREEN]: '(OLED)',
       [REPAIR_SERVICE.BATTERY]: '(DIAGNOSABLE)',
