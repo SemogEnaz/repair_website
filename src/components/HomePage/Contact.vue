@@ -1,10 +1,6 @@
 <template>
-    <section class="tech-panel hero my-6! px-4 py-8 text-center flex flex-col gap-3" id="contactLinks">
-      <p class="tech-eyebrow">Book a repair</p>
-      <h2 class="text-3xl font-bold">Contact Us</h2>
-      <p class="tech-muted">
-        Send through your iPhone model, the issue, and your preferred repair time. We will confirm the best option for you.
-      </p>
+    <section class="tech-panel px-4 py-5 sm:py-8 text-center flex flex-col gap-3" id="contactLinks">
+      <component :is="headingTag" class="text-3xl font-bold">Contact us</component>
 
       <div class="flex flex-col items-center gap-3 w-full">
 
@@ -19,6 +15,10 @@
 
       </div>
 
+      <p class="tech-muted">
+        Tell us your iPhone model, the repair you need and your preferred time.
+        We'll confirm your quote and appointment before you visit.
+      </p>
     </section>
 
 
@@ -27,6 +27,8 @@
 <script setup>
 import { business } from '@/data/business.js';
 import { trackContact } from '@/utils/analytics.js';
+
+defineProps({ headingTag: { type: String, default: 'h2' } });
 </script>
 
 <style scoped>

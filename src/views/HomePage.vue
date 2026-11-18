@@ -3,8 +3,8 @@
   <main id="main-content" class="container">
 
     <Hero/>
-    <Contact/>
     <Calculator/>
+    <Contact class="my-6" />
     <RepairServices />
     <BusinessDetails />
 	<BlogLinks />

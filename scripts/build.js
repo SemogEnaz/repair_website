@@ -34,6 +34,27 @@ try {
 		'dist/robots.txt',
 		`User-agent: *\nAllow: /\n\nSitemap: ${business.url}/sitemap.xml\n`,
 	)
+	// Dashboard routing must serve each generated page, not the home SPA document.
+	const routes = pages.filter((page) => page.path !== '/').flatMap((page) => [
+		{ type: 'rewrite', source: page.path, destination: `${page.path}/index.html` },
+		{ type: 'rewrite', source: `${page.path}/`, destination: `${page.path}/index.html` },
+	])
+	routes.unshift({ type: 'redirect', source: '/calculator', destination: '/repair-prices' })
+	await writeFile('dist/render-routes.json', JSON.stringify(routes, null, 2) + '\n')
+	await writeFile('dist/render-routing.md', [
+		'# Render routing for this build',
+		'',
+		'Use the existing static site. Build command: `npm ci && npm run build`. Publish directory: `dist`.',
+		'In Redirects/Rewrites, add the following rules above any `/* → /index.html` fallback.',
+		'Existing files (including assets, robots.txt and sitemap.xml) should remain directly accessible.',
+		'',
+		'| Source | Destination | Action |',
+		'| --- | --- | --- |',
+		...routes.map((route) => `| ${route.source} | ${route.destination} | ${route.type === 'rewrite' ? 'Rewrite' : 'Redirect'} |`),
+		'',
+		'After redeploying, run `npm run verify:site` to check the initial HTML without JavaScript.',
+		'',
+	].join('\n'))
 	await rm('dist/.vite', { recursive: true, force: true })
 	console.log(`Prerendered ${pages.length} indexable pages and a 404 page.`)
 } finally {

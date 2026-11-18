@@ -91,3 +91,34 @@ test('metadata escapes markup and JSON-LD cannot terminate its script', () => {
 	assert.ok(head.includes('&lt;/title&gt;'))
 	assert.ok(!head.includes('content="" onload='))
 })
+
+test('price page never advertises unavailable back-glass repairs as free and shows both battery options', async () => {
+	const html = await htmlFor({ path: '/repair-prices' })
+	const table = html.split('<tbody>')[1].split('</tbody>')[0]
+	assert.ok(!table.includes('$0'), 'Public price table must not quote an unavailable repair at zero')
+	assert.match(table, /iPhone back glass repair[\s\S]*?\$100/)
+	assert.match(table, /iPhone battery replacement[\s\S]*?\$80 budget \/ \$100 premium/)
+	assert.ok(table.includes('iPhone housing replacement'))
+	assert.ok(table.includes('$120–$150'))
+})
+
+test('home page presents the calculator before contact and replaces the empty zero estimate with guidance', async () => {
+	const html = await htmlFor({ path: '/' })
+	assert.ok(html.indexOf('id="quote"') < html.indexOf('id="contactLinks"'))
+	assert.ok(html.includes('Select your model and repair to see an estimate.'))
+	assert.ok(!html.includes('Time: 0 mins'))
+	assert.ok(html.includes('12-month repair warranty'))
+})
+
+test('generated Render rules point every clean URL at its own prerendered document', async () => {
+	const routes = JSON.parse(await readFile('dist/render-routes.json', 'utf8'))
+	for (const page of pages.filter((item) => item.path !== '/')) {
+		for (const source of [page.path, `${page.path}/`]) {
+			const rule = routes.find((item) => item.source === source)
+			assert.equal(rule?.type, 'rewrite', source)
+			const html = await readFile(`dist${rule.destination}`, 'utf8')
+			assert.ok(html.includes(`data-prerendered="${page.path}"`), source)
+			assert.ok(html.includes(`rel="canonical" href="${business.url}${page.path}"`), source)
+		}
+	}
+})

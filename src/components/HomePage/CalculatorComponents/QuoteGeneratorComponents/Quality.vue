@@ -3,7 +3,7 @@
         <p class="">Parts quality:</p>
 
         <div class="flex items-center gap-2">
-			<input type="checkbox" v-model="quote.isPremium">
+			<input type="checkbox" v-model="quote.isPremium" aria-label="Use Premium parts">
 
 			<div class="label-wrapper">
 				<transition name="fade" mode="out-in">

@@ -1,12 +1,11 @@
 <template>
 	<main id="main-content" class="p-5">
-		<section class="tech-panel p-6">
-			<p class="tech-eyebrow">Plan your repair</p>
-			<h1 class="text-3xl sm:text-4xl font-bold mt-2">iPhone repair prices in Clayton</h1>
+		<Calculator heading-tag="h1" />
+		<section class="tech-panel mt-5 p-6">
+			<h2 class="text-2xl font-bold">iPhone repair prices in Clayton</h2>
 			<p class="tech-muted mt-4">
-				Select your iPhone model, the services you need and your screen parts preference.
-				These are estimates in Australian dollars; we confirm the final quote and parts
-				availability before repair.
+				These estimates are in Australian dollars. We confirm the final quote and parts
+				availability before your repair.
 			</p>
 			<div class="overflow-x-auto mt-5">
 				<table class="w-full text-left text-sm">
@@ -26,21 +25,26 @@
 							class="border-b border-slate-700"
 						>
 							<th scope="row" class="py-3 pr-4 font-normal">
-								<RouterLink :to="item.path" class="text-blue-300 underline">{{
+								<RouterLink v-if="item.path" :to="item.path" class="text-blue-300 underline">{{
 									item.label
 								}}</RouterLink>
+								<span v-else>{{ item.label }}</span>
 							</th>
 							<td class="py-3">{{ item.price }}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			<p class="tech-muted text-sm mt-4">
+				Glass-only back repairs are available for iPhone 14, 14 Plus and the 15 series.
+				Other listed models may need a housing replacement. Contact us for a quote if
+				your repair is not available in the calculator.
+			</p>
 			<p class="tech-soft text-sm mt-4">
-				Extra damage or a different model may require a different quote. Select multiple
-				services below to see current combined estimates.
+				Extra damage or a different model may change your quote. The calculator can
+				estimate multiple repairs together.
 			</p>
 		</section>
-		<Calculator />
 		<section class="tech-card p-6 mt-5">
 			<h2 class="text-xl font-bold">Which iPhone models can I select?</h2>
 			<p class="tech-muted mt-3">
@@ -56,23 +60,20 @@
 </template>
 <script setup>
 import Calculator from '@/components/HomePage/Calculator.vue'
-import { calculateRepairPrice } from '@/utils/pricing.js'
+import { getRepairPriceRange, REPAIR_SERVICE } from '@/utils/pricing.js'
 import { services } from '@/data/services.js'
-function estimate(service, isPremium = false) {
-	return calculateRepairPrice({
-		model: '11',
-		services: [service],
-		selectedServices: [true],
-		isPremium,
-	})
+function formatRange(range) {
+	if (!range) return 'Contact for a quote'
+	return range.min === range.max ? `$${range.min}` : `$${range.min}–$${range.max}`
 }
-// Reuse calculator prices so the visible table stays in sync.
-const estimates = services.map((service) => ({
-	label: service.label,
-	path: service.path,
-	price:
-		service.key === 'screen'
-			? `$${estimate(service.key)} budget / $${estimate(service.key, true)} premium`
-			: `$${estimate(service.key)}`,
-}))
+// Derive every row from supported models, including both quality options.
+const estimates = [...services, { key: REPAIR_SERVICE.HOUSING, label: 'iPhone housing replacement' }].map((service) => {
+	const budget = formatRange(getRepairPriceRange(service.key))
+	const premium = formatRange(getRepairPriceRange(service.key, true))
+	return {
+		label: service.label,
+		path: service.path,
+		price: budget === premium ? budget : `${budget} budget / ${premium} premium`,
+	}
+})
 </script>

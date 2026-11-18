@@ -1,0 +1,51 @@
+<style>
+#repair-themes .preview{box-sizing:border-box;min-height:530px;padding:28px;font-family:'Avenir Next',Arial,sans-serif;background:var(--page);color:var(--ink);border-radius:14px}
+#repair-themes .clean{--page:#f5f7fb;--panel:#fff;--ink:#162339;--soft:#566579;--accent:#155ae8;--on:#fff;--line:#dbe2ec}
+#repair-themes .warm{--page:#f5f1e8;--panel:#fffcf5;--ink:#233b31;--soft:#526458;--accent:#286149;--on:#fff;--line:#d8dfd3}
+#repair-themes .dark{--page:#0c1016;--panel:#171d26;--ink:#f5f7fa;--soft:#aab6c7;--accent:#7cb4ff;--on:#0a1b33;--line:#303b4b}
+#repair-themes header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:20px;font-size:14px}
+#repair-themes nav{display:flex;gap:16px;color:var(--soft);font-size:12px}
+#repair-themes .hero{padding:34px 0 24px}
+#repair-themes .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.8px;color:var(--accent)}
+#repair-themes h2{font-size:clamp(30px,5vw,44px);line-height:1.1;letter-spacing:-1.3px;font-weight:600;margin:14px 0;color:var(--ink)}
+#repair-themes p{font-size:14px;line-height:1.6;color:var(--soft)}
+#repair-themes .actions{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}
+#repair-themes a{display:inline-block;padding:13px 20px;background:var(--accent);color:var(--on);border-radius:9px;text-decoration:none;font-size:14px;font-weight:600}
+#repair-themes .secondary{background:var(--panel);color:var(--ink);border:1px solid var(--line)}
+#repair-themes .trust{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--soft)}
+#repair-themes .estimate{padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+#repair-themes h3{margin:0 0 14px;font-size:18px;font-weight:600;color:var(--ink)}
+#repair-themes .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#repair-themes label{display:grid;gap:8px;font-size:12px;color:var(--soft)}
+#repair-themes select{box-sizing:border-box;width:100%;min-width:0;padding:12px;background:var(--page);border:1px solid var(--line);border-radius:8px;color:var(--ink);font:inherit;font-size:14px}
+#repair-themes .foot{margin-top:20px;font-size:12px;color:var(--soft)}
+#repair-themes .warm .hero{display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:20px}
+#repair-themes .warm h2{font-family:Georgia,serif;font-weight:400}
+#repair-themes .warm a{border-radius:30px}
+#repair-themes .note{background:#e4ebdd;border-radius:80px 80px 12px 12px;padding:38px 22px;text-align:center}
+#repair-themes .note strong{font-family:Georgia,serif;font-size:24px;font-weight:400}
+#repair-themes .dark .hero{text-align:center}
+#repair-themes .dark .actions,#repair-themes .dark .trust{justify-content:center}
+#repair-themes .dark .estimate{max-width:480px;margin:auto}
+@media(max-width:520px){#repair-themes .preview{min-height:680px;padding:20px}#repair-themes .warm .hero{grid-template-columns:1fr}#repair-themes .note{border-radius:12px;padding:18px}#repair-themes .fields{grid-template-columns:1fr}}
+</style>
+<div id="repair-themes" class="viz-carousel" aria-label="Website theme directions">
+<section data-variant="Clean & confident">
+<div class="preview clean">
+<header><strong>iPhone Repair Clayton</strong><nav><span>Repairs</span><span>Prices</span><span>Contact</span></nav></header>
+<div class="hero"><span class="eyebrow">Local expertise. Clear prices.</span><h2>Your iPhone.<br>Back to its best.</h2><p>Screen, battery and charging port repairs in Clayton.<br>Get an estimate, then book a time that suits you.</p><div class="actions"><a href="#clean-quote" class="cursor-interaction">Get instant estimate →</a><a href="tel:+61411969004" class="secondary cursor-interaction">Call Zane</a></div><div class="trust"><span>✓ Same-day repairs</span><span>✓ Warranty included</span><span>By appointment</span></div></div>
+<div class="estimate" id="clean-quote"><h3>What needs fixing?</h3><div class="fields"><label>Your iPhone<select><option>Select model</option><option>iPhone 13</option><option>iPhone 14</option><option>iPhone 15</option></select></label><label>Repair service<select><option>Select service</option><option>Screen</option><option>Battery</option><option>Charging port</option></select></label></div></div><div class="foot">2 Greenfield Drive, Clayton · 0411 969 004</div>
+</div></section>
+<section data-variant="Friendly local" hidden>
+<div class="preview warm">
+<header><strong>iPhone Repair Clayton</strong><nav><span>Services</span><span>Meet Zane</span><span>Contact</span></nav></header>
+<div class="hero"><div><span class="eyebrow">Your local repair specialist</span><h2>A familiar face.<br>A phone that works.</h2><p>Hi, I'm Zane. I repair iPhones by appointment right here in Clayton.</p><div class="actions"><a href="#warm-quote" class="cursor-interaction">Find your repair →</a></div></div><div class="note"><strong>Let's get it sorted.</strong><p>Screens, batteries,<br>back glass and charging ports.</p><p>✓ Warranty included</p></div></div>
+<div class="estimate" id="warm-quote"><h3>Start with a quick estimate</h3><div class="fields"><label>Your iPhone<select><option>Select model</option><option>iPhone 13</option><option>iPhone 14</option><option>iPhone 15</option></select></label><label>What needs fixing?<select><option>Select service</option><option>Screen</option><option>Battery</option><option>Charging port</option></select></label></div></div><div class="foot">By appointment · 2 Greenfield Drive, Clayton</div>
+</div></section>
+<section data-variant="Refined dark" hidden>
+<div class="preview dark">
+<header><strong>iPhone Repair Clayton</strong><nav><span>Repairs</span><span>Prices</span><span>Contact</span></nav></header>
+<div class="hero"><span class="eyebrow">iPhone repairs · Clayton</span><h2>Expert care.<br>Everyday convenience.</h2><p>Choose your repair. Compare parts quality.<br>Know your estimate before you book.</p><div class="actions"><a href="#dark-quote" class="cursor-interaction">Calculate your repair →</a><a href="tel:+61411969004" class="secondary cursor-interaction">Call Zane</a></div><div class="trust"><span>✓ Same-day repairs</span><span>✓ Warranty included</span></div></div>
+<div class="estimate" id="dark-quote"><h3>Your repair estimate</h3><div class="fields"><label>iPhone model<select><option>Select model</option><option>iPhone 13</option><option>iPhone 14</option><option>iPhone 15</option></select></label><label>Service<select><option>Select service</option><option>Screen</option><option>Battery</option><option>Charging port</option></select></label></div></div><div class="foot">By appointment · 2 Greenfield Drive, Clayton</div>
+</div></section>
+</div>

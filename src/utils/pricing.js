@@ -6,6 +6,22 @@ export const REPAIR_SERVICE = Object.freeze({
   CHARGE_PORT: 'charge port',
 })
 
+export const SUPPORTED_MODELS = Object.freeze([
+  '11', '11 Pro', '11 Pro Max',
+  '12', '12 Mini', '12 Pro', '12 Pro Max',
+  '13', '13 Mini', '13 Pro', '13 Pro Max',
+  '14', '14 Plus', '14 Pro', '14 Pro Max',
+  '15', '15 Plus', '15 Pro', '15 Pro Max',
+])
+
+export const REPAIR_TIME_MINUTES = Object.freeze({
+  [REPAIR_SERVICE.SCREEN]: 30,
+  [REPAIR_SERVICE.BATTERY]: 30,
+  [REPAIR_SERVICE.BACK_GLASS]: 75,
+  [REPAIR_SERVICE.HOUSING]: 120,
+  [REPAIR_SERVICE.CHARGE_PORT]: 40,
+})
+
 const PRICE_QUALITY = Object.freeze({
   BUDGET: 'budget',
   PREMIUM: 'premium',
@@ -96,7 +112,7 @@ export function calculateRepairPrice(quote) {
   return Math.max(bundledTotal, 0)
 }
 
-function getSelectedServices(quote) {
+export function getSelectedServices(quote) {
   if (!Array.isArray(quote?.services) || !Array.isArray(quote?.selectedServices)) {
     return []
   }
@@ -108,6 +124,36 @@ function getSelectedServices(quote) {
     .filter((service) => availableServices.has(service))
 
   return [...new Set(selected)]
+}
+
+// Only quote services on models where the calculator actually offers them.
+export function getRepairPriceRange(service, isPremium = false) {
+  const prices = SUPPORTED_MODELS
+    .filter((model) => getAvailableRepairServices(model).includes(service))
+    .map((model) => calculateRepairPrice({
+      model, services: [service], selectedServices: [true], isPremium,
+    }))
+    .filter((price) => price > 0)
+
+  return prices.length ? { min: Math.min(...prices), max: Math.max(...prices) } : null
+}
+
+export function calculateRepairTime(quote) {
+  if (!quote?.model) return 0
+  const selected = getSelectedServices(quote)
+  const hasScreen = selected.includes(REPAIR_SERVICE.SCREEN)
+  const total = selected.reduce((minutes, service) => {
+    if (service === REPAIR_SERVICE.BATTERY && hasScreen) return minutes
+    return minutes + REPAIR_TIME_MINUTES[service]
+  }, 0)
+  return Math.min(total, REPAIR_TIME_MINUTES[REPAIR_SERVICE.HOUSING])
+}
+
+export function formatRepairTime(minutes) {
+  if (minutes < 60) return `${minutes} mins`
+  const hours = Math.floor(minutes / 60)
+  const remainder = minutes % 60
+  return `${hours} ${hours === 1 ? 'hr' : 'hrs'}${remainder ? ` ${remainder} mins` : ''}`
 }
 
 function normalizeServiceName(value) {

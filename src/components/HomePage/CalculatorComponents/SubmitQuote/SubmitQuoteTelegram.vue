@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col gap-3" @submit.prevent="handleSubmit" novalidate>
+  <form class="flex flex-col gap-3" @submit.prevent="handleSubmit" :aria-busy="isSubmitting" novalidate>
     <div class="flex flex-col gap-2 text-center">
 
       <p class="tech-eyebrow">Submit your repair details</p>
@@ -9,6 +9,7 @@
         <input
           id="quote-phone"
           v-model="phone"
+          :disabled="isSubmitting"
           type="tel"
           aria-label="Your phone number"
           inputmode="tel"
@@ -33,26 +34,53 @@
     </div>
 
     <!-- Submit button -->
-    <button class="tech-button" type="submit">Send My Repair Details</button>
+    <button class="tech-button disabled:opacity-60 disabled:cursor-wait" type="submit" :disabled="isSubmitting">
+      {{ isSubmitting ? 'Sending…' : 'Send My Repair Details' }}
+    </button>
+    <p v-if="statusMessage" role="status" class="text-sm text-center" :class="hasError ? 'text-red-200' : 'tech-muted'">
+      {{ statusMessage }}
+    </p>
+    <a v-if="whatsappUrl && !isSubmitting" :href="whatsappUrl" target="_blank" rel="noopener noreferrer"
+      class="tech-button secondary text-center px-4 py-3" @click="trackContact('whatsapp')">
+      Send this estimate via WhatsApp
+    </a>
+    <p v-if="whatsappUrl && !isSubmitting" class="tech-soft text-xs text-center">
+      Your model, repairs, parts quality and estimate will be filled in. Review the message before sending.
+    </p>
   </form>
 
 </template>
 
 <script setup lang="js">
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { sanitizePhoneInput, validatePhoneNumber } from '@/utils/phoneValidation.js';
-import { trackQuoteSuccess } from '@/utils/analytics.js';
+import { trackQuoteSuccess, trackContact } from '@/utils/analytics.js';
+import { buildRepairRequest, getRepairWhatsAppUrl } from '@/utils/repairQuote.js';
 
 const { quote, Alert } = defineProps(['quote', 'Alert']);
+const emit = defineEmits(['submitting']);
 
 
 // Customer contact details
 const phone = ref('');
 const phoneError = ref('');
+const isSubmitting = ref(false);
+const statusMessage = ref('');
+const hasError = ref(false);
+const whatsappUrl = computed(() => getRepairWhatsAppUrl(quote));
 
-const failureMessage = 'Sorry, the quote system is down and your repair quote was not submitted. Please contact me directly using the WhatsApp, Messenger, or phone resources on the home page.';
+watch([whatsappUrl, phone], () => {
+  if (!isSubmitting.value) {
+    statusMessage.value = ''
+    hasError.value = false
+  }
+})
+
+const failureMessage = "We couldn't confirm your request. Please use the WhatsApp button below or call 0411 969 004 to check before resubmitting.";
 
 function showFailureAlert() {
+  statusMessage.value = failureMessage
+  hasError.value = true
   Alert(failureMessage, { variant: 'failure' })
 }
 
@@ -77,6 +105,9 @@ function validatePhoneField() {
 }
 
 async function handleSubmit() {
+  if (isSubmitting.value) return
+  statusMessage.value = ''
+  hasError.value = false
   if (!quote.model) {
     Alert('Please select an iPhone model.')
     return
@@ -94,13 +125,8 @@ async function handleSubmit() {
     return
   }
 
-  // Ready to connect to backend later
-  const payload = {
-    model: quote.model,
-    services: quote.services.filter((_, i) => quote.selectedServices[i]),
-    price: quote.price,
-    phone: phoneValidation.phone,
-  }
+  // Snapshot the actual estimate, including parts quality, before sending.
+  const payload = buildRepairRequest(quote, phoneValidation.phone)
 
   const url = import.meta.env.VITE_API_URL;
 
@@ -109,6 +135,11 @@ async function handleSubmit() {
     return
   }
 
+  isSubmitting.value = true
+  emit('submitting', true)
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 15000)
+
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -116,7 +147,8 @@ async function handleSubmit() {
         "Content-Type": "application/json",
         "x-api-key": "supersecret123"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: controller.signal,
     });
 
     let result = null;
@@ -129,6 +161,8 @@ async function handleSubmit() {
 
     if (!response.ok || result?.success !== true) {
       if (response.status === 400 && result?.error) {
+        statusMessage.value = result.error
+        hasError.value = true
         Alert(result.error)
         return
       }
@@ -136,15 +170,18 @@ async function handleSubmit() {
       showFailureAlert()
       return
     }
+
+    trackQuoteSuccess()
+    statusMessage.value = "Thanks! I'll message you to confirm the repair details and arrange a time. Please wait for confirmation before visiting."
+    Alert(statusMessage.value)
   } catch (err) {
     console.error('Repair quote submission failed:', err)
     showFailureAlert()
-    return
+  } finally {
+    clearTimeout(timeout)
+    isSubmitting.value = false
+    emit('submitting', false)
   }
-
-  trackQuoteSuccess()
-
-  Alert("Thanks! I'll message you shortly to confirm details and arrange a time.")
 };
 
 </script>

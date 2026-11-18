@@ -1,3 +1,5 @@
+import { REPAIR_TIME_MINUTES, REPAIR_SERVICE, formatRepairTime } from '../utils/pricing.js'
+
 export const services = [
 	{
 		path: '/iphone-screen-repair-clayton',
@@ -89,7 +91,7 @@ export const services = [
 			},
 			{
 				heading: 'How long does back glass repair take?',
-				text: 'The online calculator allows approximately two hours for back glass repair. A shorter option may be available for some repairs depending on parts and the work required. Confirm the available option and collection time before your appointment.',
+				text: `The online calculator allows approximately ${formatRepairTime(REPAIR_TIME_MINUTES[REPAIR_SERVICE.BACK_GLASS])} for back glass repair. Parts availability and the condition of your phone can affect the time required. Confirm the available option and collection time before your appointment.`,
 			},
 			{
 				heading: 'Combining repairs',

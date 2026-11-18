@@ -32,11 +32,11 @@ test('11–13 series and 14 Pro models offer $150 housing without glass-only rep
   }
 })
 
-test('14, 14 Plus and the 15 series offer glass tiers and fixed-price housing', () => {
+test('14, 14 Plus and the 15 series offer $100 back glass and fixed-price housing', () => {
   for (const model of backGlassModels) {
     assert.deepEqual(getAvailableRepairServices(model), ['screen', 'battery', 'back glass', 'housing', 'charge port'])
-    assert.equal(price(model, ['back glass']), 70, model)
-    assert.equal(price(model, ['back glass'], true), 90, model)
+    assert.equal(price(model, ['back glass']), 100, model)
+    assert.equal(price(model, ['back glass'], true), 100, model)
     assert.equal(price(model, ['housing']), 120, model)
     assert.equal(price(model, ['housing'], true), 120, model)
   }
@@ -51,16 +51,16 @@ test('existing housing bundle discounts and premium price floor are preserved', 
   assert.equal(price('13', ['screen', 'housing', 'battery'], true), 320)
   assert.equal(price('15', ['screen', 'housing']), 180)
   assert.equal(price('15', ['screen', 'charge port'], true), 250)
-  assert.equal(price('15', ['screen', 'back glass']), 150)
-  assert.equal(price('15', ['back glass', 'charge port']), 190)
+  assert.equal(price('15', ['screen', 'back glass']), 180)
+  assert.equal(price('15', ['back glass', 'charge port']), 220)
 })
 
-test('back glass and housing cost $180 budget or $200 premium wherever both are available', () => {
+test('back glass and housing cost $210 in either quality setting wherever both are available', () => {
   for (const model of backGlassModels) {
-    assert.equal(price(model, ['back glass', 'housing']), 180, model)
-    assert.equal(price(model, ['back glass', 'housing'], true), 200, model)
-    assert.equal(price(model, ['screen', 'back glass', 'housing']), 240, model)
-    assert.equal(price(model, ['housing', 'back glass', 'charge port']), 230, model)
+    assert.equal(price(model, ['back glass', 'housing']), 210, model)
+    assert.equal(price(model, ['back glass', 'housing'], true), 210, model)
+    assert.equal(price(model, ['screen', 'back glass', 'housing']), 270, model)
+    assert.equal(price(model, ['housing', 'back glass', 'charge port']), 260, model)
     for (const isPremium of [false, true]) {
       for (const service of ['back glass', 'housing']) {
         assert.equal(calculateRepairPrice({
@@ -89,7 +89,7 @@ test('every available repair combination has a positive finite price in both qua
 })
 
 test('quotes cannot double-charge duplicate services and empty quotes remain zero', () => {
-  assert.equal(price('15', ['back glass', 'housing', 'back glass']), 180)
+  assert.equal(price('15', ['back glass', 'housing', 'back glass']), 210)
   assert.equal(price('15', ['battery', 'battery'], true), 100)
   assert.equal(price('', ['battery']), 0)
   assert.equal(price('15', []), 0)

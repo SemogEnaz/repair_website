@@ -1,59 +1,35 @@
 <template>
 	<div class="price-card w-full sm:w-1/3 flex flex-col justify-between py-4 px-2">
-		<p class="rolling-price text-center font-bold text-5xl sm:text-6xl">${{ animatedPrice }}</p>
-		<p class="tech-muted text-xs sm: text-center">Time: {{ formattedTime }}</p>
+		<template v-if="hasEstimate">
+			<p class="rolling-price text-center font-bold text-5xl sm:text-6xl">${{ animatedPrice }}</p>
+			<p class="tech-muted text-xs text-center">Estimated time: {{ formattedTime }}</p>
+		</template>
+		<p v-else class="tech-muted text-sm text-center py-4">
+			Select your model and repair to see an estimate.
+		</p>
 	</div>
 </template>
 
 <script setup lang="js">
-import { ref, computed, watch } from 'vue';
-import { calculateRepairPrice } from '@/utils/pricing';
+import { ref, computed, watch, onBeforeUnmount } from 'vue';
+import { calculateRepairPrice, calculateRepairTime, formatRepairTime, getSelectedServices } from '@/utils/pricing';
 
 const quote = defineModel();
 
-// Time estimates in minutes
-const timeEstimates = {
-  'screen': 30,
-  'battery': 30,
-  'back glass': 75,
-  'housing': 120,
-  'charge port': 40
-}
-
-// ---------------- LOGIC ----------------
-
-function calculateTime() {
-  let total = 0
-
-  const selected = quote.value.services.filter((_, i) => quote.value.selectedServices[i])
-  const hasScreen = selected.includes('screen')
-
-  for (const service of selected) {
-    if (service === 'battery' && hasScreen) continue
-    total += timeEstimates[service]
-  }
-
-  // Additional repairs fit within the two-hour housing replacement time.
-  return Math.min(total, 120)
-};
-
-const formattedTime = computed(() => {
-  const t = calculateTime()
-
-  if (t < 60) return `${t} mins`
-
-  const h = Math.floor(t / 60)
-  const m = t % 60
-
-  return m ? `${h} hrs ${m} mins` : `${h} hrs`
-});
+const hasEstimate = computed(() => Boolean(quote.value.model && getSelectedServices(quote.value).length));
+const formattedTime = computed(() => formatRepairTime(calculateRepairTime(quote.value)));
 
 const animatedPrice = ref(0)
 
 const finalPrice = computed(() => calculateRepairPrice(quote.value))
+let animationFrame
 
-watch(finalPrice, (newPrice, oldPrice) => {
-  const start = oldPrice || 0
+onBeforeUnmount(() => {
+  if (animationFrame !== undefined) cancelAnimationFrame(animationFrame)
+})
+
+watch(finalPrice, (newPrice) => {
+  const start = animatedPrice.value
   const end = newPrice || 0
 
   if (quote.value.price !== end) {
@@ -63,7 +39,9 @@ watch(finalPrice, (newPrice, oldPrice) => {
     }
   }
 
-  if (import.meta.env.SSR) {
+  if (!import.meta.env.SSR && animationFrame !== undefined) cancelAnimationFrame(animationFrame)
+
+  if (import.meta.env.SSR || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !hasEstimate.value) {
     animatedPrice.value = end
     return
   }
@@ -81,13 +59,13 @@ watch(finalPrice, (newPrice, oldPrice) => {
     animatedPrice.value = Math.round(start + (end - start) * eased)
 
     if (progress < 1) {
-      requestAnimationFrame(animate)
+      animationFrame = requestAnimationFrame(animate)
     } else {
       animatedPrice.value = end
     }
   }
 
-  requestAnimationFrame(animate)
+  animationFrame = requestAnimationFrame(animate)
 }, { immediate: true });
 
 </script>

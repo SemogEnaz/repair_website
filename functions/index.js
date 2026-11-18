@@ -1,5 +1,6 @@
 const { onRequest } = require("firebase-functions/v2/https");
 const { validatePhoneNumber } = require("./phoneValidation");
+const { formatRepairRequest } = require("./repairRequest");
 require("dotenv").config();
 
 const botToken = process.env.BOT_TOKEN;
@@ -134,7 +135,7 @@ function normalizeRepairPrice(price) {
 exports.sendRepairRequest = onRequest({ cors: true }, withRequestSecurity(async (req, res) => {
   try {
 
-    let { model, services, phone, price } = req.body || {};
+    let { model, services, phone, price, isPremium } = req.body || {};
     model = normalizeQuoteText(model);
     services = validateSelectedServices(services);
     price = normalizeRepairPrice(price);
@@ -142,21 +143,13 @@ exports.sendRepairRequest = onRequest({ cors: true }, withRequestSecurity(async 
 
     // Basic validation & early returns
     if (!allowedModels.has(model) || !services) return res.status(400).json({ success: false, error: "Invalid quote details. Please refresh and try again." });
+    // Missing quality is allowed for visitors using the previous frontend version.
+    if (isPremium !== undefined && typeof isPremium !== 'boolean') return res.status(400).json({ success: false, error: "Invalid parts quality. Please refresh and try again." });
     if (!phoneValidation.isValid) return res.status(400).json({ success: false, error: phoneValidation.message });
 
     phone = phoneValidation.phone;
 
-    const message = `\
-🔧 New Repair Request
-
-📱 Model: ${model || "Unknown"}
-🛠 Services: ${Array.isArray(services) ? services.join(", ") : "None"}
-💰 Price: $${price?.toFixed(2) || "0.00"}
-
-📞 Phone: ${phone || "N/A"}
-
-🗓️ Date Created: ${new Date().toLocaleDateString("en-AU", { timeZone: "Australia/Melbourne" })}
-⏰ Time Created: ${new Date().toLocaleTimeString("en-AU", { timeZone: "Australia/Melbourne" })}`;
+    const message = formatRepairRequest({ model, services, phone, price, isPremium });
 
     await sendMessage(message)
 

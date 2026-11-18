@@ -1,10 +1,9 @@
 <template>
-  <section id="quote" class="tech-panel calculator flex flex-col items-center gap-3 px-4 py-8 sm:p-10">
+  <section id="quote" class="tech-panel calculator flex flex-col items-center gap-3 px-4 py-5 sm:p-10" :class="{ 'my-6': headingTag !== 'h1' }">
 
-    <p class="tech-eyebrow">Instant estimate</p>
-    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-center">
-      Calculate Repair Price Estimate
-    </h2>
+    <component :is="headingTag" class="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+      Repair price calculator
+    </component>
     <noscript><p class="tech-muted">Enable JavaScript to calculate an estimate, or <a href="tel:+61411969004" class="underline">call 0411 969 004</a> for a quote.</p></noscript>
 
     <!-- Column Titles (desktop only) -->
@@ -22,13 +21,15 @@
 
         <!-- Just Calculator -->
         <!-- Cant send the alert ref down but we can send a funciton that changes the alert ref of the parent -->
-        <QuoteGenerator v-model="quote" :Alert="(...args) => alertRef?.trigger(...args)"/>
+        <fieldset :disabled="isSubmitting" class="min-w-0">
+          <QuoteGenerator v-model="quote" :Alert="(...args) => alertRef?.trigger(...args)"/>
+        </fieldset>
 
         <!-- Selected services summary -->
         <ServiceSummary :quote="quote"/>
 
         <!-- Contact form information -->
-		 <SubmitQuoteTelegram :quote="quote" :Alert="(...args) => alertRef?.trigger(...args)"/>
+		 <SubmitQuoteTelegram :quote="quote" :Alert="(...args) => alertRef?.trigger(...args)" @submitting="isSubmitting = $event"/>
 
       </div>
 
@@ -55,9 +56,12 @@ import QuoteGenerator from './CalculatorComponents/QuoteGenerator.vue';
 //import SubmitQuoteMessenger from './CalculatorComponents/SubmitQuote/SubmitQuoteMessenger.vue';
 import SubmitQuoteTelegram from './CalculatorComponents/SubmitQuote/SubmitQuoteTelegram.vue';
 
+defineProps({ headingTag: { type: String, default: 'h2' } });
+
 // ---------------- DATA ----------------
 
 const alertRef = ref(null);
+const isSubmitting = ref(false);
 
 const services = getAvailableRepairServices('')
 

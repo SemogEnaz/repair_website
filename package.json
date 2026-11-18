@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "test:pricing": "node --test scripts/pricing.test.js",
+    "test:quote": "node --test scripts/repairQuote.test.js",
+    "verify:site": "node scripts/verify-site.js",
     "dev": "concurrently \"vite\" \"firebase emulators:start --only functions\"",
     "build": "node scripts/build.js",
     "build:test": "npm run build && node --test scripts/seo.test.js",
