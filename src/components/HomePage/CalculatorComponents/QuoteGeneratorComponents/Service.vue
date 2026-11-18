@@ -12,7 +12,11 @@
 		progress == 1 ? 'needs-attention' : ''
       ]"
     >
-      <span class="service-label" :class="{ 'has-premium-feature': quote.isPremium && option.premiumFeature }">
+      <span class="service-label" :class="{
+        'has-premium-feature': quote.isPremium && option.premiumFeature,
+        'max-sm:translate-x-1': option.sharesRow && option.value === REPAIR_SERVICE.BACK_GLASS,
+        'max-sm:-translate-x-1': option.sharesRow && option.value === REPAIR_SERVICE.HOUSING,
+      }">
         <span>{{ option.label }}</span>
         <span v-if="option.premiumFeature" class="premium-feature" :aria-hidden="!quote.isPremium">
           <span class="premium-feature-clip">
@@ -36,15 +40,21 @@ const hasRearRepairPair = computed(() =>
   quote.value.services.includes(REPAIR_SERVICE.HOUSING)
 );
 
+const premiumFeatures = computed(() => {
+  const model = normalizeModelName(quote.value.model);
+  return {
+    [REPAIR_SERVICE.SCREEN]: model !== '11' ? '(OLED)' : '',
+    [REPAIR_SERVICE.BATTERY]: model && !model.startsWith('11') ? '(DIAGNOSABLE)' : '',
+  };
+});
+
 const options = computed(() =>
   quote.value.services.map((service, index) => ({
     label: service.charAt(0).toUpperCase() + service.slice(1),
     value: service,
     sharesRow: hasRearRepairPair.value &&
       (service === REPAIR_SERVICE.BACK_GLASS || service === REPAIR_SERVICE.HOUSING),
-    premiumFeature: service === REPAIR_SERVICE.SCREEN && normalizeModelName(quote.value.model) !== '11'
-      ? '(OLED)'
-      : '',
+    premiumFeature: premiumFeatures.value[service],
     position: index,
   }))
 );
