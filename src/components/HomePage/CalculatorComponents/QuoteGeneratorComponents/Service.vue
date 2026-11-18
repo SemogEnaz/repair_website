@@ -26,7 +26,7 @@
 
 <script setup lang="js">
 import { computed } from 'vue';
-import { REPAIR_SERVICE } from '@/utils/pricing';
+import { normalizeModelName, REPAIR_SERVICE } from '@/utils/pricing';
 const quote = defineModel('quote');
 const progress = defineModel('progress')
 const { Alert } = defineProps(['Alert']);
@@ -42,10 +42,9 @@ const options = computed(() =>
     value: service,
     sharesRow: hasRearRepairPair.value &&
       (service === REPAIR_SERVICE.BACK_GLASS || service === REPAIR_SERVICE.HOUSING),
-    premiumFeature: {
-      [REPAIR_SERVICE.SCREEN]: '(OLED)',
-      [REPAIR_SERVICE.BATTERY]: '(DIAGNOSABLE)',
-    }[service],
+    premiumFeature: service === REPAIR_SERVICE.SCREEN && normalizeModelName(quote.value.model) !== '11'
+      ? '(OLED)'
+      : '',
     position: index,
   }))
 );

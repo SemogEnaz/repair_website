@@ -39,7 +39,7 @@ test('built pages expose unique metadata, visible content and consistent local s
 		assert.ok(body.includes('By appointment') || body.includes('by appointment'), page.path)
 		if (page.key) assert.ok(body.includes(page.heading), page.path)
 		for (const [, href] of html.matchAll(/href="(\/[^"#?]*)(?:[?#][^"]*)?"/g)) {
-			if (href.startsWith('/assets/') || href === '/1F4F1.svg') {
+			if (href.startsWith('/assets/') || href === '/Logo.png') {
 				await access(`dist${href}`)
 			} else {
 				assert.ok(
